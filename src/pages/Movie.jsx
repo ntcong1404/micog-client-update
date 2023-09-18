@@ -40,16 +40,6 @@ function MoviePage() {
 
   useEffect(() => {
     setLoading(true);
-    Service.Movie({ item: slug, page: page })
-      .then((res) => {
-        setMovies(res);
-        setLoading(false);
-      })
-      .catch((err) => console.log(err));
-  }, [slug, page]);
-
-  useEffect(() => {
-    setLoading(true);
     Service.Discover({ item: "movie", genres: slug, page: page })
       .then((res) => {
         setMovies(res);
