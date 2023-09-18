@@ -28,6 +28,7 @@ function PlayerPage() {
       <div className="my-6 col-span-8">
         <iframe
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
           width="100%"
           height="560px"
           src={`https://embed.smashystream.com/playere.php?tmdb=${id}`}
