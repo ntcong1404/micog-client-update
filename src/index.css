@@ -1,0 +1,69 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+  scroll-behavior: smooth;
+}
+/* Tùy chỉnh thanh cuộn */
+html *::-webkit-scrollbar {
+  width: 6px; /* Độ rộng thanh cuộn */
+  height: 6px;
+}
+
+/* Tùy chỉnh màu nền thanh cuộn */
+html *::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+/* Tùy chỉnh ghi đè màu của phần trượt trên thanh cuộn */
+html *::-webkit-scrollbar-thumb {
+  background-color: #d5d5d5;
+  border-radius: 5px; /* Bo tròn mép phần trượt */
+}
+
+.bg-list {
+  background-image: url(../src/assets/bgRow.svg);
+  background-repeat: no-repeat;
+  background-position: 50% 200px;
+  background-position: -40% 200px;
+}
+.bg-results {
+  background-image: url(../src/assets/lightBlue.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-position: center -250px;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  list-style-type: none;
+  margin-top: 30px;
+}
+.break-item {
+  display: none;
+}
+.page-item {
+  margin: 14px 6px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  .page-link {
+    cursor: pointer;
+    padding: 8px 16px;
+    border-radius: 10px;
+  }
+
+  &.active {
+    .page-link {
+      cursor: auto;
+      background-color: #27bad2;
+    }
+  }
+  &.disabled {
+    display: none;
+  }
+}
