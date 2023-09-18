@@ -1,4 +1,4 @@
-import Main from "../components/main";
+import Main from "../components/Main";
 import List from "../components/List";
 
 function HomePage() {
