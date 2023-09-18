@@ -1,6 +1,4 @@
 import { useRef } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
 
 import Header from "./Header/Header";
 import Footer from "./Footer/Footer";

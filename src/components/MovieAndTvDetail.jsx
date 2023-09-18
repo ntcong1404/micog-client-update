@@ -1,52 +1,15 @@
 import * as Service from "../apiService/Service";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import {
-//   faHeartCircleCheck,
-//   faHeartCirclePlus,
-// } from "@fortawesome/free-solid-svg-icons";
-// import { UserAuth } from "../context/AuthContext";
-// import { db } from "../firebase/firebase";
-// import { arrayUnion, doc, updateDoc, onSnapshot } from "firebase/firestore";
 import Like from "./Like";
 
 function MovieAndTvDetail({ slug, id }) {
-  // const { user } = UserAuth();
   const navigate = useNavigate();
 
   const [detail, setDetail] = useState([]);
   const [cast, setCast] = useState([]);
   const [similar, setSimilar] = useState([]);
   const [videos, setVideos] = useState([]);
-  // const [likeLists, setLikeLists] = useState([]);
-
-  // const movieID = doc(db, "users", `${user?.email}`);
-  // const handleLike = async (id) => {
-  //   if (user?.email) {
-  //     if (
-  //       likeLists?.find((item) => item.id === detail?.id)?.id === detail?.id
-  //     ) {
-  //       const result = likeLists?.filter((item) => item?.id !== id);
-  //       await updateDoc(movieID, {
-  //         likeLists: result,
-  //       });
-  //     } else {
-  //       await updateDoc(movieID, {
-  //         likeLists: arrayUnion({
-  //           id: detail?.id,
-  //           title: detail?.title ? detail?.title : detail?.name,
-  //           img: detail?.backdrop_path
-  //             ? detail?.backdrop_path
-  //             : detail?.poster_path,
-  //           type: slug,
-  //         }),
-  //       });
-  //     }
-  //   } else {
-  //     alert("Please log in to save a movie");
-  //   }
-  // };
 
   const handlePlayer = (id) => {
     navigate(`/player/${slug}/${id}`);
@@ -60,12 +23,6 @@ function MovieAndTvDetail({ slug, id }) {
   const handleClickCast = (id) => {
     navigate(`/details/person/${id}`);
   };
-
-  // useEffect(() => {
-  //   onSnapshot(doc(db, "users", `${user?.email}`), (doc) => {
-  //     setLikeLists(doc.data()?.likeLists);
-  //   });
-  // }, [user?.email]);
 
   useEffect(() => {
     Service.Details({ type: slug, id: id })
@@ -99,6 +56,7 @@ function MovieAndTvDetail({ slug, id }) {
       })
       .catch((err) => console.log(err));
   }, [slug, id]);
+
   return (
     <div className="grid grid-cols-12 gap-7">
       <div className="col-span-12 relative">
@@ -114,7 +72,7 @@ function MovieAndTvDetail({ slug, id }) {
                 <div className="h-20"></div>
                 <div className="space-y-6 ">
                   <div className="flex flex-col py-2 space-y-2">
-                    {/* button play trailer */}
+                    {/* button play movie */}
                     <div
                       onClick={() => handlePlayer(detail?.id)}
                       className="relative mb-10 flex items-center cursor-pointer w-min p-1 text-center text-white bg-red-500 rounded-full hover:bg-red-700 group "
@@ -142,23 +100,6 @@ function MovieAndTvDetail({ slug, id }) {
                         {slug === "movie" ? detail?.title : detail?.name}
                       </h3>
                       {/* like */}
-                      {/* <div
-                        onClick={() => handleLike(detail?.id)}
-                        className=" ml-10 text-white text-xl "
-                      >
-                        {likeLists?.find((item) => item.id === detail?.id)
-                          ?.id === detail?.id ? (
-                          <FontAwesomeIcon
-                            icon={faHeartCircleCheck}
-                            className=" p-2 cursor-pointer border border-slate-50 text-red-400 rounded-full"
-                          />
-                        ) : (
-                          <FontAwesomeIcon
-                            icon={faHeartCirclePlus}
-                            className=" p-2 cursor-pointer border border-slate-50  rounded-full"
-                          />
-                        )}
-                      </div> */}
                       <Like slug={slug} detail={detail} />
                     </div>
 
@@ -175,39 +116,180 @@ function MovieAndTvDetail({ slug, id }) {
                       ))}
                     </div>
                   </div>
-                  <div className="flex flex-row py-2 justify-between datos">
+                  <div className="flex flex-row py-2 justify-between items-center">
                     {slug === "movie" ? (
                       <>
+                        <div className="flex items-center">
+                          <div className="flex items-center justify-center overflow-hidden bg-slate-900 rounded-full">
+                            <svg
+                              className="w-14 h-14 transform translate-x-1 translate-y-1"
+                              aria-hidden="true"
+                            >
+                              <circle
+                                className="text-gray-300"
+                                strokeWidth="5"
+                                stroke="currentColor"
+                                fill="transparent"
+                                r="20"
+                                cx="24"
+                                cy="24"
+                              />
+                              <circle
+                                className={
+                                  `font-semibold text-sm ` +
+                                  `${
+                                    Math.round(
+                                      (detail?.vote_average + Number.EPSILON) *
+                                        10
+                                    ) /
+                                      10 <=
+                                    5
+                                      ? `text-red-400`
+                                      : 7 >=
+                                        Math.round(
+                                          (detail?.vote_average +
+                                            Number.EPSILON) *
+                                            10
+                                        ) /
+                                          10
+                                      ? `text-orange-600`
+                                      : 10 >=
+                                        Math.round(
+                                          (detail?.vote_average +
+                                            Number.EPSILON) *
+                                            10
+                                        ) /
+                                          10
+                                      ? `text-green-500`
+                                      : ""
+                                  }`
+                                }
+                                strokeWidth="5"
+                                strokeDasharray={20 * 2 * Math.PI}
+                                strokeDashoffset={
+                                  20 * 2 * Math.PI -
+                                  (Math.round(
+                                    (detail?.vote_average + Number.EPSILON) * 10
+                                  ) /
+                                    10 /
+                                    10) *
+                                    (20 * 2 * Math.PI)
+                                }
+                                strokeLinecap="round"
+                                stroke="currentColor"
+                                fill="transparent"
+                                r="20"
+                                cx="24"
+                                cy="24"
+                              />
+                            </svg>
+                            <span className="absolute text-xs font-semibold text-white">{`${Math.round(
+                              (detail?.vote_average + Number.EPSILON) * 10
+                            )}%`}</span>
+                          </div>
+                          <div className="text-sm ml-2">
+                            <p>User</p> <p>Score</p>
+                          </div>
+                        </div>
                         <div className="flex flex-col ">
-                          <div className="popularity">{detail?.popularity}</div>
+                          <div className="">{detail?.popularity}</div>
                           <div className="text-sm text-gray-400">
                             Popularity
                           </div>
                         </div>
                         <div className="flex flex-col ">
-                          <div className="release">{detail?.release_date}</div>
+                          <div className="">{detail?.release_date}</div>
                           <div className="text-sm text-gray-400">
                             Release date
                           </div>
                         </div>
                         <div className="flex flex-col ">
-                          <div className="release"> {detail?.runtime} min</div>
+                          <div className=""> {detail?.runtime} min</div>
                           <div className="text-sm text-gray-400">Runtime</div>
                         </div>
                       </>
                     ) : (
                       <>
+                        <div className="flex items-center">
+                          <div className="flex items-center justify-center overflow-hidden bg-slate-900 rounded-full">
+                            <svg
+                              className="w-14 h-14 transform translate-x-1 translate-y-1"
+                              aria-hidden="true"
+                            >
+                              <circle
+                                className="text-gray-300"
+                                strokeWidth="5"
+                                stroke="currentColor"
+                                fill="transparent"
+                                r="20"
+                                cx="24"
+                                cy="24"
+                              />
+                              <circle
+                                className={
+                                  `font-semibold text-sm ` +
+                                  `${
+                                    Math.round(
+                                      (detail?.vote_average + Number.EPSILON) *
+                                        10
+                                    ) /
+                                      10 <=
+                                    5
+                                      ? `text-red-400`
+                                      : 7 >=
+                                        Math.round(
+                                          (detail?.vote_average +
+                                            Number.EPSILON) *
+                                            10
+                                        ) /
+                                          10
+                                      ? `text-orange-600`
+                                      : 10 >=
+                                        Math.round(
+                                          (detail?.vote_average +
+                                            Number.EPSILON) *
+                                            10
+                                        ) /
+                                          10
+                                      ? `text-green-500`
+                                      : ""
+                                  }`
+                                }
+                                strokeWidth="5"
+                                strokeDasharray={20 * 2 * Math.PI}
+                                strokeDashoffset={
+                                  20 * 2 * Math.PI -
+                                  (Math.round(
+                                    (detail?.vote_average + Number.EPSILON) * 10
+                                  ) /
+                                    10 /
+                                    10) *
+                                    (20 * 2 * Math.PI)
+                                }
+                                strokeLinecap="round"
+                                stroke="currentColor"
+                                fill="transparent"
+                                r="20"
+                                cx="24"
+                                cy="24"
+                              />
+                            </svg>
+                            <span className="absolute text-xs font-semibold text-white">{`${Math.round(
+                              (detail?.vote_average + Number.EPSILON) * 10
+                            )}%`}</span>
+                          </div>
+                          <div className="text-sm ml-2">
+                            <p>User</p> <p>Score</p>
+                          </div>
+                        </div>
                         <div className="flex flex-col ">
-                          <div className="popularity">{detail?.popularity}</div>
+                          <div className="">{detail?.popularity}</div>
                           <div className="text-sm text-gray-400">
                             Popularity:
                           </div>
                         </div>
                         <div className="flex flex-col ">
-                          <div className="release">
-                            {" "}
-                            {detail?.first_air_date}
-                          </div>
+                          <div className="">{detail?.first_air_date}</div>
                           <div className="text-sm text-gray-400">
                             First air date:
                           </div>

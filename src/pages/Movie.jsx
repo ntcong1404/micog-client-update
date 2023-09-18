@@ -40,6 +40,7 @@ function MoviePage() {
 
   useEffect(() => {
     setLoading(true);
+    window.scroll(0, 0);
     Service.Discover({ item: "movie", genres: slug, page: page })
       .then((res) => {
         setMovies(res);

@@ -27,9 +27,9 @@ function GenrePage() {
   const handleClick = (id) => {
     navigate(`/details/${type}/${id}`);
   };
-
   useEffect(() => {
     setLoading(true);
+    window.scroll(0, 0);
     Service.Discover({ item: type, genres: id, page: page })
       .then((res) => {
         setMovies(res);

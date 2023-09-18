@@ -10,6 +10,7 @@ import {
   faYoutube,
 } from "@fortawesome/free-brands-svg-icons";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import PulseLoader from "react-spinners/PulseLoader";
 
 function PersonDetail({ slug, id }) {
   const navigate = useNavigate();
@@ -18,6 +19,7 @@ function PersonDetail({ slug, id }) {
   const [credits, setCredits] = useState([]);
   const [external, setExternal] = useState("");
   const [active, setActive] = useState("movie_credits");
+  const [loading, setLoading] = useState(true);
 
   const handleClick = (id) => {
     navigate(`/details/${active === "movie_credits" ? "movie" : "tv"}/${id}`);
@@ -27,15 +29,6 @@ function PersonDetail({ slug, id }) {
     Service.Details({ type: slug, id: id })
       .then((res) => {
         setDetail(res);
-      })
-      .catch((err) => console.log(err));
-    Service.DetailsOptions({
-      type: slug,
-      id: id,
-      option: active,
-    })
-      .then((res) => {
-        setCredits(res);
       })
       .catch((err) => console.log(err));
 
@@ -48,7 +41,22 @@ function PersonDetail({ slug, id }) {
         setExternal(res);
       })
       .catch((err) => console.log(err));
-  }, [slug, id, active]);
+  }, [slug, id]);
+
+  useEffect(() => {
+    setLoading(true);
+    Service.DetailsOptions({
+      type: slug,
+      id: id,
+      option: active,
+    })
+      .then((res) => {
+        setCredits(res);
+        setLoading(false);
+      })
+      .catch((err) => console.log(err));
+  }, [active, slug, id]);
+
   return (
     <div className="px-6 my-6">
       <div className="grid grid-cols-12 gap-8 bg-slate-50 bg-results">
@@ -138,7 +146,7 @@ function PersonDetail({ slug, id }) {
               <p className="text-base font-medium pb-1 pl-2">
                 {detail?.gender === 1
                   ? "Female"
-                  : detail?.gender === 0
+                  : detail?.gender === 2
                   ? "Male"
                   : ""}
               </p>
@@ -198,64 +206,78 @@ function PersonDetail({ slug, id }) {
               TV Series
             </div>
           </div>
-          <div>
-            <p className="text-base font-semibold mb-4">Acting</p>
-            {credits?.cast?.map((item, index) => (
-              <div
-                key={index}
-                className="grid grid-cols-12 gap-2 mb-4 py-2 border-b-[1px] border-slate-200"
-              >
-                <div className="col-span-2">
-                  {item.release_date
-                    ? item.release_date
-                    : item.first_air_date
-                    ? item.first_air_date
-                    : "_"}
-                </div>
-                <div className="col-span-1">
-                  <FontAwesomeIcon className="" icon={faArrowRight} />
-                </div>
-                <div
-                  onClick={() => handleClick(item.id)}
-                  className="col-span-9 font-semibold cursor-pointer hover:text-sky-600"
-                >
-                  {item.title ? item.title : item.name ? item.name : " "}
-                  <div className="text-base font-medium ">
-                    {item.episode_count
-                      ? `(${item.episode_count} episodes)`
-                      : ""}{" "}
-                    as{" "}
-                    {item.character
-                      ? item.character
-                      : item.original_name
-                      ? item.original_name
-                      : ""}
+          {loading ? (
+            <div className="col-span-3 flex justify-center items-center h-screen w-full flex-col ">
+              <PulseLoader color="gray" size={12} speedMultiplier={1.5} />
+              <p className="my-4 py-2 text-base text-slate-400">
+                fetching data ...
+              </p>
+            </div>
+          ) : (
+            <>
+              <div>
+                <p className="text-base font-semibold mb-4">Acting</p>
+
+                {credits?.cast?.map((item, index) => (
+                  <div
+                    key={index}
+                    className="grid grid-cols-12 gap-2 mb-4 py-2 border-b-[1px] border-slate-200"
+                  >
+                    <div className="col-span-2">
+                      {item.release_date
+                        ? item.release_date
+                        : item.first_air_date
+                        ? item.first_air_date
+                        : "_"}
+                    </div>
+                    <div className="col-span-1">
+                      <FontAwesomeIcon className="" icon={faArrowRight} />
+                    </div>
+                    <div
+                      onClick={() => handleClick(item.id)}
+                      className="col-span-9 font-semibold cursor-pointer hover:text-sky-600"
+                    >
+                      {item.title ? item.title : item.name ? item.name : " "}
+                      <div className="text-base font-medium ">
+                        {item.episode_count
+                          ? `(${item.episode_count} episodes)`
+                          : ""}{" "}
+                        as{" "}
+                        {item.character
+                          ? item.character
+                          : item.original_name
+                          ? item.original_name
+                          : ""}
+                      </div>
+                    </div>
                   </div>
-                </div>
+                ))}
               </div>
-            ))}
-          </div>
-          <div>
-            <p className="text-base font-semibold mb-4">Production</p>
-            {credits?.crew?.map((item, index) => (
-              <div
-                key={index}
-                className="grid grid-cols-12 gap-2 mb-4 py-2 border-b-[1px] border-slate-200"
-              >
-                <div className="col-span-2">{item.release_date}</div>
-                <div className="col-span-1">
-                  <FontAwesomeIcon className="" icon={faArrowRight} />
-                </div>
-                <div
-                  onClick={() => handleClick(item.id)}
-                  className="col-span-9 font-semibold cursor-pointer hover:text-sky-600"
-                >
-                  {item.title}{" "}
-                  <div className="text-base font-medium ">...{item.job}</div>
-                </div>
+              <div>
+                <p className="text-base font-semibold mb-4">Production</p>
+                {credits?.crew?.map((item, index) => (
+                  <div
+                    key={index}
+                    className="grid grid-cols-12 gap-2 mb-4 py-2 border-b-[1px] border-slate-200"
+                  >
+                    <div className="col-span-2">{item.release_date}</div>
+                    <div className="col-span-1">
+                      <FontAwesomeIcon className="" icon={faArrowRight} />
+                    </div>
+                    <div
+                      onClick={() => handleClick(item.id)}
+                      className="col-span-9 font-semibold cursor-pointer hover:text-sky-600"
+                    >
+                      {item.title}{" "}
+                      <div className="text-base font-medium ">
+                        ...{item.job}
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
+            </>
+          )}
         </div>
       </div>
     </div>

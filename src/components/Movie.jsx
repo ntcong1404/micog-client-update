@@ -4,7 +4,6 @@ import { noImage } from "../assets";
 const Movie = ({ list, item, type }) => {
   const navigate = useNavigate();
   var rate = Math.round((item?.vote_average + Number.EPSILON) * 10) / 10;
-
   const handlePlay = (type, id) => {
     navigate(`/details/${type}/${id}`);
   };
@@ -27,21 +26,51 @@ const Movie = ({ list, item, type }) => {
           {item?.media_type === "person" ? (
             ""
           ) : (
-            <div className=" absolute bottom-[10px] left-4 w-[30px] h-[30px] flex items-center justify-center rounded-full bg-slate-900 shadow shadow-sky-500">
-              <p
-                className={
-                  `font-semibold text-sm ` +
-                  `${
-                    rate > 7
-                      ? `text-green-400`
-                      : 7 > rate > 5
-                      ? `text-orange-500`
-                      : `text-red-600`
-                  }`
-                }
-              >
-                {rate}
-              </p>
+            <div className=" absolute bottom-[10px] left-4">
+              <div className="flex items-center justify-center overflow-hidden bg-slate-900 rounded-full">
+                <svg
+                  className="w-12 h-12 transform translate-x-1 translate-y-1"
+                  aria-hidden="true"
+                >
+                  <circle
+                    className="text-gray-300"
+                    strokeWidth="3"
+                    stroke="currentColor"
+                    fill="transparent"
+                    r="18"
+                    cx="20"
+                    cy="20"
+                  />
+                  <circle
+                    className={
+                      `font-semibold text-sm ` +
+                      `${
+                        rate <= 5
+                          ? `text-red-400`
+                          : 7 >= rate
+                          ? `text-orange-600`
+                          : 10 >= rate
+                          ? `text-green-500`
+                          : ""
+                      }`
+                    }
+                    strokeWidth="3"
+                    strokeDasharray={18 * 2 * Math.PI}
+                    strokeDashoffset={
+                      18 * 2 * Math.PI - (rate / 10) * (18 * 2 * Math.PI)
+                    }
+                    strokeLinecap="round"
+                    stroke="currentColor"
+                    fill="transparent"
+                    r="18"
+                    cx="20"
+                    cy="20"
+                  />
+                </svg>
+                <span className="absolute text-xs font-semibold text-white">{`${
+                  rate * 10
+                }%`}</span>
+              </div>
             </div>
           )}
           <p className=" text-sm font-bold text-center py-4 w-full ">
@@ -68,21 +97,51 @@ const Movie = ({ list, item, type }) => {
           {item?.media_type === "person" ? (
             ""
           ) : (
-            <div className=" absolute bottom-[62px] left-2 w-[30px] h-[30px] flex items-center justify-center rounded-full bg-slate-900 shadow shadow-sky-500">
-              <p
-                className={
-                  `font-semibold text-sm ` +
-                  `${
-                    rate > 7
-                      ? `text-green-400`
-                      : 7 > rate > 5
-                      ? `text-orange-500`
-                      : `text-red-600`
-                  }`
-                }
-              >
-                {rate}
-              </p>
+            <div className=" absolute bottom-[40px] left-2">
+              <div className="flex items-center justify-center overflow-hidden bg-slate-900 rounded-full">
+                <svg
+                  className="w-[44px] h-[44px] transform translate-x-1 translate-y-1"
+                  aria-hidden="true"
+                >
+                  <circle
+                    className="text-gray-300"
+                    strokeWidth="3"
+                    stroke="currentColor"
+                    fill="transparent"
+                    r="16"
+                    cx="18"
+                    cy="18"
+                  />
+                  <circle
+                    className={
+                      `font-semibold text-sm ` +
+                      `${
+                        rate <= 5
+                          ? `text-red-400`
+                          : 7 >= rate
+                          ? `text-orange-600`
+                          : 10 >= rate
+                          ? `text-green-500`
+                          : ""
+                      }`
+                    }
+                    strokeWidth="3"
+                    strokeDasharray={16 * 2 * Math.PI}
+                    strokeDashoffset={
+                      16 * 2 * Math.PI - (rate / 10) * (16 * 2 * Math.PI)
+                    }
+                    strokeLinecap="round"
+                    stroke="currentColor"
+                    fill="transparent"
+                    r="16"
+                    cx="18"
+                    cy="18"
+                  />
+                </svg>
+                <span className="absolute text-xs font-semibold text-white">{`${
+                  rate * 10
+                }%`}</span>
+              </div>
             </div>
           )}
           <p className="py-2 mt-4 text-sm font-bold text-center group-hover:text-sky-500">
