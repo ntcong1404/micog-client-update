@@ -10,7 +10,7 @@ import {
   faYoutube,
 } from "@fortawesome/free-brands-svg-icons";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import PulseLoader from "react-spinners/PulseLoader";
+import PuffLoader from "react-spinners/PuffLoader";
 
 function PersonDetail({ slug, id }) {
   const navigate = useNavigate();
@@ -26,6 +26,7 @@ function PersonDetail({ slug, id }) {
   };
 
   useEffect(() => {
+    window.scroll(0, 0);
     Service.Details({ type: slug, id: id })
       .then((res) => {
         setDetail(res);
@@ -208,7 +209,7 @@ function PersonDetail({ slug, id }) {
           </div>
           {loading ? (
             <div className="col-span-3 flex justify-center items-center h-screen w-full flex-col ">
-              <PulseLoader color="gray" size={12} speedMultiplier={1.5} />
+              <PuffLoader color="gray" size={60} speedMultiplier={1.5} />
               <p className="my-4 py-2 text-base text-slate-400">
                 fetching data ...
               </p>
