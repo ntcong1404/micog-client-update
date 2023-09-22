@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import dayjs from "dayjs";
 import * as Service from "../apiService/Service";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -57,6 +58,17 @@ function PersonDetail({ slug, id }) {
       })
       .catch((err) => console.log(err));
   }, [active, slug, id]);
+
+  const sortedCast = credits?.cast?.sort(
+    (a, b) =>
+      dayjs(b.release_date ? b.release_date : b.first_air_date) -
+      dayjs(a.release_date ? a.release_date : a.first_air_date)
+  );
+  const sortedCrew = credits?.crew?.sort(
+    (a, b) =>
+      dayjs(b.release_date ? b.release_date : b.first_air_date) -
+      dayjs(a.release_date ? a.release_date : a.first_air_date)
+  );
 
   return (
     <div className="px-6 my-6">
@@ -219,7 +231,7 @@ function PersonDetail({ slug, id }) {
               <div>
                 <p className="text-base font-semibold mb-4">Acting</p>
 
-                {credits?.cast?.map((item, index) => (
+                {sortedCast?.map((item, index) => (
                   <div
                     key={index}
                     className="grid grid-cols-12 gap-2 mb-4 py-2 border-b-[1px] border-slate-200"
@@ -256,7 +268,7 @@ function PersonDetail({ slug, id }) {
               </div>
               <div>
                 <p className="text-base font-semibold mb-4">Production</p>
-                {credits?.crew?.map((item, index) => (
+                {sortedCrew?.map((item, index) => (
                   <div
                     key={index}
                     className="grid grid-cols-12 gap-2 mb-4 py-2 border-b-[1px] border-slate-200"

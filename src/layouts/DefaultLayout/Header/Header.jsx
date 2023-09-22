@@ -114,7 +114,7 @@ function Header() {
             {user?.email ? (
               <>
                 <NavLink
-                  to={"/account"}
+                  to={"/account/favorites"}
                   className="bg-red-600 text-white px-6 py-2 rounded cursor-pointer mr-2 hover:contrast-125"
                 >
                   Account

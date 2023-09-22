@@ -6,6 +6,7 @@ import personIcon from "./personIcon.svg";
 import seriesIcon from "./seriesIcon.svg";
 import noImage from "./noImage.png";
 import onToTop from "./onToTop.svg";
+import userDefault from "./userDefault.png";
 
 export {
   logo,
@@ -16,4 +17,5 @@ export {
   seriesIcon,
   noImage,
   onToTop,
+  userDefault,
 };

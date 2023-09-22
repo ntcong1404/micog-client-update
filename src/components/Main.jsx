@@ -33,7 +33,7 @@ function Main() {
 
   return (
     <Slider {...settings}>
-      {movies.map((movie, index) => (
+      {movies?.map((movie, index) => (
         <div key={index} className="w-full h-[600px] ">
           <div className="w-full h-full ">
             <div className="absolute w-full h-auto "></div>

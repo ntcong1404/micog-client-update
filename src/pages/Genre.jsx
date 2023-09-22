@@ -122,8 +122,8 @@ function GenrePage() {
                           <div className="title">
                             <div>
                               <h2 className="text-2xl font-bold ">
-                                {movie.original_title
-                                  ? movie.original_title
+                                {movie.title
+                                  ? movie.title
                                   : movie.original_name}
                               </h2>
                             </div>

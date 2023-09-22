@@ -4,6 +4,7 @@ import {
   signInWithEmailAndPassword,
   signOut,
   updateProfile,
+  updatePassword,
   GoogleAuthProvider,
   signInWithPopup,
   onAuthStateChanged,
@@ -16,7 +17,7 @@ const UserContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState({});
-  const [currentUser, setCurrentUser] = useState(null);
+  console.log(user);
 
   const createUser = async (email, password) => {
     await createUserWithEmailAndPassword(auth, email, password);
@@ -26,11 +27,16 @@ export const AuthContextProvider = ({ children }) => {
   };
 
   const updateUserProfile = (displayName, photoURL) => {
-    return updateProfile(auth.currentUser, {
+    return updateProfile(user, {
       displayName,
       photoURL,
     });
   };
+
+  const updateUserPassword = (password) => {
+    return updatePassword(user, password);
+  };
+
   const signInGoogle = async () => {
     await signInWithPopup(auth, new GoogleAuthProvider())
       .then((result) => {
@@ -47,7 +53,7 @@ export const AuthContextProvider = ({ children }) => {
   const logOut = () => {
     return signOut(auth)
       .then(() => {
-        setCurrentUser(null);
+        setUser({});
       })
       .catch((error) => console.log(error));
   };
@@ -58,58 +64,28 @@ export const AuthContextProvider = ({ children }) => {
 
   // handle firebase auth change
   useEffect(() => {
-    // const unRegisterAuthObserver = auth.onAuthStateChanged(async (CurrUser) => {
-    //   console.log(CurrUser);
-    //   if (!CurrUser) {
-    //     console.log("user is not registered");
-    //     return;
-    //   }
-
-    //   const token = await CurrUser.getIdToken();
-    //   console.log(token);
-    //   setUser(CurrUser);
-    //   setCurrentUser(!!CurrUser);
-    // });
-    // return () => unRegisterAuthObserver();
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       if (!currentUser) {
         console.log("user is not registered");
       }
       setUser(currentUser);
       const token = await currentUser?.getIdToken();
-      console.log(token);
     });
     return () => {
       unsubscribe();
     };
   }, []);
 
-  // useEffect(() => {
-  // const unRegisterAuthObserver = auth.onAuthStateChanged(async (CurrUser) => {
-  //   console.log(CurrUser);
-  //   if (!CurrUser) {
-  //     console.log("user is not registered");
-  //     return;
-  //   }
-
-  //   const token = await CurrUser.getIdToken();
-  //   console.log(token);
-  //   setUser(CurrUser);
-  //   setCurrentUser(!!CurrUser);
-  // });
-  // return () => unRegisterAuthObserver();
-  // }, []);
-
   return (
     <UserContext.Provider
       value={{
         createUser,
         user,
-        currentUser,
         updateUserProfile,
         logOut,
         signIn,
         signInGoogle,
+        updateUserPassword,
       }}
     >
       {children}

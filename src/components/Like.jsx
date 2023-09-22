@@ -53,7 +53,7 @@ function Like({ slug, detail }) {
       {likeLists?.find((item) => item.id === detail?.id)?.id === detail?.id ? (
         <FontAwesomeIcon
           icon={faHeartCircleCheck}
-          className=" p-2 cursor-pointer border border-slate-50 text-red-400 rounded-full"
+          className=" p-2 cursor-pointer border border-slate-50 text-red-600 rounded-full"
         />
       ) : (
         <FontAwesomeIcon

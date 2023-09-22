@@ -1,6 +1,6 @@
 const routes = {
   home: "/",
-  account: "/account",
+  account: "/account/:slug",
   signup: "/signup",
   login: "/login",
   movie: "/movie/:slug",

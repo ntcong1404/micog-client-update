@@ -71,7 +71,7 @@ function List({ title, rowID, axiosURL }) {
           id={"slider" + rowID}
           className="w-full h-[300px]  overflow-x-scroll whitespace-nowrap scroll-smooth scrollbar-hide relative"
         >
-          {list.map((item, id) => (
+          {list?.map((item, id) => (
             <Movie key={id} item={item} list />
           ))}
         </div>

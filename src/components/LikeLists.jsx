@@ -9,7 +9,6 @@ import { useNavigate } from "react-router-dom";
 function LikeLists() {
   const [movies, setMovies] = useState([]);
   const [active, setActive] = useState("movie");
-
   const { user } = UserAuth();
   const navigate = useNavigate();
 

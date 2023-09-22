@@ -62,9 +62,13 @@ function PlayerPage() {
           </p>
         </div>
         <div className="mb-2 text-sm text-gray-600">
-          <p className="mr-6 text-black font-semibold">Release date</p>
+          <p className="mr-6 text-black font-semibold">
+            {detail?.release_date ? "Release date" : "First air date"}
+          </p>
           <p className="py-1 text-base font-normal text-slate-700">
-            {detail?.release_date}
+            {detail?.release_date
+              ? detail?.release_date
+              : detail?.first_air_date}
           </p>
         </div>
         <div className=" my-4 text-sm text-gray-600 ">
