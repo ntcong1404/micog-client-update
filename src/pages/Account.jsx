@@ -83,30 +83,10 @@ function AccPage() {
                 Favorites
               </NavLink>
             </li>
-            <li className="mr-2">
-              <NavLink
-                to={"/account/lists"}
-                className={(nav) =>
-                  ` ${
-                    nav.isActive
-                      ? "inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg dark:text-blue-500 dark:border-blue-500"
-                      : "inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
-                  }`
-                }
-              >
-                Lists
-              </NavLink>
-            </li>
           </ul>
         </div>
 
-        {slug === "favorites" ? (
-          <LikeLists />
-        ) : slug === "profile" ? (
-          <Profile />
-        ) : (
-          "lists"
-        )}
+        {slug === "favorites" ? <LikeLists /> : <Profile />}
       </div>
     );
   }

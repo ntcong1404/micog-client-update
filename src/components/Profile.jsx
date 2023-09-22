@@ -138,17 +138,27 @@ function Profile() {
                         </p>
                       </div>
                     ) : (
-                      <div className="flex">
+                      <div className="flex item-center">
                         <FontAwesomeIcon
                           onClick={() => setImg("")}
                           className="text-slate-400 text-sm cursor-pointer hover:bg-slate-200 w-3 h-3 p-1 rounded-full"
                           icon={faClose}
                         />
-                        <img
-                          className="w-36 h-36 mx-6 object-cover rounded-full"
-                          src={img}
-                          alt=""
-                        />
+                        <div className="flex flex-col items-center">
+                          <img
+                            className="w-36 h-36 mx-6 object-cover rounded-full"
+                            src={img}
+                            alt=""
+                          />
+                          <p className="mt-2 pt-2 text-xs text-slate-300">
+                            Lưu ý rằng URL tạm thời này chỉ tồn tại trong phiên
+                            làm việc hiện tại
+                          </p>
+                          <p className=" text-xs text-slate-300">
+                            và không thể sử dụng để lưu trữ hay chia sẻ ảnh lâu
+                            dài.
+                          </p>
+                        </div>
                       </div>
                     )}
                   </div>
