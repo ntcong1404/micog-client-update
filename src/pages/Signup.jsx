@@ -93,19 +93,12 @@ function SignupPage() {
                     {!showPassword ? "Show password" : "Hide password"}
                   </label>
                 </p>
-                <p>Need Help?</p>
               </div>
               <button className="flex justify-center items-center text-black bg-red-600 py-3 my-6 rounded font-bold hover:text-slate-100">
                 Sign Up
                 <LoadingSpin loading={loading} />
               </button>
-              <div className="flex justify-between items-center text-sm text-gray-600">
-                <p>
-                  <input className="mr-2" type="checkbox" />
-                  Remember me
-                </p>
-                <p>Need Help?</p>
-              </div>
+
               <p className="py-8">
                 <span className="text-gray-600">
                   Do you already have an account ?

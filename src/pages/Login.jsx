@@ -8,12 +8,26 @@ import { LoadingSpin } from "../components/Loading";
 
 function LoginPage() {
   const navigate = useNavigate();
-  const { user, signIn, signInGoogle } = UserAuth();
+  const { signIn, signInGoogle, resetUserPassword } = UserAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const handleResetPass = async () => {
+    try {
+      setLoading(true);
+      await resetUserPassword(email)
+        .then(() => {
+          setLoading(false);
+          alert("Please check your email");
+        })
+        .catch((error) => console.log(error));
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -102,7 +116,7 @@ function LoginPage() {
                 autoComplete="current-password"
               />
               <div className="flex justify-between items-center text-sm text-gray-600">
-                <p>
+                <div>
                   <input
                     className="mr-2"
                     type="checkbox"
@@ -111,19 +125,19 @@ function LoginPage() {
                   <label>
                     {!showPassword ? "Show password" : "Hide password"}
                   </label>
-                </p>
+                </div>
+                <div
+                  onClick={handleResetPass}
+                  className="text-sm text-gray-600 hover:text-slate-300 cursor-pointer"
+                >
+                  <p>Forgot password</p>
+                </div>
               </div>
               <button className="flex justify-center items-center text-black bg-red-600 py-3 my-6 rounded font-bold hover:text-slate-100">
                 Sign In
                 <LoadingSpin loading={loading} />
               </button>
-              <div className="flex justify-between items-center text-sm text-gray-600">
-                <p>
-                  <input className="mr-2" type="checkbox" />
-                  Remember me
-                </p>
-                <p>Need Help?</p>
-              </div>
+
               <p className="py-6">
                 <span className="text-gray-600">
                   Do you have an account yet ?
