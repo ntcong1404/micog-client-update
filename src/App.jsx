@@ -41,7 +41,6 @@ function App() {
                     />
                   );
                 })}
-                <Route path="/error" element={<ErrorPage />} />
                 <Route path="*" element={<Navigate to="/error" />} />
               </Routes>
             </AuthContextProvider>

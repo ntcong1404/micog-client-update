@@ -10,5 +10,6 @@ const routes = {
   details: "/details/:slug/:id",
   player: "/player/:slug/:id",
   genre: "/genre/:id/:genre/:slug",
+  error: "/error",
 };
 export default routes;

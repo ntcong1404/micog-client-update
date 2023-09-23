@@ -11,6 +11,7 @@ import SearchPage from "../pages/Search";
 import DetailsPage from "../pages/Details";
 import PlayerPage from "../pages/Player";
 import GenrePage from "../pages/Genre";
+import ErrorPage from "../pages/Error";
 
 const PublicRoutes = [
   { path: config.routes.home, component: HomePage },
@@ -24,6 +25,7 @@ const PublicRoutes = [
   { path: config.routes.details, component: DetailsPage },
   { path: config.routes.player, component: PlayerPage },
   { path: config.routes.genre, component: GenrePage },
+  { path: config.routes.error, component: ErrorPage, layout: "notFooter" },
 ];
 
 export { PublicRoutes };
