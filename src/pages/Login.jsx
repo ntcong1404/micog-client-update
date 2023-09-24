@@ -130,7 +130,7 @@ function LoginPage() {
                   onClick={handleResetPass}
                   className="text-sm text-gray-600 hover:text-slate-300 cursor-pointer"
                 >
-                  <p>Forgot password</p>
+                  <p>Forgot password ?</p>
                 </div>
               </div>
               <button className="flex justify-center items-center text-black bg-red-600 py-3 my-6 rounded font-bold hover:text-slate-100">

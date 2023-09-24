@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import PersonDetail from "../components/PersonDetail";
-import MovieAndTvDetail from "../components/MovieAndTvDetail";
+import MovieDetail from "../components/MovieDetail";
+import TvDetail from "../components/TvDetail";
 
 function DetailsPage() {
   const { slug, id } = useParams();
@@ -8,9 +9,11 @@ function DetailsPage() {
   return (
     <>
       {slug === "person" ? (
-        <PersonDetail slug={slug} id={id} />
+        <PersonDetail id={id} />
+      ) : slug === "movie" ? (
+        <MovieDetail id={id} />
       ) : (
-        <MovieAndTvDetail slug={slug} id={id} />
+        <TvDetail id={id} />
       )}
     </>
   );

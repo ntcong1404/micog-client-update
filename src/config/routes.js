@@ -10,6 +10,8 @@ const routes = {
   details: "/details/:slug/:id",
   player: "/player/:slug/:id",
   genre: "/genre/:id/:genre/:slug",
+  collection: "/collection/:id/:slug",
+  season: "/tv/:id/season/:number",
   error: "/error",
 };
 export default routes;

@@ -61,7 +61,7 @@ function PeoplePage() {
                 onClick={() => handleClick(item?.id)}
               >
                 <img
-                  className="w-full h-auto shadow-lg shadow-blue-400/70 block rounded-t-lg object-cover group-hover:scale-[101%]"
+                  className="w-full h-auto shadow-lg shadow-blue-400/70 block rounded-t-lg object-cover group-hover:scale-[101%]  group-hover:shadow-xl "
                   loading="lazy"
                   src={
                     item.profile_path

@@ -10,6 +10,7 @@ function PlayerPage() {
   const { slug, id } = useParams();
   const navigate = useNavigate();
   const [detail, setDetail] = useState([]);
+  console.log(detail);
 
   const handleClickGenre = (id, name) => {
     navigate(`/genre/${id}/${name}/${slug}`);
@@ -26,13 +27,23 @@ function PlayerPage() {
   return (
     <div className="px-6 py-4 grid grid-cols-12 gap-6">
       <div className="my-6 col-span-8">
-        <iframe
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-          width="100%"
-          height="560px"
-          src={`https://embed.smashystream.com/playere.php?tmdb=${id}`}
-        ></iframe>
+        {slug === "movie" ? (
+          <iframe
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            width="100%"
+            height="560px"
+            src={`https://embed.smashystream.com/playere.php?tmdb=${id}`}
+          ></iframe>
+        ) : (
+          <iframe
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            width="100%"
+            height="560px"
+            src={`https://embed.smashystream.com/playere.php?tmdb=${id}&season=${detail?.last_episode_to_air?.season_number}&episode=${detail?.last_episode_to_air?.episode_number}`}
+          ></iframe>
+        )}
       </div>
       <div className="text-3xl font-bold py-2 my-4 col-span-4 ">
         <h2 className="text-center">

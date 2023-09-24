@@ -83,7 +83,7 @@ const Movie = ({ list, item, type }) => {
           className=" w-full h-full mb-2 rounded-md border border-slate-200  cursor-pointer relative group overflow-hidden "
         >
           <img
-            className="w-full h-auto mb-2 shadow-lg shadow-blue-400/70 block rounded-t-md object-cover group-hover:scale-[101%] "
+            className="w-full h-auto mb-2 shadow-lg shadow-blue-400/70 block rounded-t-md object-cover "
             loading="lazy"
             src={
               item?.backdrop_path || item?.profile_path
@@ -97,7 +97,7 @@ const Movie = ({ list, item, type }) => {
           {item?.media_type === "person" ? (
             ""
           ) : (
-            <div className=" absolute bottom-[40px] left-2">
+            <div className=" absolute bottom-[40px] left-2 group-hover:bottom-[34px]">
               <div className="flex items-center justify-center overflow-hidden bg-slate-900 rounded-full">
                 <svg
                   className="w-[44px] h-[44px] transform translate-x-1 translate-y-1"

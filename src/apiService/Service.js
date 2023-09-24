@@ -147,3 +147,31 @@ export const DetailsOptions = async ({ type, id, option, page }) => {
     console.log(err);
   }
 };
+
+export const Collections = async ({ id }) => {
+  try {
+    const res = await request.get(`collection/${id}`, {
+      params: {
+        api_key: import.meta.env.VITE_APP_IMDB_API_KEY,
+        language: "en-US",
+      },
+    });
+    return res;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const Season = async ({ id, number }) => {
+  try {
+    const res = await request.get(`tv/${id}/season/${number}`, {
+      params: {
+        api_key: import.meta.env.VITE_APP_IMDB_API_KEY,
+        language: "en-US",
+      },
+    });
+    return res;
+  } catch (err) {
+    console.log(err);
+  }
+};

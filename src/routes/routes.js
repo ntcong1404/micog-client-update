@@ -11,6 +11,8 @@ import SearchPage from "../pages/Search";
 import DetailsPage from "../pages/Details";
 import PlayerPage from "../pages/Player";
 import GenrePage from "../pages/Genre";
+import CollectionPage from "../pages/Collection";
+import SeasonPage from "../pages/Season";
 import ErrorPage from "../pages/Error";
 
 const PublicRoutes = [
@@ -25,6 +27,8 @@ const PublicRoutes = [
   { path: config.routes.details, component: DetailsPage },
   { path: config.routes.player, component: PlayerPage },
   { path: config.routes.genre, component: GenrePage },
+  { path: config.routes.collection, component: CollectionPage },
+  { path: config.routes.season, component: SeasonPage },
   { path: config.routes.error, component: ErrorPage, layout: "notFooter" },
 ];
 

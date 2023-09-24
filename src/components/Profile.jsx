@@ -3,6 +3,7 @@ import { UserAuth } from "../context/AuthContext";
 import { useState } from "react";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
 import { NavLink, useNavigate } from "react-router-dom";
+import { LoadingSpin } from "./Loading.jsx";
 
 function Profile() {
   const navigate = useNavigate();
@@ -10,6 +11,7 @@ function Profile() {
   const [pass, setPass] = useState("");
   const [name, setName] = useState(user?.displayName ? user?.displayName : "");
   const [img, setImg] = useState(user?.photoURL ? user?.photoURL : "");
+  const [loading, setLoading] = useState(false);
 
   const handleChooseFileAvatar = (e) => {
     if (e.target.files && e.target.files[0]) {
@@ -21,9 +23,11 @@ function Profile() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       await updateUserProfile(name, img);
       await updateUserPassword(pass);
+      setLoading(false);
       navigate("/account/favorites");
     } catch (error) {
       console.log(error.code);
@@ -173,6 +177,7 @@ function Profile() {
                 </NavLink>
                 <button className="inline-flex justify-center mx-1 py-[6px] px-10 text-lg font-medium rounded-md text-white bg-indigo-600 hover:bg-gradient-to-t hover:from-sky-500 hover:to-blue-500 ">
                   Save
+                  <LoadingSpin loading={loading} />
                 </button>
               </div>
             </div>

@@ -13,7 +13,7 @@ import {
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import PuffLoader from "react-spinners/PuffLoader";
 
-function PersonDetail({ slug, id }) {
+function PersonDetail({ id }) {
   const navigate = useNavigate();
 
   const [detail, setDetail] = useState([]);
@@ -28,14 +28,14 @@ function PersonDetail({ slug, id }) {
 
   useEffect(() => {
     window.scroll(0, 0);
-    Service.Details({ type: slug, id: id })
+    Service.Details({ type: "person", id: id })
       .then((res) => {
         setDetail(res);
       })
       .catch((err) => console.log(err));
 
     Service.DetailsOptions({
-      type: slug,
+      type: "person",
       id: id,
       option: "external_ids",
     })
@@ -43,12 +43,12 @@ function PersonDetail({ slug, id }) {
         setExternal(res);
       })
       .catch((err) => console.log(err));
-  }, [slug, id]);
+  }, [id]);
 
   useEffect(() => {
     setLoading(true);
     Service.DetailsOptions({
-      type: slug,
+      type: "person",
       id: id,
       option: active,
     })
@@ -57,7 +57,7 @@ function PersonDetail({ slug, id }) {
         setLoading(false);
       })
       .catch((err) => console.log(err));
-  }, [active, slug, id]);
+  }, [active, id]);
 
   const sortedCast = credits?.cast?.sort(
     (a, b) =>
