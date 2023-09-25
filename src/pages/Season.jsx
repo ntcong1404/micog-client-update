@@ -7,7 +7,6 @@ function SeasonPage() {
   const { id, number } = useParams();
   const [loading, setLoading] = useState(true);
   const [season, setSeason] = useState([]);
-  console.log(season);
   useEffect(() => {
     setLoading(true);
     window.scroll(0, 0);
@@ -71,7 +70,7 @@ function SeasonPage() {
                         </p>
                       </div>
                     </div>
-                    <p className="text-sm">{epi?.overview}</p>
+                    <p className="text-sm px-4">{epi?.overview}</p>
                   </div>
                 </div>
               ))}

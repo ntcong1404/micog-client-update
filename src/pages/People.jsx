@@ -57,7 +57,7 @@ function PeoplePage() {
             {person?.results?.map((item, index) => (
               <div
                 key={index}
-                className="w-full h-full border border-slate-100 shadow shadow-slate-200 rounded-lg cursor-pointer relative mb-10 group overflow-hidden "
+                className="w-full h-full border border-slate-100 shadow-md shadow-slate-300 rounded-lg cursor-pointer relative mb-10 group overflow-hidden "
                 onClick={() => handleClick(item?.id)}
               >
                 <img

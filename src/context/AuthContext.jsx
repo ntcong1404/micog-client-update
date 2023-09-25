@@ -18,7 +18,6 @@ const UserContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState({});
-  console.log(user);
 
   const createUser = async (email, password) => {
     await createUserWithEmailAndPassword(auth, email, password);

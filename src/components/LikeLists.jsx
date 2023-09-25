@@ -66,10 +66,10 @@ function LikeLists() {
               <div key={item.id} className="relative group">
                 <div
                   onClick={() => handleClick(item.type, item.id)}
-                  className="w-full h-auto cursor-pointer relative p-2 "
+                  className="w-full h-[200px] cursor-pointer relative p-2 "
                 >
                   <img
-                    className="w-full h-auto rounded"
+                    className="w-full h-full rounded object-cover"
                     src={`https://image.tmdb.org/t/p/w500/${item?.img}`}
                     alt={item?.title}
                   />
