@@ -18,12 +18,9 @@ function LoginPage() {
   const handleResetPass = async () => {
     try {
       setLoading(true);
-      await resetUserPassword(email)
-        .then(() => {
-          setLoading(false);
-          alert("Please check your email");
-        })
-        .catch((error) => console.log(error));
+      await resetUserPassword(email);
+      setLoading(false);
+      alert("Please check your email");
     } catch (error) {
       console.log(error);
     }
@@ -33,29 +30,21 @@ function LoginPage() {
     e.preventDefault();
     try {
       setLoading(true);
-      await signIn(email, password)
-        .then(() => {
-          setLoading(false);
-          navigate("/");
-        })
-        .catch((error) => {
-          setError(error.code);
-          console.log(error);
-          setLoading(false);
-        });
+      await signIn(email, password);
+      setLoading(false);
+      navigate("/");
     } catch (error) {
-      console.log(error.code);
+      setError(error.code);
+      console.log(error);
+      setLoading(false);
     }
   };
 
   const handleLogInGoogle = async (e) => {
     e.preventDefault();
     try {
-      await signInGoogle()
-        .then(() => {
-          navigate("/");
-        })
-        .catch((error) => console.log(error));
+      await signInGoogle();
+      navigate("/");
     } catch (error) {
       console.log(error);
     }
