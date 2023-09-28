@@ -11,7 +11,6 @@ import PuffLoader from "react-spinners/PuffLoader";
 import { useEffect } from "react";
 import { useState } from "react";
 import { logo } from "./assets";
-import ErrorPage from "./pages/Error";
 
 function App() {
   const [spinner, setSpinner] = useState(true);

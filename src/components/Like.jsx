@@ -48,17 +48,17 @@ function Like({ slug, detail }) {
   return (
     <div
       onClick={() => handleLike(detail?.id)}
-      className=" ml-10 text-white text-xl "
+      className=" ml-10 text-white text-lg "
     >
       {likeLists?.find((item) => item.id === detail?.id)?.id === detail?.id ? (
         <FontAwesomeIcon
           icon={faHeartCircleCheck}
-          className=" p-2 cursor-pointer border border-slate-50 text-red-600 rounded-full"
+          className=" p-2 cursor-pointer border border-slate-100 text-red-600 rounded-full"
         />
       ) : (
         <FontAwesomeIcon
           icon={faHeartCirclePlus}
-          className=" p-2 cursor-pointer border border-slate-50  rounded-full"
+          className=" p-2 cursor-pointer border border-slate-100 text-slate-100  rounded-full"
         />
       )}
     </div>
