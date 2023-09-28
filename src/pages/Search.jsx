@@ -8,6 +8,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import PuffLoader from "react-spinners/PuffLoader";
 import { noImage } from "../assets";
+import Pagination from "../components/Pagination";
 
 const filter = [
   { title: "Movies", filter: "movie" },
@@ -22,13 +23,6 @@ function SearchPage() {
   const [movies, setMovies] = useState([]);
   const [active, setActive] = useState(filter[0].filter);
   const [loading, setLoading] = useState(true);
-
-  const handleNextPage = () => {
-    setPage(page + 1);
-  };
-  const handlePrevPage = () => {
-    setPage(page - 1);
-  };
 
   const handleClick = (id) => {
     navigate(`/details/${active}/${id}`);
@@ -144,42 +138,7 @@ function SearchPage() {
           </>
         )}
       </div>
-      <div className="flex items-center justify-center">
-        {movies?.page === 1 ? (
-          <></>
-        ) : (
-          <button
-            onClick={handlePrevPage}
-            className="flex items-center justify-center mt-7 p-2 text-base font-medium hover:bg-sky-100 border border-slate-300 rounded-md"
-          >
-            <FontAwesomeIcon
-              className="text-xs font-medium mr-2"
-              icon={faChevronLeft}
-            />
-            Prev
-          </button>
-        )}
-        <div
-          onClick={handleNextPage}
-          className=" mx-7 mt-7 p-2 text-base font-bold border border-slate-300 rounded-md"
-        >
-          {`Page ${movies?.page}`}
-        </div>
-        {page < movies?.total_pages ? (
-          <button
-            onClick={handleNextPage}
-            className="flex items-center justify-center mt-7 p-2 text-base font-medium hover:bg-sky-100 border border-slate-300 rounded-md"
-          >
-            Next
-            <FontAwesomeIcon
-              className="text-xs font-medium ml-2"
-              icon={faChevronRight}
-            />
-          </button>
-        ) : (
-          <></>
-        )}
-      </div>
+      <Pagination page={page} setPage={setPage} data={movies} />
     </div>
   );
 }

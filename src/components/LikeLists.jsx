@@ -84,7 +84,7 @@ function LikeLists() {
                   className="absolute text-gray-300 top-4 right-4 cursor-pointer opacity-0 group-hover:opacity-100 "
                 >
                   <FontAwesomeIcon
-                    className=" hover:bg-slate-800 w-4 h-4 p-1 rounded-full"
+                    className=" hover:bg-slate-800 hover:scale-125 w-4 h-4 p-1 rounded-full"
                     icon={faClose}
                   />
                 </p>

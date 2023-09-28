@@ -61,8 +61,8 @@ function AccPage() {
                 className={(nav) =>
                   ` ${
                     nav.isActive
-                      ? "inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg dark:text-blue-500 dark:border-blue-500"
-                      : "inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
+                      ? "inline-block p-4 text-red-600 border-b-2 border-red-600 rounded-t-lg dark:text-red-500 dark:border-red-500"
+                      : "inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-red-200 dark:hover:text-gray-300"
                   }`
                 }
               >
@@ -75,8 +75,8 @@ function AccPage() {
                 className={(nav) =>
                   ` ${
                     nav.isActive
-                      ? "inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg dark:text-blue-500 dark:border-blue-500"
-                      : "inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
+                      ? "inline-block p-4 text-red-600 border-b-2 border-red-600 rounded-t-lg dark:text-red-500 dark:border-red-500"
+                      : "inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-red-200 dark:hover:text-gray-300"
                   }`
                 }
               >

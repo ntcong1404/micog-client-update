@@ -8,6 +8,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import PuffLoader from "react-spinners/PuffLoader";
 import { noImage } from "../assets";
+import Pagination from "../components/Pagination";
 
 function GenrePage() {
   const { slug, id, genre } = useParams();
@@ -18,12 +19,6 @@ function GenrePage() {
   const [type, setType] = useState(slug);
   const [loading, setLoading] = useState(true);
 
-  const handleNextPage = () => {
-    setPage(page + 1);
-  };
-  const handlePrevPage = () => {
-    setPage(page - 1);
-  };
   const handleClick = (id) => {
     navigate(`/details/${type}/${id}`);
   };
@@ -40,10 +35,10 @@ function GenrePage() {
 
   return (
     <>
-      <div className="flex items-center justify-between px-14 text-2xl font-bold text-gray-500 bg-results w-full h-[70px] bg-slate-800">
-        <p className="text-white">{genre}</p>
-        <p className="text-xl">
-          {type === "tv"
+      <div className="flex items-center justify-between px-14 text-2xl font-bold text-gray-500 bg-results w-full h-[120px] bg-slate-800">
+        <p className="text-white text-3xl">{genre}</p>
+        <p>
+          {type === "tvc"
             ? `${movies?.total_results} shows`
             : `${movies?.total_results} movies`}
         </p>
@@ -149,42 +144,7 @@ function GenrePage() {
                 ))}
               </div>
             )}
-            <div className="flex items-center justify-center">
-              {movies?.page === 1 ? (
-                <></>
-              ) : (
-                <button
-                  onClick={handlePrevPage}
-                  className="flex items-center justify-center mt-7 p-2 text-base font-medium hover:bg-sky-100 border border-slate-300 rounded-md"
-                >
-                  <FontAwesomeIcon
-                    className="text-xs font-medium mr-2"
-                    icon={faChevronLeft}
-                  />
-                  Prev
-                </button>
-              )}
-              <div
-                onClick={handleNextPage}
-                className=" mx-7 mt-7 p-2 text-base font-bold border border-slate-300 rounded-md"
-              >
-                {`Page ${movies?.page}`}
-              </div>
-              {page < movies?.total_pages ? (
-                <button
-                  onClick={handleNextPage}
-                  className="flex items-center justify-center mt-7 p-2 text-base font-medium hover:bg-sky-100 border border-slate-300 rounded-md"
-                >
-                  Next
-                  <FontAwesomeIcon
-                    className="text-xs font-medium ml-2"
-                    icon={faChevronRight}
-                  />
-                </button>
-              ) : (
-                <></>
-              )}
-            </div>
+            <Pagination page={page} setPage={setPage} data={movies} />
           </div>
         </>
       )}

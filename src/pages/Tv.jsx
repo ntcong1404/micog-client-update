@@ -9,6 +9,7 @@ import {
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 import PuffLoader from "react-spinners/PuffLoader";
+import Pagination from "../components/Pagination";
 
 const lists = [
   { title: "Popular", fetch: "popular" },
@@ -22,13 +23,6 @@ function TvPage() {
   const [genres, setGenres] = useState([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
-
-  const handleNextPage = () => {
-    setPage(page + 1);
-  };
-  const handlePrevPage = () => {
-    setPage(page - 1);
-  };
 
   useEffect(() => {
     Service.Genres({ item: "tv" })
@@ -73,42 +67,7 @@ function TvPage() {
             </div>
           </>
         )}
-        <div className="flex items-center justify-center">
-          {movies?.page === 1 ? (
-            <></>
-          ) : (
-            <button
-              onClick={handlePrevPage}
-              className="flex items-center justify-center mt-7 p-2 text-base font-medium hover:bg-sky-100 border border-slate-300 rounded-md"
-            >
-              <FontAwesomeIcon
-                className="text-xs font-medium mr-2"
-                icon={faChevronLeft}
-              />
-              Prev
-            </button>
-          )}
-          <div
-            onClick={handleNextPage}
-            className=" mx-7 mt-7 p-2 text-base font-bold border border-slate-300 rounded-md"
-          >
-            {`Page ${movies?.page}`}
-          </div>
-          {page < movies?.total_pages ? (
-            <button
-              onClick={handleNextPage}
-              className="flex items-center justify-center mt-7 p-2 text-base font-medium hover:bg-sky-100 border border-slate-300 rounded-md"
-            >
-              Next
-              <FontAwesomeIcon
-                className="text-xs font-medium ml-2"
-                icon={faChevronRight}
-              />
-            </button>
-          ) : (
-            <></>
-          )}
-        </div>
+        <Pagination page={page} setPage={setPage} data={movies} />
       </div>
     </div>
   );

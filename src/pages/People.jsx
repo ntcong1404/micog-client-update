@@ -8,6 +8,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import PuffLoader from "react-spinners/PuffLoader";
 import { noImage } from "../assets";
+import Pagination from "../components/Pagination";
 
 function PeoplePage() {
   const { slug } = useParams();
@@ -16,13 +17,6 @@ function PeoplePage() {
   const [person, setPerson] = useState([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
-
-  const handleNextPage = () => {
-    setPage(page + 1);
-  };
-  const handlePrevPage = () => {
-    setPage(page - 1);
-  };
 
   const handleClick = (id) => {
     navigate(`/details/person/${id}`);
@@ -40,7 +34,7 @@ function PeoplePage() {
   }, [slug, page]);
 
   return (
-    <div>
+    <div className="mb-8">
       <p className="my-4 py-2 px-6 text-center text-4xl font-bold">
         Popular People
       </p>
@@ -78,42 +72,7 @@ function PeoplePage() {
           </div>
         </>
       )}
-      <div className="flex items-center justify-center mb-10">
-        {person?.page === 1 ? (
-          <></>
-        ) : (
-          <button
-            onClick={handlePrevPage}
-            className="flex items-center justify-center mt-7 p-2 text-base font-medium hover:bg-sky-100 border border-slate-300 rounded-md"
-          >
-            <FontAwesomeIcon
-              className="text-xs font-medium mr-2"
-              icon={faChevronLeft}
-            />
-            Prev
-          </button>
-        )}
-        <div
-          onClick={handleNextPage}
-          className=" mx-7 mt-7 p-2 text-base font-bold border border-slate-300 rounded-md"
-        >
-          {`Page ${person?.page}`}
-        </div>
-        {page < person?.total_pages ? (
-          <button
-            onClick={handleNextPage}
-            className="flex items-center justify-center mt-7 p-2 text-base font-medium hover:bg-sky-100 border border-slate-300 rounded-md"
-          >
-            Next
-            <FontAwesomeIcon
-              className="text-xs font-medium ml-2"
-              icon={faChevronRight}
-            />
-          </button>
-        ) : (
-          <></>
-        )}
-      </div>
+      <Pagination page={page} setPage={setPage} data={person} />
     </div>
   );
 }

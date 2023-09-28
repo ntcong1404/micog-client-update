@@ -73,7 +73,7 @@ function Header() {
             </div>
           </div>
           <div className="flex items-center mr-2 ">
-            <div className=" py-1 rounded px-4 ">
+            <form onSubmit={handleSearch} className=" py-1 rounded px-4 ">
               <input
                 type="search"
                 className="p-2 mr-2 text-sm text-gray-900  rounded bg-gray-50  dark:text-white"
@@ -106,11 +106,10 @@ function Header() {
               <button
                 type="submit"
                 className="text-white font-medium rounded text-sm px-4 py-2 hover:bg-gray-800"
-                onClick={handleSearch}
               >
                 <FontAwesomeIcon icon={faMagnifyingGlass} />
               </button>
-            </div>
+            </form>
             {user?.email ? (
               <>
                 <NavLink
