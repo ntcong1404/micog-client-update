@@ -86,19 +86,19 @@ function GenrePage() {
                 )}
               </>
             ) : (
-              <div className="">
+              <div className="grid grid-cols-4 gap-4">
                 {movies?.results?.map((movie, index) => (
                   <div
                     key={index}
-                    className=" mb-3 rounded-md overflow-hidden bg-gradient-to-r from-slate-100 to-sky-100 cursor-pointer hover:bg-gradient-to-r hover:from-sky-200 hover:to-slate-100 "
+                    className=" mb-3 rounded-md overflow-hidden shadow-md shadow-slate-300 cursor-pointer hover:translate-y-[-4px] hover:shadow-md hover:shadow-slate-400 "
                     onClick={() => handleClick(movie?.id)}
                   >
-                    <div className=" flex items-center ">
+                    <div className=" flex flex-col items-center ">
                       <div>
-                        <div className="w-[160px] h-auto mr-4">
+                        <div className="w-full h-[480px] ">
                           <img
                             loading="lazy"
-                            className="w-full h-full object-cover rounded-l-md "
+                            className="w-full h-full object-cover rounded-t-md "
                             src={
                               movie.poster_path || movie.profile_path
                                 ? `https://image.tmdb.org/t/p/w500/${
@@ -112,32 +112,10 @@ function GenrePage() {
                         </div>
                       </div>
 
-                      <div className="ml-4 p-4">
-                        <div className="wrapper">
-                          <div className="title">
-                            <div>
-                              <h2 className="text-2xl font-bold ">
-                                {movie.title
-                                  ? movie.title
-                                  : movie.original_name}
-                              </h2>
-                            </div>
-
-                            <span className="text-sm font-medium text-gray-500 ">
-                              {movie.known_for
-                                ? movie.known_for.first_air_date
-                                : movie.release_date}
-                            </span>
-                          </div>
-                        </div>
-
-                        <div className="mt-4 text-sm h-[100px] overflow-y-auto">
-                          <p>
-                            {movie.known_for
-                              ? movie.known_for.overview
-                              : movie.overview}
-                          </p>
-                        </div>
+                      <div className="p-2 m-2">
+                        <h2 className="text-xl font-bold text-center">
+                          {movie.title ? movie.title : movie.original_name}
+                        </h2>
                       </div>
                     </div>
                   </div>

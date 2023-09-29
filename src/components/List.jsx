@@ -38,7 +38,7 @@ function List({ title, rowID, axiosURL }) {
         }`}
     >
       <div className="flex items-center pt-4 px-6 w-full h-full ">
-        <h2 className="text-black uppercase font-semibold text-xl p-4 mr-10">
+        <h2 className="text-black uppercase font-semibold text-2xl p-4 mr-10">
           {title}
         </h2>
         <div className="inline-flex h-8 ml-4 rounded-full border-[2px] border-slate-500">

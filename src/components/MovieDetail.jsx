@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Like from "./Like";
 import PuffLoader from "react-spinners/PuffLoader";
+import dayjs from "dayjs";
 
 function MovieDetail({ id }) {
   const navigate = useNavigate();
@@ -217,8 +218,10 @@ function MovieDetail({ id }) {
                               Popularity
                             </div>
                           </div>
-                          <div className="flex flex-col ">
-                            <div className="">{detail?.release_date}</div>
+                          <div className="flex flex-col items-center">
+                            <div className="">
+                              {dayjs(detail?.release_date).year()}
+                            </div>
                             <div className="text-sm text-gray-400">
                               Release date
                             </div>
@@ -248,19 +251,26 @@ function MovieDetail({ id }) {
       <div className="col-span-8 px-6">
         {videos?.length !== 0 ? (
           <div className=" border-b-2 border-slate-200 ">
-            <div className="text-3xl font-bold ">Trailer</div>
-            {videos?.map(
-              (video, index) =>
-                video.type === "Trailer" && (
-                  <iframe
-                    className="my-6"
-                    key={index}
-                    width="820"
-                    height="515"
-                    src={`https://www.youtube.com/embed/${video.key}?controls=1`}
-                  ></iframe>
-                )
-            )}
+            <div className="text-3xl font-bold">Trailer</div>
+            <div className="flex overflow-x-auto">
+              {videos?.map(
+                (video, index) =>
+                  video.type === "Trailer" && (
+                    <>
+                      <div className="w-full h-full mr-1">
+                        <iframe
+                          allowFullScreen
+                          className="my-6"
+                          key={index}
+                          width="410"
+                          height="257"
+                          src={`https://www.youtube.com/embed/${video.key}?controls=1`}
+                        ></iframe>
+                      </div>
+                    </>
+                  )
+              )}
+            </div>
           </div>
         ) : (
           <></>
@@ -327,6 +337,7 @@ function MovieDetail({ id }) {
           <></>
         )}
       </div>
+
       <div className="col-span-4 px-6">
         <p className="text-center text-2xl font-semibold py-2 ">
           You May Also Like

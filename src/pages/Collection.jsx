@@ -53,22 +53,21 @@ function CollectionPage() {
             <p className=" text-2xl font-semibold py-2 ">
               {`${collection?.parts?.length} movies`}
             </p>
-            <div className="my-2 grid grid-cols-4 gap-4 ">
+            <div className="my-2 grid grid-cols-4 gap-6 ">
               {collection?.parts?.map((movie, index) => (
                 <div
                   key={index}
-                  className="relative flex flex-col items-center p-1 mb-2 cursor-pointer rounded-md group shadow-md shadow-slate-300"
+                  className="flex flex-col items-center cursor-pointer rounded-md shadow-md shadow-slate-300 hover:translate-y-[-4px] hover:shadow-md hover:shadow-gray-400"
                   onClick={() => handleClickMovie(movie?.id)}
                 >
                   <div className="w-full h-[360px]">
                     <img
                       src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
-                      className="w-full h-full object-cover rounded-md mr-4"
+                      className="w-full h-full object-cover rounded-t-md "
                       loading="lazy"
                     />
                   </div>
                   <p className="p-2 text-center font-semibold">{movie.title}</p>
-                  <div className="absolute top-0 left-0 right-0 bottom-0 translate-y-[-4px] rounded-md bg-black opacity-0 group-hover:opacity-100 group-hover:bg-opacity-[20%] group-hover:transition ease-in-out group-hover:translate-y-0"></div>
                 </div>
               ))}
             </div>

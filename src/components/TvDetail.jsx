@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Like from "./Like";
 import PuffLoader from "react-spinners/PuffLoader";
+import dayjs from "dayjs";
 
 function TvDetail({ id }) {
   const navigate = useNavigate();
@@ -219,8 +220,10 @@ function TvDetail({ id }) {
                               Popularity:
                             </div>
                           </div>
-                          <div className="flex flex-col ">
-                            <div className="">{detail?.first_air_date}</div>
+                          <div className="flex flex-col items-center">
+                            <div className="">
+                              {dayjs(detail?.first_air_date).year()}
+                            </div>
                             <div className="text-sm text-gray-400">
                               First air date:
                             </div>

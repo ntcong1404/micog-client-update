@@ -53,10 +53,10 @@ function SeasonPage() {
               {season?.episodes?.map((epi, index) => (
                 <div
                   key={index}
-                  className="grid grid-cols-8 gap-4 p-2 my-4 border border-slate-100 rounded-md shadow shadow-slate-300"
+                  className="grid grid-cols-8 gap-4 my-4 border border-slate-100 rounded-md shadow shadow-slate-300"
                 >
                   <img
-                    className="col-span-2 w-full h-auto rounded-md"
+                    className="col-span-2 w-full h-auto rounded-l-md"
                     src={`https://image.tmdb.org/t/p/original/${epi?.still_path}`}
                     alt={epi?.name}
                   />

@@ -6,7 +6,7 @@ function TableFilter({ type, lists, genres }) {
   return (
     <div className="">
       <div className=" rounded-md border border-slate-300 shadow shadow-slate-200">
-        <h2 className="text-xl uppercase font-semibold px-3 py-2 bg-slate-200 rounded-t-md">
+        <h2 className="text-xl uppercase font-semibold px-3 py-2 bg-gray-200 rounded-t-md">
           {`${type} Lists`}
         </h2>
         <div className="flex flex-col bg-gradient-to-r from-sky-50 to-green-50">
@@ -16,8 +16,8 @@ function TableFilter({ type, lists, genres }) {
               to={`/${type}/${item.fetch}`}
               className={({ isActive }) =>
                 isActive
-                  ? "px-3 py-1 cursor-pointer hover:bg-slate-200 bg-gradient-to-r from-sky-300 to-green-100"
-                  : "px-3 py-1 cursor-pointer hover:bg-slate-200"
+                  ? "px-3 py-1 cursor-pointer hover:bg-slate-200 bg-gradient-to-t from-sky-200 via-sky-100 to-sky-200 font-semibold"
+                  : "px-3 py-1 cursor-pointer hover:bg-gradient-to-t hover:from-sky-200 hover:via-sky-100 hover:to-sky-200"
               }
             >
               {item.title}
@@ -36,8 +36,8 @@ function TableFilter({ type, lists, genres }) {
               to={`/${type}/${genre.id}`}
               className={({ isActive }) =>
                 isActive
-                  ? "px-3 py-1 cursor-pointer hover:bg-slate-200 bg-gradient-to-r from-sky-300 to-green-100"
-                  : "px-3 py-1 cursor-pointer hover:bg-slate-200"
+                  ? "px-3 py-1 cursor-pointer bg-gradient-to-t from-sky-200 via-sky-100 to-sky-200 font-semibold"
+                  : "px-3 py-1 cursor-pointer hover:bg-gradient-to-t hover:from-sky-200 hover:via-sky-100 hover:to-sky-200"
               }
             >
               {genre?.name}

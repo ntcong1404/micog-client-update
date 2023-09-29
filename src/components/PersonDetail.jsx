@@ -218,6 +218,16 @@ function PersonDetail({ id }) {
             >
               TV Series
             </div>
+            <div
+              onClick={() => setActive("images")}
+              className={`${
+                active === "images"
+                  ? "border-b-2 border-red-600 px-2 mx-4 cursor-pointer hover:text-red-700"
+                  : "px-2 mx-4 cursor-pointer hover:text-red-700"
+              }`}
+            >
+              Images
+            </div>
           </div>
           {loading ? (
             <div className="col-span-3 flex justify-center items-center h-screen w-full flex-col ">
@@ -225,6 +235,19 @@ function PersonDetail({ id }) {
               <p className="my-4 py-2 text-base text-slate-400">
                 fetching data ...
               </p>
+            </div>
+          ) : active === "images" ? (
+            <div className="grid grid-cols-3 gap-2">
+              {credits?.profiles?.map((img, index) => (
+                <div key={index}>
+                  <img
+                    className="w-full h-auto rounded-md"
+                    src={`https://image.tmdb.org/t/p/original/${img?.file_path}`}
+                    loading="lazy"
+                    alt=""
+                  />
+                </div>
+              ))}
             </div>
           ) : (
             <>
