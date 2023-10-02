@@ -5,9 +5,9 @@ function HomePage() {
   return (
     <>
       <Main />
-      <List rowID="1" title="Movie Trending" axiosURL="movie" />
-      <List rowID="2" title="TV Series Trending" axiosURL="tv" />
-      <List rowID="3" title="Person Trending" axiosURL="person" />
+      <List title="Movie Trending" axiosURL="movie" />
+      <List title="TV Series Trending" axiosURL="tv" />
+      <List title="Person Trending" axiosURL="person" />
     </>
   );
 }

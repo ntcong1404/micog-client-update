@@ -1,33 +1,36 @@
 import { useEffect, useState } from "react";
 import Movie from "./Movie";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faChevronCircleLeft,
-  faChevronCircleRight,
-} from "@fortawesome/free-solid-svg-icons";
 import * as Service from "../apiService/Service";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Slider from "react-slick";
+import PulseLoader from "react-spinners/PulseLoader";
 
-function List({ title, rowID, axiosURL }) {
+function List({ title, axiosURL }) {
   const [list, setList] = useState([]);
   const [time, setTime] = useState("day");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    setLoading(true);
     Service.Trending({ item: axiosURL, time: time })
       .then((res) => {
         setList(res?.results);
+        setLoading(false);
       })
       .catch((err) => console.log(err));
   }, [axiosURL, time]);
 
-  const slideLeft = () => {
-    var slider = document.getElementById("slider" + rowID);
-    slider.scrollLeft = slider.scrollLeft - 500;
+  var settings = {
+    dots: true,
+    infinite: true,
+    speed: 2000,
+    slidesToShow: 3.7,
+    slidesToScroll: 2,
+    autoplay: true,
+    autoplaySpeed: 4000,
+    draggable: false,
   };
-  const slideRight = () => {
-    var slider = document.getElementById("slider" + rowID);
-    slider.scrollLeft = slider.scrollLeft + 500;
-  };
-
   return (
     <div
       className={`pt-6 pb-2 bg-list 
@@ -61,25 +64,18 @@ function List({ title, rowID, axiosURL }) {
           </button>
         </div>
       </div>
-      <div className="relative  flex items-center group px-6">
-        <FontAwesomeIcon
-          icon={faChevronCircleLeft}
-          onClick={slideLeft}
-          className="bg-white text-3xl rounded-full absolute top-[43%] left-9 translate-y-[-50%] opacity-70 hover:opacity-100 cursor-pointer z-10 hidden group-hover:block "
-        />
-        <div
-          id={"slider" + rowID}
-          className="w-full h-[300px]  overflow-x-scroll whitespace-nowrap scroll-smooth scrollbar-hide relative"
-        >
-          {list?.map((item, id) => (
-            <Movie key={id} item={item} list />
-          ))}
-        </div>
-        <FontAwesomeIcon
-          icon={faChevronCircleRight}
-          onClick={slideRight}
-          className="bg-white text-3xl right-7 top-[43%]  translate-y-[-50%] rounded-full absolute opacity-70 hover:opacity-100 cursor-pointer z-10 hidden group-hover:block"
-        />
+      <div className="my-4">
+        {loading ? (
+          <div className="flex justify-center items-center w-full flex-col ">
+            <PulseLoader color="gray" size={8} speedMultiplier={1.5} />
+          </div>
+        ) : (
+          <Slider {...settings}>
+            {list?.map((item, id) => (
+              <Movie key={id} item={item} list />
+            ))}
+          </Slider>
+        )}
       </div>
     </div>
   );

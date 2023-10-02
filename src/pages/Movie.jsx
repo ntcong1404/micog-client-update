@@ -3,11 +3,6 @@ import { useParams } from "react-router-dom";
 import * as Service from "../apiService/Service";
 import TableFilter from "../components/TableFilter";
 import Movie from "../components/Movie";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faChevronLeft,
-  faChevronRight,
-} from "@fortawesome/free-solid-svg-icons";
 import PuffLoader from "react-spinners/PuffLoader";
 import Pagination from "../components/Pagination";
 
