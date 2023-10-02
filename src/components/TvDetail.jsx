@@ -2,6 +2,7 @@ import * as Service from "../apiService/Service";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Like from "./Like";
+import AddList from "./AddList";
 import PuffLoader from "react-spinners/PuffLoader";
 import dayjs from "dayjs";
 
@@ -121,6 +122,8 @@ function TvDetail({ id }) {
                           </h3>
                           {/* like */}
                           <Like slug="tv" detail={detail} />
+                          {/* list */}
+                          <AddList slug="tv" detail={detail} />
                         </div>
 
                         {/* genres */}

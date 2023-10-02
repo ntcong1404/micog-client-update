@@ -4,6 +4,8 @@ import { UserAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { LoadingSpin } from "../components/Loading";
 
+import { bgSignup } from "../assets";
+
 function SignupPage() {
   const navigate = useNavigate();
   const { user, createUser } = UserAuth();
@@ -34,7 +36,7 @@ function SignupPage() {
       <div className="mt-[-76px]">
         <img
           className="absolute w-full h-screen object-cover"
-          src="https://assets.nflxext.com/ffe/siteui/vlv3/9c5457b8-9ab0-4a04-9fc1-e608d5670f1a/710d74e0-7158-408e-8d9b-23c219dee5df/IN-en-20210719-popsignuptwoweeks-perspective_alpha_website_small.jpg"
+          src={bgSignup}
           alt="/"
         />
       </div>

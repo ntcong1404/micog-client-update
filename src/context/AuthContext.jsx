@@ -23,6 +23,7 @@ export const AuthContextProvider = ({ children }) => {
     await createUserWithEmailAndPassword(auth, email, password);
     await setDoc(doc(db, "users", email), {
       likeLists: [],
+      Lists: [],
     });
   };
 
@@ -47,6 +48,7 @@ export const AuthContextProvider = ({ children }) => {
       setUser(result.user);
       setDoc(doc(db, "users", result?.user?.email), {
         likeLists: [],
+        Lists: {},
       });
     } catch (error) {
       console.log(error);

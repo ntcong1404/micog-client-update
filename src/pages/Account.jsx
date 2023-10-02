@@ -1,9 +1,10 @@
 import { NavLink, Navigate, useParams } from "react-router-dom";
 import { UserAuth } from "../context/AuthContext";
-import LikeLists from "../components/LikeLists";
 import dayjs from "dayjs";
 
+import LikeLists from "../components/LikeLists";
 import Profile from "../components/Profile";
+import ListsAcc from "../components/ListsAcc";
 
 function AccPage() {
   const { user } = UserAuth();
@@ -83,10 +84,30 @@ function AccPage() {
                 Favorites
               </NavLink>
             </li>
+            <li className="mr-2">
+              <NavLink
+                to={"/account/lists"}
+                className={(nav) =>
+                  ` ${
+                    nav.isActive
+                      ? "inline-block p-4 text-red-600 border-b-2 border-red-600 rounded-t-lg dark:text-red-500 dark:border-red-500"
+                      : "inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-red-200 dark:hover:text-gray-300"
+                  }`
+                }
+              >
+                Lists
+              </NavLink>
+            </li>
           </ul>
         </div>
 
-        {slug === "favorites" ? <LikeLists /> : <Profile />}
+        {slug === "favorites" ? (
+          <LikeLists />
+        ) : slug === "profile" ? (
+          <Profile />
+        ) : (
+          <ListsAcc />
+        )}
       </div>
     );
   }

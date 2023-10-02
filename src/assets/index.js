@@ -7,7 +7,8 @@ import seriesIcon from "./seriesIcon.svg";
 import noImage from "./noImage.png";
 import onToTop from "./onToTop.svg";
 import userDefault from "./userDefault.png";
-
+import bgSignup from "./bgSignup.jpg";
+import bgLogin from "./bgLogin.jpg";
 export {
   logo,
   bgRow,
@@ -18,4 +19,6 @@ export {
   noImage,
   onToTop,
   userDefault,
+  bgSignup,
+  bgLogin,
 };

@@ -2,6 +2,7 @@ import * as Service from "../apiService/Service";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Like from "./Like";
+import AddList from "./AddList";
 import PuffLoader from "react-spinners/PuffLoader";
 import dayjs from "dayjs";
 
@@ -119,6 +120,8 @@ function MovieDetail({ id }) {
                           </h3>
                           {/* like */}
                           <Like slug="movie" detail={detail} />
+                          {/* list */}
+                          <AddList slug="movie" detail={detail} />
                         </div>
 
                         {/* genres */}
@@ -256,18 +259,16 @@ function MovieDetail({ id }) {
               {videos?.map(
                 (video, index) =>
                   video.type === "Trailer" && (
-                    <>
-                      <div className="w-full h-full mr-1">
-                        <iframe
-                          allowFullScreen
-                          className="my-6"
-                          key={index}
-                          width="410"
-                          height="257"
-                          src={`https://www.youtube.com/embed/${video.key}?controls=1`}
-                        ></iframe>
-                      </div>
-                    </>
+                    <div key={index} className="w-full h-full mr-1">
+                      <iframe
+                        allowFullScreen
+                        className="my-6"
+                        key={index}
+                        width="410"
+                        height="257"
+                        src={`https://www.youtube.com/embed/${video.key}?controls=1`}
+                      ></iframe>
+                    </div>
                   )
               )}
             </div>
