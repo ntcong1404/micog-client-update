@@ -9,6 +9,7 @@ function AddList({ slug, detail }) {
   const { user } = UserAuth();
   const [lists, setLists] = useState([]);
   const [showList, setShowList] = useState(false);
+  console.log(lists);
   const handleAddLists = async (list) => {
     const movieID = doc(db, "users", `${user?.email}`);
 
@@ -54,7 +55,7 @@ function AddList({ slug, detail }) {
               Add to one of your lists
             </p>
             <ul className="p-2">
-              {lists.length !== 0 ? (
+              {lists ? (
                 lists?.map((list, index) => (
                   <li
                     onClick={() => handleAddLists(list)}
