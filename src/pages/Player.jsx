@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import * as Service from "../apiService/Service";
 
 import PlayerTv from "../components/PlayerTv";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
 function PlayerPage() {
   const { slug, id } = useParams();
@@ -57,23 +59,24 @@ function PlayerPage() {
             </div>
             <div className="mb-2 text-sm text-gray-600">
               <p className="mr-6 text-black font-semibold">Overview</p>
-              <p className="py-1 text-base font-normal text-slate-700">
+              <p className="py-1 font-normal text-slate-700">
                 {detail?.overview}
               </p>
             </div>
             <div className="mb-2 text-sm text-gray-600">
               <p className="mr-6 text-black font-semibold">Release date</p>
-              <p className="py-1 text-base font-normal text-slate-700">
+              <p className="py-1 font-normal text-slate-700">
                 {detail?.release_date}
               </p>
             </div>
             <div className=" my-4 text-sm text-gray-600 ">
-              <p className="mr-6 text-black font-semibold">
-                Production companies{" "}
-              </p>
+              <p className="mr-6 text-black">Production companies </p>
               <div className="flex flex-wrap my-2">
                 {detail?.production_companies?.map((com, index) => (
-                  <p key={index} className="mr-3 my-1 py-1 ">
+                  <p
+                    key={index}
+                    className="mr-3 my-1 font-normal text-slate-700 "
+                  >
                     {com.name}
                   </p>
                 ))}
@@ -94,6 +97,10 @@ function PlayerPage() {
                   className="py-2 text-sm cursor-pointer text-slate-700 hover:text-slate-500 "
                 >
                   {detail?.belongs_to_collection?.name}
+                  <FontAwesomeIcon
+                    className="mx-4 w-2 h-3"
+                    icon={faArrowRight}
+                  />
                 </p>
               </div>
             ) : (

@@ -5,6 +5,7 @@ import Like from "./Like";
 import AddList from "./AddList";
 import PuffLoader from "react-spinners/PuffLoader";
 import dayjs from "dayjs";
+import { noImage } from "../assets";
 
 function MovieDetail({ id }) {
   const navigate = useNavigate();
@@ -287,9 +288,13 @@ function MovieDetail({ id }) {
                 key={index}
                 className="relative flex flex-col text-center mr-2 mb-6 cursor-pointer group "
               >
-                <div className="w-[140px] h-auto ">
+                <div className="w-[140px] h-auto object-cover">
                   <img
-                    src={`https://image.tmdb.org/t/p/original/${cast.profile_path}`}
+                    src={
+                      cast.profile_path
+                        ? `https://image.tmdb.org/t/p/original/${cast.profile_path}`
+                        : noImage
+                    }
                     className="w-full h-full rounded-md group-hover:blur-[2px]"
                     loading="lazy"
                   />

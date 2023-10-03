@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import * as Service from "../apiService/Service";
 import { useEffect, useState } from "react";
+import { noImage } from "../assets/index";
 
 function PlayerTv({ detail, id }) {
   const navigate = useNavigate();
@@ -92,14 +93,18 @@ function PlayerTv({ detail, id }) {
               >
                 <div className="w-[240px] h-full ">
                   <img
-                    src={`https://image.tmdb.org/t/p/original/${epi?.still_path}`}
+                    src={
+                      epi?.still_path
+                        ? `https://image.tmdb.org/t/p/original/${epi?.still_path}`
+                        : noImage
+                    }
                     className="w-full h-full rounded-t-md "
                     loading="lazy"
                   />
                 </div>
-                <div className="">
+                <div className="w-[240px] h-[100px] overflow-auto">
                   <p className="text-black text-sm py-1">{`Episode ${epi.episode_number}`}</p>
-                  <p className="text-black font-semibold py-1 ">{epi.name}</p>
+                  <p className="text-black font-semibold p-2 ">{epi.name}</p>
                 </div>
               </div>
             ))}

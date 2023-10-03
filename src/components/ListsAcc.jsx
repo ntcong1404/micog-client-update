@@ -18,6 +18,7 @@ function ListsAcc() {
   const [lists, setLists] = useState([]);
   const [chooseList, setChooseList] = useState("");
   const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     onSnapshot(doc(db, "users", `${user?.email}`), (doc) => {
       setLists(doc.data()?.Lists.allList);
@@ -41,6 +42,17 @@ function ListsAcc() {
       setShowModal(false);
     } else {
       alert("Please log in to save a movie");
+    }
+  };
+
+  const handleDeleteItemInList = async (listId, id) => {
+    try {
+      const result = movieInList.filter((item) => item.id !== id);
+      await updateDoc(movieID, {
+        "Lists.allMovie": result,
+      });
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -70,7 +82,7 @@ function ListsAcc() {
         {lists?.map((list, index) => (
           <div
             onClick={() => handleClickList(list)}
-            className="grid grid-rows-3 justify-items-center items-center p-6 shadow shadow-slate-400 border border-slate-200 bg-gradient-to-t from-slate-100 to-transparent rounded overflow-hidden hover:shadow-md hover:shadow-gray-400 cursor-pointer"
+            className="grid grid-rows-3 justify-items-center items-center p-6 border border-gray-300 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 cursor-pointer"
             key={index}
           >
             <h3 className="text-xl font-semibold py-1 my-1 row-span-2">
@@ -181,19 +193,35 @@ function ListsAcc() {
                     {movieInList?.map((movie, index) =>
                       chooseList?.id === movie?.listId ? (
                         <div
-                          onClick={() => handleClickItem(movie)}
                           key={index}
-                          className="w-full shadow shadow-slate-400 rounded cursor-pointer hover:translate-y-[-2px] hover:shadow-md hover:shadow-slate-400 "
+                          className="relative cursor-pointer group"
                         >
-                          <img
-                            className="rounded-t w-full h-auto object-cover"
-                            src={`https://image.tmdb.org/t/p/original/${movie?.img}`}
-                            alt=""
-                            loading="lazy"
-                          />
-                          <div className="text-center text-sm font-semibold p-2">
-                            {movie?.title}
+                          <div
+                            onClick={() => handleClickItem(movie)}
+                            className=" w-full h-full shadow shadow-slate-400 rounded "
+                          >
+                            <img
+                              className="rounded-t w-full h-auto object-cover"
+                              src={`https://image.tmdb.org/t/p/original/${movie?.img}`}
+                              alt=""
+                              loading="lazy"
+                            />
+                            <div className="text-center text-sm font-semibold p-2">
+                              {movie?.title}
+                            </div>
+                            <div className="absolute top-0 bottom-0 left-0 right-0 bg-black/50 rounded opacity-0 group-hover:opacity-20"></div>
                           </div>
+                          <p
+                            onClick={() =>
+                              handleDeleteItemInList(movie?.listId, movie?.id)
+                            }
+                            className="absolute text-gray-300 top-2 right-2 cursor-pointer opacity-0 group-hover:opacity-100"
+                          >
+                            <FontAwesomeIcon
+                              className=" hover:bg-slate-800 hover:scale-110 w-4 h-4 p-1 rounded-full"
+                              icon={faClose}
+                            />
+                          </p>
                         </div>
                       ) : (
                         <></>

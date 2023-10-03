@@ -22,7 +22,7 @@ function Main() {
   }, []);
 
   var settings = {
-    dots: true,
+    dots: false,
     infinite: true,
     speed: 900,
     slidesToShow: 1,

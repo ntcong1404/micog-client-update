@@ -4,16 +4,19 @@ import { arrayUnion, doc, onSnapshot, updateDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { db } from "../firebase/firebase";
 import { UserAuth } from "../context/AuthContext";
+import { LoadingSpin } from "./Loading";
 
 function AddList({ slug, detail }) {
   const { user } = UserAuth();
   const [lists, setLists] = useState([]);
   const [showList, setShowList] = useState(false);
-  console.log(lists);
+  const [loading, setLoading] = useState(false);
+
   const handleAddLists = async (list) => {
     const movieID = doc(db, "users", `${user?.email}`);
 
     if (user?.email) {
+      setLoading(true);
       await updateDoc(movieID, {
         "Lists.allMovie": arrayUnion({
           id: detail?.id,
@@ -26,6 +29,7 @@ function AddList({ slug, detail }) {
         }),
       });
       try {
+        setLoading(false);
         setShowList(false);
       } catch (error) {
         console.log(error);
@@ -44,16 +48,24 @@ function AddList({ slug, detail }) {
   return (
     <div className=" ml-4 text-white text-lg ">
       <div className="relative">
-        <FontAwesomeIcon
-          onClick={() => setShowList(!showList)}
-          icon={faListDots}
-          className=" p-2 cursor-pointer border border-slate-100 text-slate-100  rounded-full"
-        />
+        {loading ? (
+          <div className="py-2">
+            <LoadingSpin loading={loading} />
+          </div>
+        ) : (
+          <FontAwesomeIcon
+            onClick={() => setShowList(!showList)}
+            icon={faListDots}
+            className=" p-2 cursor-pointer border border-slate-100 text-slate-100  rounded-full"
+          />
+        )}
         {showList ? (
           <div className="absolute right-[-20px] w-[180px] bg-white text-sm rounded text-black ">
-            <p className="font-semibold border-b border-slate-400 p-2 rounded-t">
-              Add to one of your lists
-            </p>
+            <div className="flex items-center border-b border-slate-400">
+              <p className="font-semibold p-2 rounded-t">
+                Add to one of your lists
+              </p>
+            </div>
             <ul className="p-2">
               {lists ? (
                 lists?.map((list, index) => (
