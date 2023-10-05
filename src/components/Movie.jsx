@@ -11,7 +11,7 @@ const Movie = ({ list, item, type }) => {
   return (
     <>
       {list ? (
-        <div className="w-[350px] h-[230px] inline-block relative p-2  ">
+        <div className="w-[350px] h-[230px] inline-block relative p-4  ">
           <img
             onClick={() => handlePlay(item?.media_type, item?.id)}
             className="w-full h-full shadow-lg shadow-blue-400/70  cursor-pointer block rounded-lg object-cover hover:scale-105  "
@@ -103,7 +103,7 @@ const Movie = ({ list, item, type }) => {
             {item?.media_type === "person" ? (
               ""
             ) : (
-              <div className=" absolute bottom-[34px] left-2 group-hover:bottom-[28px]">
+              <div className=" absolute bottom-[54px] left-2 group-hover:bottom-[50px]">
                 <div className="flex items-center justify-center overflow-hidden bg-slate-900 rounded-full">
                   <svg
                     className="w-[44px] h-[44px] transform translate-x-1 translate-y-1"
@@ -150,7 +150,7 @@ const Movie = ({ list, item, type }) => {
                 </div>
               </div>
             )}
-            <p className="py-2 mt-4 text-sm font-bold text-center group-hover:text-sky-500">
+            <p className="py-1 mt-4 text-sm h-[54px] overflow-hidden font-bold text-center group-hover:text-sky-500">
               {item?.title ? item.title : item.original_name}
             </p>
           </div>

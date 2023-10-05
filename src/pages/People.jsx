@@ -35,9 +35,7 @@ function PeoplePage() {
 
   return (
     <div className="mb-8">
-      <p className="my-4 py-2 px-6 text-center text-4xl font-bold">
-        Popular People
-      </p>
+      <p className="my-4 py-4 px-6 text-3xl font-bold">Popular People</p>
       {loading ? (
         <div className="flex justify-center items-center h-screen w-full flex-col ">
           <PuffLoader color="gray" size={60} speedMultiplier={1.5} />

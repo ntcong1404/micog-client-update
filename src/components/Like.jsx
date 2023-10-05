@@ -7,10 +7,12 @@ import {
 import { UserAuth } from "../context/AuthContext";
 import { db } from "../firebase/firebase";
 import { arrayUnion, doc, updateDoc, onSnapshot } from "firebase/firestore";
+import Alert from "./Alert";
 
 function Like({ slug, detail }) {
   const { user } = UserAuth();
   const [likeLists, setLikeLists] = useState([]);
+  const [alert, setAlert] = useState(false);
 
   const movieID = doc(db, "users", `${user?.email}`);
 
@@ -36,7 +38,10 @@ function Like({ slug, detail }) {
         });
       }
     } else {
-      alert("Please log in to save a movie");
+      setAlert(true);
+      setTimeout(() => {
+        setAlert(false);
+      }, 3000);
     }
   };
 
@@ -46,22 +51,35 @@ function Like({ slug, detail }) {
     });
   }, [user?.email]);
   return (
-    <div
-      onClick={() => handleLike(detail?.id)}
-      className=" ml-10 text-white text-lg "
-    >
-      {likeLists?.find((item) => item.id === detail?.id)?.id === detail?.id ? (
-        <FontAwesomeIcon
-          icon={faHeartCircleCheck}
-          className=" p-2 cursor-pointer border border-slate-100 text-red-600 rounded-full"
-        />
+    <>
+      {alert ? (
+        <div className="w-[320px] fixed right-2 top-28">
+          <Alert
+            title={"Warning alert !"}
+            desc={"Please log in to save a movie"}
+          />
+        </div>
       ) : (
-        <FontAwesomeIcon
-          icon={faHeartCirclePlus}
-          className=" p-2 cursor-pointer border border-slate-100 text-slate-100  rounded-full"
-        />
+        <></>
       )}
-    </div>
+      <div
+        onClick={() => handleLike(detail?.id)}
+        className=" ml-10 text-white text-lg "
+      >
+        {likeLists?.find((item) => item.id === detail?.id)?.id ===
+        detail?.id ? (
+          <FontAwesomeIcon
+            icon={faHeartCircleCheck}
+            className=" p-2 cursor-pointer border border-slate-100 text-red-600 rounded-full"
+          />
+        ) : (
+          <FontAwesomeIcon
+            icon={faHeartCirclePlus}
+            className=" p-2 cursor-pointer border border-slate-100 text-slate-100  rounded-full"
+          />
+        )}
+      </div>
+    </>
   );
 }
 

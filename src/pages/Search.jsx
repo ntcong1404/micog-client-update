@@ -40,39 +40,33 @@ function SearchPage() {
   }, [query, page, active]);
 
   return (
-    <div className="p-6 mt-6  ">
-      <div className="grid grid-cols-4 gap-2">
-        <div className="col-span-1 ">
-          <div className=" rounded-md border border-gray-300 ">
-            <div className="">
-              <p className="text-lg text-center rounded-t-md p-4 bg-slate-200 text-slate-950 font-semibold">
-                {`${movies?.total_results} results ${active} for " ${query} "`}
-              </p>
-              <div className=" mt-[1px]">
-                <ul className="settings panel with_counts bg-gradient-to-r from-sky-50 to-green-50">
-                  {filter.map((item, index) => (
-                    <li
-                      onClick={() => setActive(item?.filter)}
-                      key={index}
-                      className={
-                        `flex justify-between items-center px-4 py-2 cursor-pointer ` +
-                        `${
-                          active === item?.filter
-                            ? "bg-gradient-to-r from-sky-300 to-green-100 hover:bg-slate-200"
-                            : "hover:bg-slate-200"
-                        }`
-                      }
-                    >
-                      <p className="text-lg ">{item.title}</p>
-                    </li>
-                  ))}
-                </ul>
+    <div className=" ">
+      <div>
+        <div className="flex items-center justify-between px-14 text-2xl font-bold text-gray-300 bg-results w-full h-[120px] bg-slate-800">
+          <p className="text-white uppercase text-3xl">{active}</p>
+          <p>{`${movies?.total_results} results for " ${query} "`}</p>
+        </div>
+        <div>
+          <div className="flex justify-end my-4 text-2xl font-bold py-2 border-b-[1px] border-slate-200">
+            {filter.map((item, index) => (
+              <div
+                onClick={() => setActive(item?.filter)}
+                key={index}
+                className={`${
+                  active === item?.filter
+                    ? "border-b-2 border-red-600 px-2 mx-4 cursor-pointer hover:text-red-700"
+                    : "px-2 mx-4 cursor-pointer hover:text-red-700"
+                }`}
+              >
+                <p>{item.title}</p>
               </div>
-            </div>
+            ))}
           </div>
         </div>
+      </div>
+      <div className="p-6 mt-6 ">
         {loading ? (
-          <div className="col-span-3 flex justify-center items-center h-screen w-full flex-col ">
+          <div className="flex justify-center items-center h-screen w-full flex-col ">
             <PuffLoader color="gray" size={60} speedMultiplier={1.5} />
             <p className="my-4 py-2 text-base text-slate-400">
               fetching data ...
@@ -80,16 +74,16 @@ function SearchPage() {
           </div>
         ) : (
           <>
-            <div className="col-span-3 ">
+            <div className="grid grid-cols-2 gap-6">
               {movies?.results?.map((movie, index) => (
                 <div
                   key={index}
-                  className=" mb-3 rounded-md overflow-hidden bg-gradient-to-r from-slate-100 to-sky-100 cursor-pointer hover:bg-gradient-to-r hover:from-sky-200 hover:to-slate-100 "
+                  className=" mb-3 rounded-md overflow-hidden cursor-pointer shadow-[0_2px_4px_2px_rgba(0,0,0,0.1)] hover:scale-[101%] hover:shadow-[0_2px_8px_4px_rgba(0,0,0,0.1)]"
                   onClick={() => handleClick(movie?.id)}
                 >
                   <div className=" flex items-center ">
                     <div>
-                      <div className="w-[160px] h-auto mr-4">
+                      <div className="w-[180px] h-[240px] mr-4">
                         <img
                           loading="lazy"
                           className="w-full h-full object-cover rounded-l-md "
@@ -123,7 +117,7 @@ function SearchPage() {
                         </div>
                       </div>
 
-                      <div className="mt-4 text-sm h-[100px] overflow-y-auto">
+                      <div className="mt-4 text-sm h-[100px] overflow-hidden">
                         <p>
                           {movie.known_for
                             ? movie.known_for.overview
@@ -137,8 +131,8 @@ function SearchPage() {
             </div>
           </>
         )}
+        <Pagination page={page} setPage={setPage} data={movies} />
       </div>
-      <Pagination page={page} setPage={setPage} data={movies} />
     </div>
   );
 }

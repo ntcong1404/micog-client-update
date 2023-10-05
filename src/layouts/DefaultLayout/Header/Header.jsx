@@ -1,12 +1,13 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, matchPath, useLocation } from "react-router-dom";
 import { logo, movieIcon, personIcon, seriesIcon } from "../../../assets";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { UserAuth } from "../../../context/AuthContext";
 
 function Header() {
   const { user, logOut } = UserAuth();
+  const location = useLocation();
 
   const navigate = useNavigate();
   const [searchValue, setSearchValue] = useState("");
@@ -37,6 +38,16 @@ function Header() {
     }
   };
 
+  const isMovie = (pathname) => {
+    return pathname.startsWith("/movie/");
+  };
+  const isTv = (pathname) => {
+    return pathname.startsWith("/tv/");
+  };
+  const isPres = (pathname) => {
+    return pathname.startsWith("/person/");
+  };
+
   return (
     <>
       <div className="fixed top-0 right-0 left-0 z-50 px-6 py-4 bg-gray-950 text-white">
@@ -51,21 +62,40 @@ function Header() {
             <div className="flex items-center">
               <NavLink
                 to={"/movie/now_playing"}
-                className="flex items-center text-sm mr-10 px-3 py-2 uppercase cursor-pointer rounded hover:bg-gradient-to-t hover:from-gray-900 hover:to-transparent "
+                isActive={() => {
+                  return isMovie(location.pathname);
+                }}
+                className={`flex items-center text-sm mr-10 px-3 py-2 uppercase cursor-pointer ${
+                  isMovie(location.pathname)
+                    ? "border-b-[1px] border-red-500"
+                    : ""
+                }`}
               >
                 <img className="w-[26px] mx-1" src={movieIcon} alt="" />
                 movies
               </NavLink>
               <NavLink
-                className="flex items-center text-sm mr-10 px-3 py-2 uppercase cursor-pointer rounded hover:bg-gradient-to-t hover:from-gray-900 hover:to-transparent"
                 to={"/tv/popular"}
+                isActive={() => {
+                  return isTv(location.pathname);
+                }}
+                className={`flex items-center text-sm mr-10 px-3 py-2 uppercase cursor-pointer ${
+                  isTv(location.pathname) ? "border-b-[1px] border-red-500" : ""
+                }`}
               >
                 <img className="w-[26px] mx-1 " src={seriesIcon} alt="" />
                 tv shows
               </NavLink>
               <NavLink
                 to={"/person/popular"}
-                className="flex items-center text-sm mr-10 px-3 py-2 uppercase cursor-pointer rounded hover:bg-gradient-to-t hover:from-gray-900 hover:to-transparent"
+                isActive={() => {
+                  return isPres(location.pathname);
+                }}
+                className={`flex items-center text-sm mr-10 px-3 py-2 uppercase cursor-pointer ${
+                  isPres(location.pathname)
+                    ? "border-b-[1px] border-red-500"
+                    : ""
+                }`}
               >
                 <img className="w-[24px] mx-1" src={personIcon} alt="" />
                 people

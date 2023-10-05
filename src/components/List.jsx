@@ -10,7 +10,6 @@ function List({ title, axiosURL }) {
   const [list, setList] = useState([]);
   const [time, setTime] = useState("day");
   const [loading, setLoading] = useState(true);
-
   useEffect(() => {
     setLoading(true);
     Service.Trending({ item: axiosURL, time: time })
@@ -33,14 +32,16 @@ function List({ title, axiosURL }) {
   };
   return (
     <div
-      className={`pt-6 pb-2 bg-list 
+      className={`py-8 
         ${
-          title === "TV Series Trending" || title === "person"
-            ? "bg-slate-100"
-            : ""
+          title === "TV Series Trending"
+            ? " bg-list bg-slate-50"
+            : title === "Movie Trending"
+            ? " bg-list"
+            : "bg-results"
         }`}
     >
-      <div className="flex items-center pt-4 px-6 w-full h-full ">
+      <div className="flex items-center px-6 w-full h-full ">
         <h2 className="text-black uppercase font-semibold text-2xl p-4 mr-10">
           {title}
         </h2>
@@ -64,7 +65,7 @@ function List({ title, axiosURL }) {
           </button>
         </div>
       </div>
-      <div className="my-4">
+      <div className="my-6">
         {loading ? (
           <div className="flex justify-center items-center w-full flex-col ">
             <PulseLoader color="gray" size={8} speedMultiplier={1.5} />

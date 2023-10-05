@@ -5,12 +5,16 @@ import { useEffect, useState } from "react";
 import { db } from "../firebase/firebase";
 import { UserAuth } from "../context/AuthContext";
 import { LoadingSpin } from "./Loading";
+import { useNavigate } from "react-router-dom";
+import Alert from "./Alert";
 
 function AddList({ slug, detail }) {
   const { user } = UserAuth();
+  const navigate = useNavigate();
   const [lists, setLists] = useState([]);
   const [showList, setShowList] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [alert, setAlert] = useState(false);
 
   const handleAddLists = async (list) => {
     const movieID = doc(db, "users", `${user?.email}`);
@@ -35,7 +39,21 @@ function AddList({ slug, detail }) {
         console.log(error);
       }
     } else {
-      alert("Please log in to save a movie");
+      setAlert(true);
+      setTimeout(() => {
+        setAlert(false);
+      }, 3000);
+    }
+  };
+  const handleClickCreateList = () => {
+    if (user?.email) {
+      navigate("/account/lists");
+    } else {
+      setShowList(false);
+      setAlert(true);
+      setTimeout(() => {
+        setAlert(false);
+      }, 3000);
     }
   };
 
@@ -46,53 +64,65 @@ function AddList({ slug, detail }) {
   }, [user?.email]);
 
   return (
-    <div className=" ml-4 text-white text-lg ">
-      <div className="relative">
-        {loading ? (
-          <div className="py-2">
-            <LoadingSpin loading={loading} />
-          </div>
-        ) : (
-          <FontAwesomeIcon
-            onClick={() => setShowList(!showList)}
-            icon={faListDots}
-            className=" p-2 cursor-pointer border border-slate-100 text-slate-100  rounded-full"
+    <>
+      {alert ? (
+        <div className="w-[320px] fixed right-2 top-28">
+          <Alert
+            title={"Warning alert !"}
+            desc={"Please log in to save a movie"}
           />
-        )}
-        {showList ? (
-          <div className="absolute right-[-20px] w-[180px] bg-white text-sm rounded text-black ">
-            <div className="flex items-center border-b border-slate-400">
-              <p className="font-semibold p-2 rounded-t">
-                Add to one of your lists
-              </p>
+        </div>
+      ) : (
+        <></>
+      )}
+      <div className=" ml-4 text-white text-lg ">
+        <div className="relative">
+          {loading ? (
+            <div className="py-2">
+              <LoadingSpin loading={loading} />
             </div>
-            <ul className="p-2">
-              {lists ? (
-                lists?.map((list, index) => (
-                  <li
-                    onClick={() => handleAddLists(list)}
-                    key={index}
-                    className={`p-1 hover:bg-slate-200 cursor-pointer`}
+          ) : (
+            <FontAwesomeIcon
+              onClick={() => setShowList(!showList)}
+              icon={faListDots}
+              className=" p-2 cursor-pointer border border-slate-100 text-slate-100  rounded-full"
+            />
+          )}
+          {showList ? (
+            <div className="absolute right-[-20px] w-[180px] bg-white text-sm rounded text-black ">
+              <div className="flex items-center border-b border-slate-400">
+                <p className="font-semibold p-2 rounded-t">
+                  Add to one of your lists
+                </p>
+              </div>
+              <ul className="p-2">
+                {lists ? (
+                  lists?.map((list, index) => (
+                    <li
+                      onClick={() => handleAddLists(list)}
+                      key={index}
+                      className={`p-1 hover:bg-slate-200 cursor-pointer`}
+                    >
+                      {`${list?.name} `}
+                    </li>
+                  ))
+                ) : (
+                  <div
+                    onClick={handleClickCreateList}
+                    className={`p-1 hover:text-slate-500 cursor-pointer font-semibold`}
                   >
-                    {`${list?.name} `}
-                  </li>
-                ))
-              ) : (
-                <a
-                  href={"/account/lists"}
-                  className={`p-1 hover:text-slate-500 cursor-pointer font-semibold`}
-                >
-                  Create new list
-                  <FontAwesomeIcon className="pl-2" icon={faPlus} />
-                </a>
-              )}
-            </ul>
-          </div>
-        ) : (
-          <></>
-        )}
+                    Create new list
+                    <FontAwesomeIcon className="pl-2" icon={faPlus} />
+                  </div>
+                )}
+              </ul>
+            </div>
+          ) : (
+            <></>
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 
