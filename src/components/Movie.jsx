@@ -11,7 +11,7 @@ const Movie = ({ list, item, type }) => {
   return (
     <>
       {list ? (
-        <div className="w-[350px] h-[230px] inline-block relative p-4  ">
+        <div className="w-[350px] h-[230px] inline-block relative p-3 ">
           <img
             onClick={() => handlePlay(item?.media_type, item?.id)}
             className="w-full h-full shadow-lg shadow-blue-400/70  cursor-pointer block rounded-lg object-cover hover:scale-105  "
@@ -25,7 +25,7 @@ const Movie = ({ list, item, type }) => {
             ""
           ) : (
             <>
-              <div className=" absolute bottom-[10px] left-4">
+              <div className=" absolute bottom-6 left-6">
                 <div className="flex items-center justify-center overflow-hidden bg-slate-900 rounded-full">
                   <svg
                     className="w-12 h-12 transform translate-x-1 translate-y-1"
@@ -71,7 +71,7 @@ const Movie = ({ list, item, type }) => {
                   }%`}</span>
                 </div>
               </div>
-              <div className="absolute top-4 right-4">
+              <div className="absolute top-6 right-6">
                 <Like slug={item.media_type} detail={item} />
               </div>
             </>
@@ -84,10 +84,10 @@ const Movie = ({ list, item, type }) => {
         <div className="relative">
           <div
             onClick={() => handlePlay(type, item?.id)}
-            className=" w-full h-full mb-2 rounded-md border border-slate-200  cursor-pointer relative group overflow-hidden "
+            className=" w-full h-full mb-2 rounded-md cursor-pointer relative overflow-hidden shadow-md shadow-slate-300 hover:translate-y-[-4px] hover:shadow-md hover:shadow-slate-400 "
           >
             <img
-              className="w-full h-auto mb-2 shadow-lg shadow-blue-400/70 block rounded-t-md object-cover "
+              className="w-full h-auto mb-2 block rounded-t-md object-cover "
               loading="lazy"
               src={
                 item?.backdrop_path || item?.profile_path
@@ -103,7 +103,7 @@ const Movie = ({ list, item, type }) => {
             {item?.media_type === "person" ? (
               ""
             ) : (
-              <div className=" absolute bottom-[54px] left-2 group-hover:bottom-[50px]">
+              <div className=" absolute bottom-[54px] left-2 ">
                 <div className="flex items-center justify-center overflow-hidden bg-slate-900 rounded-full">
                   <svg
                     className="w-[44px] h-[44px] transform translate-x-1 translate-y-1"

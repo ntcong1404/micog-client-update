@@ -78,7 +78,7 @@ function SearchPage() {
               {movies?.results?.map((movie, index) => (
                 <div
                   key={index}
-                  className=" mb-3 rounded-md overflow-hidden cursor-pointer shadow-[0_2px_4px_2px_rgba(0,0,0,0.1)] hover:scale-[101%] hover:shadow-[0_2px_8px_4px_rgba(0,0,0,0.1)]"
+                  className=" mb-3 rounded-md overflow-hidden cursor-pointer shadow-md shadow-slate-300 hover:translate-y-[-4px] hover:shadow-md hover:shadow-slate-400 "
                   onClick={() => handleClick(movie?.id)}
                 >
                   <div className=" flex items-center ">

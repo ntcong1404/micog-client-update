@@ -86,7 +86,7 @@ function GenrePage() {
                 )}
               </>
             ) : (
-              <div className="grid grid-cols-4 gap-4">
+              <div className="grid grid-cols-5 gap-4">
                 {movies?.results?.map((movie, index) => (
                   <div
                     key={index}
@@ -94,26 +94,24 @@ function GenrePage() {
                     onClick={() => handleClick(movie?.id)}
                   >
                     <div className=" flex flex-col items-center ">
-                      <div>
-                        <div className="w-full h-[480px] ">
-                          <img
-                            loading="lazy"
-                            className="w-full h-full object-cover rounded-t-md "
-                            src={
-                              movie.poster_path || movie.profile_path
-                                ? `https://image.tmdb.org/t/p/w500/${
-                                    movie.poster_path
-                                      ? movie.poster_path
-                                      : movie.profile_path
-                                  }`
-                                : noImage
-                            }
-                          />
-                        </div>
+                      <div className="w-full h-auto">
+                        <img
+                          loading="lazy"
+                          className="w-full h-full object-cover rounded-t-md "
+                          src={
+                            movie.poster_path || movie.profile_path
+                              ? `https://image.tmdb.org/t/p/w500/${
+                                  movie.poster_path
+                                    ? movie.poster_path
+                                    : movie.profile_path
+                                }`
+                              : noImage
+                          }
+                        />
                       </div>
 
                       <div className="p-2 m-2">
-                        <h2 className="text-xl font-bold text-center">
+                        <h2 className="text-lg font-bold text-center">
                           {movie.title ? movie.title : movie.original_name}
                         </h2>
                       </div>

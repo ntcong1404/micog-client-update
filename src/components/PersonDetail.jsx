@@ -83,7 +83,11 @@ function PersonDetail({ id }) {
           </div>
           <div className=" flex justify-evenly my-6">
             {external?.facebook_id ? (
-              <a href={`https://www.facebook.com/${external?.facebook_id}`}>
+              <a
+                href={`https://www.facebook.com/${external?.facebook_id}`}
+                target="_blank"
+                rel="noreferrer"
+              >
                 <FontAwesomeIcon
                   className="mr-3 pr-2 text-3xl hover:text-sky-600"
                   icon={faFacebook}
@@ -93,7 +97,11 @@ function PersonDetail({ id }) {
               <></>
             )}
             {external?.twitter_id ? (
-              <a href={`https://twitter.com/${external?.twitter_id}`}>
+              <a
+                href={`https://twitter.com/${external?.twitter_id}`}
+                target="_blank"
+                rel="noreferrer"
+              >
                 <FontAwesomeIcon
                   className="mr-3 pr-2 text-3xl hover:text-sky-600"
                   icon={faTwitter}
@@ -103,7 +111,11 @@ function PersonDetail({ id }) {
               <></>
             )}
             {external?.instagram_id ? (
-              <a href={`https://www.instagram.com/${external?.instagram_id}`}>
+              <a
+                href={`https://www.instagram.com/${external?.instagram_id}`}
+                target="_blank"
+                rel="noreferrer"
+              >
                 <FontAwesomeIcon
                   className="mr-3 pr-2 text-3xl hover:text-sky-600"
                   icon={faInstagram}
@@ -113,7 +125,11 @@ function PersonDetail({ id }) {
               <></>
             )}
             {external?.tiktok_id ? (
-              <a href={`https://www.tiktok.com/${external?.tiktok_id}`}>
+              <a
+                href={`https://www.tiktok.com/${external?.tiktok_id}`}
+                target="_blank"
+                rel="noreferrer"
+              >
                 <FontAwesomeIcon
                   className="mr-3 pr-2 text-3xl hover:text-sky-600"
                   icon={faTiktok}
@@ -123,7 +139,11 @@ function PersonDetail({ id }) {
               <></>
             )}
             {external?.youtube_id ? (
-              <a href={`https://www.youtube.com/${external?.youtube_id}`}>
+              <a
+                href={`https://www.youtube.com/${external?.youtube_id}`}
+                target="_blank"
+                rel="noreferrer"
+              >
                 <FontAwesomeIcon
                   className="mr-3 pr-2 text-3xl hover:text-sky-600 "
                   icon={faYoutube}

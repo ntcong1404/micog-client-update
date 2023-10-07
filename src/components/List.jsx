@@ -24,11 +24,13 @@ function List({ title, axiosURL }) {
     dots: true,
     infinite: true,
     speed: 2000,
-    slidesToShow: 3.7,
-    slidesToScroll: 2,
+    slidesToScroll: 3,
     autoplay: true,
     autoplaySpeed: 4000,
     draggable: false,
+    pauseOnDotsHover: true,
+    slidesToShow: 3,
+    variableWidth: true,
   };
   return (
     <div
@@ -41,7 +43,7 @@ function List({ title, axiosURL }) {
             : "bg-results"
         }`}
     >
-      <div className="flex items-center px-6 w-full h-full ">
+      <div className="flex items-center px-6 ">
         <h2 className="text-black uppercase font-semibold text-2xl p-4 mr-10">
           {title}
         </h2>
@@ -65,7 +67,7 @@ function List({ title, axiosURL }) {
           </button>
         </div>
       </div>
-      <div className="my-6">
+      <div className="my-6 ">
         {loading ? (
           <div className="flex justify-center items-center w-full flex-col ">
             <PulseLoader color="gray" size={8} speedMultiplier={1.5} />

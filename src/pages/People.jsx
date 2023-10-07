@@ -45,15 +45,15 @@ function PeoplePage() {
         </div>
       ) : (
         <>
-          <div className="px-6 grid grid-cols-4 gap-6">
+          <div className="px-6 grid grid-cols-5 gap-4">
             {person?.results?.map((item, index) => (
               <div
                 key={index}
-                className="w-full h-full border border-slate-100 shadow-md shadow-slate-300 rounded-lg cursor-pointer relative mb-10 group overflow-hidden "
+                className="w-full h-auto shadow-md shadow-slate-300 rounded-lg cursor-pointer relative mb-2 overflow-hidden hover:translate-y-[-4px] hover:shadow-md hover:shadow-slate-400 "
                 onClick={() => handleClick(item?.id)}
               >
                 <img
-                  className="w-full h-auto shadow-lg shadow-blue-400/70 block rounded-t-lg object-cover group-hover:scale-[101%]  group-hover:shadow-xl "
+                  className="w-full h-auto rounded-t-lg object-cover "
                   loading="lazy"
                   src={
                     item.profile_path
@@ -62,7 +62,7 @@ function PeoplePage() {
                   }
                   alt={item.name}
                 />
-                <p className=" text-sm font-bold text-center py-4 group-hover:text-sky-500 ">
+                <p className=" text-sm font-bold text-center py-5 ">
                   {item.name}
                 </p>
               </div>

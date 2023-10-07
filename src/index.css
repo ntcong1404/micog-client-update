@@ -28,8 +28,8 @@ html *::-webkit-scrollbar-thumb {
 .bg-list {
   background-image: url(../src/assets/bgRow.svg);
   background-repeat: no-repeat;
-  background-position: 50% 200px;
-  background-position: -40% 200px;
+  background-position: 50% 170px;
+  background-position: -40% 170px;
 }
 .bg-results {
   background-image: url(../src/assets/lightBlue.svg);
