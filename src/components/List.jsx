@@ -31,6 +31,7 @@ function List({ title, axiosURL }) {
     pauseOnDotsHover: true,
     slidesToShow: 3,
     variableWidth: true,
+    pauseOnHover: true,
   };
   return (
     <div
@@ -47,10 +48,10 @@ function List({ title, axiosURL }) {
         <h2 className="text-black uppercase font-semibold text-2xl p-4 mr-10">
           {title}
         </h2>
-        <div className="inline-flex h-8 ml-4 rounded-full border-[2px] border-slate-500">
+        <div className="inline-flex h-8 ml-4 rounded-full border-[1px] border-slate-300">
           <button
             className={`text-sm font-semibold px-4 py-1 rounded-3xl ${
-              time === "day" ? `bg-slate-300 text-black` : ``
+              time === "day" ? `bg-slate-200 text-black` : ``
             }`}
             onClick={() => setTime("day")}
           >
@@ -59,7 +60,7 @@ function List({ title, axiosURL }) {
 
           <button
             className={`text-sm font-semibold px-4 py-1 rounded-3xl ${
-              time === "week" ? `bg-slate-300 text-black` : ``
+              time === "week" ? `bg-slate-200 text-black` : ``
             }`}
             onClick={() => setTime("week")}
           >

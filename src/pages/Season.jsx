@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import * as Service from "../apiService/Service";
 import { useState, useEffect } from "react";
 import { PuffLoader } from "react-spinners";
+import { noImage } from "../assets";
 
 function SeasonPage() {
   const { id, number } = useParams();
@@ -33,7 +34,11 @@ function SeasonPage() {
             <div className="grid grid-cols-9 gap-8 items-center">
               <img
                 className="col-span-1 w-full h-auto object-cover rounded-md"
-                src={`https://image.tmdb.org/t/p/original/${season?.poster_path}`}
+                src={
+                  season?.poster_path
+                    ? `https://image.tmdb.org/t/p/original/${season?.poster_path}`
+                    : noImage
+                }
                 alt={season?.name}
               />
 
@@ -57,7 +62,11 @@ function SeasonPage() {
                 >
                   <img
                     className="col-span-2 w-full h-auto rounded-l-md"
-                    src={`https://image.tmdb.org/t/p/original/${epi?.still_path}`}
+                    src={
+                      epi?.still_path
+                        ? `https://image.tmdb.org/t/p/original/${epi?.still_path}`
+                        : noImage
+                    }
                     alt={epi?.name}
                   />
                   <div className="col-span-6 ">

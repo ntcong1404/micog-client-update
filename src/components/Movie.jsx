@@ -11,34 +11,38 @@ const Movie = ({ list, item, type }) => {
   return (
     <>
       {list ? (
-        <div className="w-[350px] h-[230px] inline-block relative p-3 ">
+        <div className="w-[350px] relative p-2 ">
           <img
             onClick={() => handlePlay(item?.media_type, item?.id)}
-            className="w-full h-full shadow-lg shadow-blue-400/70  cursor-pointer block rounded-lg object-cover hover:scale-105  "
+            className="w-full h-full cursor-pointer block rounded-lg object-cover hover:scale-105  "
             loading="lazy"
-            src={`https://image.tmdb.org/t/p/w500/${
-              item?.backdrop_path ? item.backdrop_path : item.profile_path
-            }`}
+            src={
+              item?.backdrop_path
+                ? `https://image.tmdb.org/t/p/w500/${item.backdrop_path}`
+                : item.profile_path
+                ? `https://image.tmdb.org/t/p/w500/${item.profile_path}`
+                : noImage
+            }
             alt={item?.title ? item.title : item.original_name}
           />
           {item?.media_type === "person" ? (
             ""
           ) : (
             <>
-              <div className=" absolute bottom-6 left-6">
+              <div className=" absolute bottom-12 left-4">
                 <div className="flex items-center justify-center overflow-hidden bg-slate-900 rounded-full">
                   <svg
-                    className="w-12 h-12 transform translate-x-1 translate-y-1"
+                    className="w-10 h-10 transform translate-x-1 translate-y-1"
                     aria-hidden="true"
                   >
                     <circle
                       className="text-gray-300"
-                      strokeWidth="3"
+                      strokeWidth="2"
                       stroke="currentColor"
                       fill="transparent"
-                      r="18"
-                      cx="20"
-                      cy="20"
+                      r="15"
+                      cx="16"
+                      cy="16"
                     />
                     <circle
                       className={
@@ -53,7 +57,7 @@ const Movie = ({ list, item, type }) => {
                             : ""
                         }`
                       }
-                      strokeWidth="3"
+                      strokeWidth="2"
                       strokeDasharray={18 * 2 * Math.PI}
                       strokeDashoffset={
                         18 * 2 * Math.PI - (rate / 10) * (18 * 2 * Math.PI)
@@ -61,17 +65,17 @@ const Movie = ({ list, item, type }) => {
                       strokeLinecap="round"
                       stroke="currentColor"
                       fill="transparent"
-                      r="18"
-                      cx="20"
-                      cy="20"
+                      r="15"
+                      cx="16"
+                      cy="16"
                     />
                   </svg>
-                  <span className="absolute text-xs font-semibold text-white">{`${
+                  <span className="absolute text-[10px] font-semibold text-white">{`${
                     rate * 10
                   }%`}</span>
                 </div>
               </div>
-              <div className="absolute top-6 right-6">
+              <div className="absolute top-4 right-4">
                 <Like slug={item.media_type} detail={item} />
               </div>
             </>
@@ -87,15 +91,13 @@ const Movie = ({ list, item, type }) => {
             className=" w-full h-full mb-2 rounded-md cursor-pointer relative overflow-hidden shadow-md shadow-slate-300 hover:translate-y-[-4px] hover:shadow-md hover:shadow-slate-400 "
           >
             <img
-              className="w-full h-auto mb-2 block rounded-t-md object-cover "
+              className="w-full h-auto mb-2 block rounded-t-md object-cover shadow-md shadow-slate-300 "
               loading="lazy"
               src={
-                item?.backdrop_path || item?.profile_path
-                  ? `https://image.tmdb.org/t/p/w500/${
-                      item?.backdrop_path
-                        ? item.backdrop_path
-                        : item.profile_path
-                    }`
+                item?.backdrop_path
+                  ? `https://image.tmdb.org/t/p/w500/${item.backdrop_path}`
+                  : item.profile_path
+                  ? `https://image.tmdb.org/t/p/w500/${item.profile_path}`
                   : noImage
               }
               alt={item?.title ? item.title : item.original_name}
@@ -106,17 +108,17 @@ const Movie = ({ list, item, type }) => {
               <div className=" absolute bottom-[54px] left-2 ">
                 <div className="flex items-center justify-center overflow-hidden bg-slate-900 rounded-full">
                   <svg
-                    className="w-[44px] h-[44px] transform translate-x-1 translate-y-1"
+                    className="w-10 h-10 transform translate-x-1 translate-y-1"
                     aria-hidden="true"
                   >
                     <circle
                       className="text-gray-300"
-                      strokeWidth="3"
+                      strokeWidth="2"
                       stroke="currentColor"
                       fill="transparent"
-                      r="16"
-                      cx="18"
-                      cy="18"
+                      r="15"
+                      cx="16"
+                      cy="16"
                     />
                     <circle
                       className={
@@ -131,7 +133,7 @@ const Movie = ({ list, item, type }) => {
                             : ""
                         }`
                       }
-                      strokeWidth="3"
+                      strokeWidth="2"
                       strokeDasharray={16 * 2 * Math.PI}
                       strokeDashoffset={
                         16 * 2 * Math.PI - (rate / 10) * (16 * 2 * Math.PI)
@@ -139,12 +141,12 @@ const Movie = ({ list, item, type }) => {
                       strokeLinecap="round"
                       stroke="currentColor"
                       fill="transparent"
-                      r="16"
-                      cx="18"
-                      cy="18"
+                      r="15"
+                      cx="16"
+                      cy="16"
                     />
                   </svg>
-                  <span className="absolute text-xs font-semibold text-white">{`${
+                  <span className="absolute text-[10px] font-semibold text-white">{`${
                     rate * 10
                   }%`}</span>
                 </div>

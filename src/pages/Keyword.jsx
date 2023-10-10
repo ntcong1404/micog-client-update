@@ -5,22 +5,22 @@ import PuffLoader from "react-spinners/PuffLoader";
 import { noImage } from "../assets";
 import Pagination from "../components/Pagination";
 
-function GenrePage() {
-  const { slug, id, genre } = useParams();
+function KeywordPage() {
+  const { slug, id, keyword } = useParams();
   const navigate = useNavigate();
 
   const [movies, setMovies] = useState([]);
   const [page, setPage] = useState(1);
   const [type, setType] = useState(slug);
   const [loading, setLoading] = useState(true);
-
+  console.log(movies);
   const handleClick = (id) => {
     navigate(`/details/${type}/${id}`);
   };
   useEffect(() => {
     setLoading(true);
     window.scroll(0, 0);
-    Service.Discover({ item: type, genres: id, page: page })
+    Service.Discover({ item: type, keywords: id, page: page })
       .then((res) => {
         setMovies(res);
         setLoading(false);
@@ -31,7 +31,7 @@ function GenrePage() {
   return (
     <>
       <div className="flex items-center justify-between px-14 text-2xl font-bold text-gray-500 bg-results w-full h-[120px] bg-slate-800">
-        <p className="text-white text-3xl">{genre}</p>
+        <p className="text-white text-3xl">{keyword}</p>
         <p>
           {type === "tvc"
             ? `${movies?.total_results} shows`
@@ -123,4 +123,4 @@ function GenrePage() {
   );
 }
 
-export default GenrePage;
+export default KeywordPage;

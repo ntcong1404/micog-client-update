@@ -15,7 +15,6 @@ function Profile() {
 
   const handleChooseFileAvatar = (e) => {
     if (e.target.files && e.target.files[0]) {
-      console.log(e.target.files[0]);
       setImg(URL.createObjectURL(e.target.files[0]));
     }
     return () => URL.revokeObjectURL(e.target.files[0]);

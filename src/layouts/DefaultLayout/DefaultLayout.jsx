@@ -29,7 +29,7 @@ function DefaultLayout({ route, children }) {
   return (
     <div>
       <Header />
-      <div className="pt-[76px]">
+      <div className="pt-[76px] overflow-hidden">
         {children}
         {isVisible ? (
           <button

@@ -1,8 +1,12 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
-import { NavLink, useNavigate, matchPath, useLocation } from "react-router-dom";
+import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import { logo, movieIcon, personIcon, seriesIcon } from "../../../assets";
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowUp,
+  faChevronUp,
+  faMagnifyingGlass,
+} from "@fortawesome/free-solid-svg-icons";
 import { UserAuth } from "../../../context/AuthContext";
 
 function Header() {
@@ -37,15 +41,18 @@ function Header() {
       navigate(`/search/${searchValue}`);
     }
   };
-
   const isMovie = (pathname) => {
-    return pathname.startsWith("/movie/");
+    return (
+      pathname.startsWith("/movie/") || pathname.startsWith("/details/movie/")
+    );
   };
   const isTv = (pathname) => {
-    return pathname.startsWith("/tv/");
+    return pathname.startsWith("/tv/") || pathname.startsWith("/details/tv/");
   };
   const isPres = (pathname) => {
-    return pathname.startsWith("/person/");
+    return (
+      pathname.startsWith("/person/") || pathname.startsWith("/details/person/")
+    );
   };
 
   return (
@@ -65,13 +72,19 @@ function Header() {
                 isActive={() => {
                   return isMovie(location.pathname);
                 }}
-                className={`flex items-center text-sm mr-10 px-3 py-2 uppercase cursor-pointer ${
-                  isMovie(location.pathname)
-                    ? "border-b-[1px] border-red-500"
-                    : ""
-                }`}
+                className={`relative flex items-center justify-center text-sm mr-10 px-1 py-2 uppercase cursor-pointer `}
               >
-                <img className="w-[26px] mx-1" src={movieIcon} alt="" />
+                {isMovie(location.pathname) ? (
+                  <div className="absolute bottom-[-12px] ">
+                    <FontAwesomeIcon
+                      className="text-slate-500 text-[10px]"
+                      icon={faChevronUp}
+                    />
+                  </div>
+                ) : (
+                  ""
+                )}
+                <img className="w-[22px] mx-1 " src={movieIcon} alt="" />
                 movies
               </NavLink>
               <NavLink
@@ -79,11 +92,19 @@ function Header() {
                 isActive={() => {
                   return isTv(location.pathname);
                 }}
-                className={`flex items-center text-sm mr-10 px-3 py-2 uppercase cursor-pointer ${
-                  isTv(location.pathname) ? "border-b-[1px] border-red-500" : ""
-                }`}
+                className={`relative flex items-center justify-center text-sm mr-10 px-1 py-2 uppercase cursor-pointer  `}
               >
-                <img className="w-[26px] mx-1 " src={seriesIcon} alt="" />
+                {isTv(location.pathname) ? (
+                  <div className="absolute bottom-[-12px] ">
+                    <FontAwesomeIcon
+                      className="text-slate-500 text-[10px]"
+                      icon={faChevronUp}
+                    />
+                  </div>
+                ) : (
+                  ""
+                )}
+                <img className="w-[22px] mx-1  " src={seriesIcon} alt="" />
                 tv shows
               </NavLink>
               <NavLink
@@ -91,13 +112,19 @@ function Header() {
                 isActive={() => {
                   return isPres(location.pathname);
                 }}
-                className={`flex items-center text-sm mr-10 px-3 py-2 uppercase cursor-pointer ${
-                  isPres(location.pathname)
-                    ? "border-b-[1px] border-red-500"
-                    : ""
-                }`}
+                className={`relative flex items-center justify-center text-sm mr-10 px-1 py-2 uppercase cursor-pointer  `}
               >
-                <img className="w-[24px] mx-1" src={personIcon} alt="" />
+                {isPres(location.pathname) ? (
+                  <div className="absolute bottom-[-12px] ">
+                    <FontAwesomeIcon
+                      className="text-slate-500 text-[10px]"
+                      icon={faChevronUp}
+                    />
+                  </div>
+                ) : (
+                  ""
+                )}
+                <img className="w-[20px] mx-1 " src={personIcon} alt="" />
                 people
               </NavLink>
             </div>
@@ -147,7 +174,7 @@ function Header() {
                 </NavLink>
                 <button
                   onClick={handleLogout}
-                  className=" px-6 py-2 rounded cursor-pointer text-white hover:bg-gradient-to-t hover:from-gray-900 hover:to-transparent "
+                  className=" px-6 py-2 rounded cursor-pointer text-white hover:bg-slate-800 "
                 >
                   Logout
                 </button>

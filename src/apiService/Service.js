@@ -74,7 +74,7 @@ export const Genres = async ({ item }) => {
   }
 };
 
-export const Discover = async ({ item, genres, page }) => {
+export const Discover = async ({ item, genres, keywords, page }) => {
   try {
     const res = await request.get(`discover/${item}`, {
       params: {
@@ -83,6 +83,7 @@ export const Discover = async ({ item, genres, page }) => {
         language: "en-US",
         page: page,
         with_genres: genres,
+        with_keywords: keywords,
       },
     });
     return res;

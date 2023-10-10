@@ -47,7 +47,7 @@ function Main() {
               <div className="mt-14 mb-6">
                 <button
                   onClick={() => handlePlay(movie?.id)}
-                  className="rounded-sm text-lg font-semibold bg-red-600 text-white py-2 px-5 border border-black hover:scale-105"
+                  className="rounded text-sm font-semibold bg-red-600 text-white py-2 px-5 hover:scale-105"
                 >
                   Learn More
                 </button>

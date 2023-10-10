@@ -9,10 +9,16 @@ function PlayerTv({ detail, id }) {
 
   const [season, setSeason] = useState([]);
   const [active, setActive] = useState();
+  const [keyword, setKeyword] = useState([]);
+  console.log(keyword);
 
   const handleClickGenre = (id, name) => {
     navigate(`/genre/${id}/${name}/tv`);
   };
+  const handleClickKeyword = (id, name) => {
+    navigate(`/keyword/${id}/${name}/tv`);
+  };
+
   useEffect(() => {
     window.scroll(0, 0);
     Service.Season({
@@ -22,6 +28,16 @@ function PlayerTv({ detail, id }) {
       .then((res) => {
         setSeason(res);
         setActive(detail?.last_episode_to_air?.episode_number);
+      })
+      .catch((err) => console.log(err));
+    Service.DetailsOptions({
+      type: "tv",
+      id: id,
+      option: "keywords",
+      page: 1,
+    })
+      .then((res) => {
+        setKeyword(res?.results);
       })
       .catch((err) => console.log(err));
   }, [id, number, detail]);
@@ -68,6 +84,20 @@ function PlayerTv({ detail, id }) {
             {detail?.first_air_date}
           </p>
         </div>
+        <div className=" my-4 text-sm text-gray-600 ">
+          <p className="mr-6 text-black">Keywords </p>
+          <div className="flex flex-wrap my-2">
+            {keyword?.map((key, index) => (
+              <p
+                onClick={() => handleClickKeyword(key?.id, key?.name)}
+                key={index}
+                className=" m-1 py-[3px] px-[6px] text-sm hover:bg-slate-300 rounded-3xl border border-slate-300 cursor-pointer"
+              >
+                {key?.name}
+              </p>
+            ))}
+          </div>
+        </div>
         <div className="mb-2 text-sm text-gray-600">
           <span className="mr-3 text-black font-semibold">Season : </span>
           <span className="py-1 text-base font-normal text-slate-700">
@@ -87,8 +117,8 @@ function PlayerTv({ detail, id }) {
               <div
                 onClick={() => setActive(epi.episode_number)}
                 key={index}
-                className={`relative flex flex-col text-center mr-4 mb-6 cursor-pointer rounded-md shadow-md shadow-slate-300 hover:translate-y-[-2px] ${
-                  active === epi.episode_number ? "shadow-slate-950" : ""
+                className={`relative flex flex-col text-center mr-4 mb-6 cursor-pointer rounded-md shadow-md shadow-slate-300 hover:translate-y-[-4px] hover:shadow-md hover:shadow-slate-400  ${
+                  active === epi.episode_number ? "shadow-slate-400" : ""
                 }`}
               >
                 <div className="w-[240px] h-full ">

@@ -357,7 +357,11 @@ function MovieDetail({ id }) {
             >
               <div className="w-full h-[260px]">
                 <img
-                  src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
+                  src={
+                    movie.poster_path
+                      ? `https://image.tmdb.org/t/p/original/${movie.poster_path}`
+                      : noImage
+                  }
                   className="w-full h-full object-cover rounded-md mr-4 group-hover:scale-[102%]"
                   loading="lazy"
                 />

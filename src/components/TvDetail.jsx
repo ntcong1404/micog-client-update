@@ -5,6 +5,7 @@ import Like from "./Like";
 import AddList from "./AddList";
 import PuffLoader from "react-spinners/PuffLoader";
 import dayjs from "dayjs";
+import { noImage } from "../assets";
 
 function TvDetail({ id }) {
   const navigate = useNavigate();
@@ -14,8 +15,6 @@ function TvDetail({ id }) {
   const [similar, setSimilar] = useState([]);
   const [videos, setVideos] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  console.log(detail);
 
   const handlePlayer = (id) => {
     navigate(`/player/tv/${id}`);
@@ -282,7 +281,11 @@ function TvDetail({ id }) {
               >
                 <div className="w-[140px] h-auto ">
                   <img
-                    src={`https://image.tmdb.org/t/p/original/${cast.profile_path}`}
+                    src={
+                      cast.profile_path
+                        ? `https://image.tmdb.org/t/p/original/${cast.profile_path}`
+                        : noImage
+                    }
                     className="w-full h-full rounded-md group-hover:blur-[2px]"
                     loading="lazy"
                   />
@@ -347,7 +350,11 @@ function TvDetail({ id }) {
             >
               <div className="w-full h-[260px]">
                 <img
-                  src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
+                  src={
+                    movie.poster_path
+                      ? `https://image.tmdb.org/t/p/original/${movie.poster_path}`
+                      : noImage
+                  }
                   className="w-full h-full object-cover rounded-md mr-4 group-hover:scale-[102%]"
                   loading="lazy"
                 />
