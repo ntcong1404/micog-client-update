@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { noImage } from "../assets";
 import Like from "./Like";
 
-const Movie = ({ list, item, type }) => {
+const Movie = ({ list, genre, item, type }) => {
   const navigate = useNavigate();
   var rate = Math.round((item?.vote_average + Number.EPSILON) * 10) / 10;
   const handlePlay = (type, id) => {
@@ -84,6 +84,52 @@ const Movie = ({ list, item, type }) => {
             {item?.title ? item.title : item.original_name}
           </p>
         </div>
+      ) : genre ? (
+        <>
+          {item?.results?.length === 0 ? (
+            <>
+              {type === "movie" ? (
+                <p>No movies found.</p>
+              ) : (
+                <p>No TV shows found.</p>
+              )}
+            </>
+          ) : (
+            <div className="grid grid-cols-5 gap-4">
+              {item?.results?.map((movie, index) => (
+                <div
+                  key={index}
+                  className=" mb-3 rounded-md overflow-hidden shadow-md shadow-slate-300 cursor-pointer hover:translate-y-[-4px] hover:shadow-md hover:shadow-slate-400 "
+                  onClick={() => handlePlay(type, movie?.id)}
+                >
+                  <div className=" flex flex-col items-center ">
+                    <div className="w-full h-auto">
+                      <img
+                        loading="lazy"
+                        className="w-full h-full object-cover rounded-t-md "
+                        src={
+                          movie.poster_path || movie.profile_path
+                            ? `https://image.tmdb.org/t/p/w500/${
+                                movie.poster_path
+                                  ? movie.poster_path
+                                  : movie.profile_path
+                              }`
+                            : noImage
+                        }
+                      />
+                    </div>
+
+                    <div className="p-2 m-2">
+                      <h2 className="text-lg font-bold text-center">
+                        {movie.title ? movie.title : movie.original_name}
+                      </h2>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </>
       ) : (
         <div className="relative">
           <div

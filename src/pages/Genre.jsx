@@ -1,22 +1,17 @@
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import * as Service from "../apiService/Service";
 import PuffLoader from "react-spinners/PuffLoader";
-import { noImage } from "../assets";
+import Movie from "../components/Movie";
 import Pagination from "../components/Pagination";
 
 function GenrePage() {
   const { slug, id, genre } = useParams();
-  const navigate = useNavigate();
-
   const [movies, setMovies] = useState([]);
   const [page, setPage] = useState(1);
   const [type, setType] = useState(slug);
   const [loading, setLoading] = useState(true);
 
-  const handleClick = (id) => {
-    navigate(`/details/${type}/${id}`);
-  };
   useEffect(() => {
     setLoading(true);
     window.scroll(0, 0);
@@ -72,49 +67,7 @@ function GenrePage() {
       ) : (
         <>
           <div className="px-6 my-6 ">
-            {movies?.results?.length === 0 ? (
-              <>
-                {type === "movie" ? (
-                  <p>No movies found.</p>
-                ) : (
-                  <p>No TV shows found.</p>
-                )}
-              </>
-            ) : (
-              <div className="grid grid-cols-5 gap-4">
-                {movies?.results?.map((movie, index) => (
-                  <div
-                    key={index}
-                    className=" mb-3 rounded-md overflow-hidden shadow-md shadow-slate-300 cursor-pointer hover:translate-y-[-4px] hover:shadow-md hover:shadow-slate-400 "
-                    onClick={() => handleClick(movie?.id)}
-                  >
-                    <div className=" flex flex-col items-center ">
-                      <div className="w-full h-auto">
-                        <img
-                          loading="lazy"
-                          className="w-full h-full object-cover rounded-t-md "
-                          src={
-                            movie.poster_path || movie.profile_path
-                              ? `https://image.tmdb.org/t/p/w500/${
-                                  movie.poster_path
-                                    ? movie.poster_path
-                                    : movie.profile_path
-                                }`
-                              : noImage
-                          }
-                        />
-                      </div>
-
-                      <div className="p-2 m-2">
-                        <h2 className="text-lg font-bold text-center">
-                          {movie.title ? movie.title : movie.original_name}
-                        </h2>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
+            <Movie genre item={movies} type={type} />
             <Pagination page={page} setPage={setPage} data={movies} />
           </div>
         </>
