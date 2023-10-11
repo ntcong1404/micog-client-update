@@ -10,7 +10,6 @@ function PlayerTv({ detail, id }) {
   const [season, setSeason] = useState([]);
   const [active, setActive] = useState();
   const [keyword, setKeyword] = useState([]);
-  console.log(keyword);
 
   const handleClickGenre = (id, name) => {
     navigate(`/genre/${id}/${name}/tv`);
@@ -50,7 +49,7 @@ function PlayerTv({ detail, id }) {
           allowFullScreen
           width="100%"
           height="560px"
-          src={`https://embed.smashystream.com/playere.php?tmdb=${id}&season=${detail?.last_episode_to_air?.season_number}&episode=${active}`}
+          src={` https://www.2embed.cc/embedtv/${id}&s=${detail?.last_episode_to_air?.season_number}&e=${active}`}
         ></iframe>
       </div>
       <div className="text-3xl font-bold py-2 my-4 col-span-4 ">
@@ -99,12 +98,12 @@ function PlayerTv({ detail, id }) {
           </div>
         </div>
         <div className="mb-2 text-sm text-gray-600">
-          <span className="mr-3 text-black font-semibold">Season : </span>
-          <span className="py-1 text-base font-normal text-slate-700">
+          <span className="mr-2 text-black font-semibold">Season : </span>
+          <span className="py-1 mr-6 text-sm font-normal text-slate-700">
             {detail?.last_episode_to_air?.season_number}
           </span>
-          <span className="mx-3 text-black font-semibold">Episode : </span>
-          <span className="py-1 text-base font-normal text-slate-700">
+          <span className="mx-2  text-black font-semibold">Episode : </span>
+          <span className="py-1 text-sm font-normal text-slate-700">
             {active}
           </span>
         </div>

@@ -14,7 +14,7 @@ const Movie = ({ list, genre, item, type }) => {
         <div className="w-[350px] relative p-2 ">
           <img
             onClick={() => handlePlay(item?.media_type, item?.id)}
-            className="w-full h-full cursor-pointer block rounded-lg object-cover hover:scale-105  "
+            className="w-full h-auto cursor-pointer block rounded-lg object-cover hover:scale-[102%]"
             loading="lazy"
             src={
               item?.backdrop_path

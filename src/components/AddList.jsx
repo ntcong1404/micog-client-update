@@ -85,7 +85,7 @@ function AddList({ slug, detail }) {
             <FontAwesomeIcon
               onClick={() => setShowList(!showList)}
               icon={faListDots}
-              className=" p-2 cursor-pointer border border-slate-100 text-slate-100  rounded-full"
+              className=" p-2 text-sm cursor-pointer border border-slate-100 text-slate-100  rounded-full"
             />
           )}
           {showList ? (

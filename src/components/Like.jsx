@@ -70,12 +70,12 @@ function Like({ slug, detail }) {
         detail?.id ? (
           <FontAwesomeIcon
             icon={faHeartCircleCheck}
-            className=" p-2 cursor-pointer border border-slate-100 text-red-600 rounded-full"
+            className=" p-2 text-sm cursor-pointer border border-slate-100 text-red-600 rounded-full"
           />
         ) : (
           <FontAwesomeIcon
             icon={faHeartCirclePlus}
-            className=" p-2 cursor-pointer border border-slate-100 text-slate-100  rounded-full"
+            className=" p-2 text-sm cursor-pointer border border-slate-100 text-slate-100  rounded-full"
           />
         )}
       </div>

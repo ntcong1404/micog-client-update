@@ -70,7 +70,7 @@ function PlayerMovie({ detail, id }) {
           allowFullScreen
           width="100%"
           height="560px"
-          src={`https://embed.smashystream.com/playere.php?tmdb=${id}`}
+          src={` https://www.2embed.cc/embed/${id}`}
         ></iframe>
       </div>
       <div className="text-3xl font-bold py-2 my-4 col-span-4 ">
