@@ -36,7 +36,7 @@ function Pagination({ page, setPage, data }) {
         </button>
       )}
       <form className="flex" onSubmit={handleChangePage}>
-        <p className="flex items-center justify-center mt-7 mx-2 px-2 py-1 text-sm font-semibold hover:bg-sky-100 border border-slate-300 rounded-md">{`Page : ${page}`}</p>
+        <p className="flex items-center justify-center mt-7 mx-2 px-2 py-1 text-sm font-semibold border border-slate-300 rounded-md">{`Page : ${page}`}</p>
         <input
           onChange={handleChange}
           placeholder={`in ${data?.total_pages} page`}

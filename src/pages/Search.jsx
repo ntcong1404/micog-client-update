@@ -1,11 +1,7 @@
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import * as Service from "../apiService/Service";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faChevronLeft,
-  faChevronRight,
-} from "@fortawesome/free-solid-svg-icons";
+
 import PuffLoader from "react-spinners/PuffLoader";
 import { noImage } from "../assets";
 import Pagination from "../components/Pagination";
@@ -17,16 +13,11 @@ const filter = [
 ];
 function SearchPage() {
   const { query } = useParams();
-  const navigate = useNavigate();
 
   const [page, setPage] = useState(1);
   const [movies, setMovies] = useState([]);
   const [active, setActive] = useState(filter[0].filter);
   const [loading, setLoading] = useState(true);
-
-  const handleClick = (id) => {
-    navigate(`/details/${active}/${id}`);
-  };
 
   useEffect(() => {
     setLoading(true);
@@ -76,10 +67,10 @@ function SearchPage() {
           <>
             <div className="grid grid-cols-2 gap-6">
               {movies?.results?.map((movie, index) => (
-                <div
+                <a
+                  href={`/details/${active}/${movie?.id}`}
                   key={index}
                   className=" mb-3 rounded-md overflow-hidden cursor-pointer shadow-md shadow-slate-300 hover:translate-y-[-4px] hover:shadow-md hover:shadow-slate-400 "
-                  onClick={() => handleClick(movie?.id)}
                 >
                   <div className=" flex items-center ">
                     <div>
@@ -126,7 +117,7 @@ function SearchPage() {
                       </div>
                     </div>
                   </div>
-                </div>
+                </a>
               ))}
             </div>
           </>

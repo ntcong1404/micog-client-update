@@ -1,7 +1,6 @@
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
@@ -10,19 +9,9 @@ import Movie from "./Movie";
 import * as Service from "../apiService/Service";
 
 function PlayerMovie({ detail, id }) {
-  const navigate = useNavigate();
   const [recom, setRecom] = useState([]);
   const [keyword, setKeyword] = useState([]);
-  const handleClickGenre = (id, name) => {
-    navigate(`/genre/${id}/${name}/movie`);
-  };
-  const handleClickCollection = (id, name) => {
-    navigate(`/collection/${id}/${name}`);
-  };
 
-  const handleClickKeyword = (id, name) => {
-    navigate(`/keyword/${id}/${name}/movie`);
-  };
   useEffect(() => {
     window.scroll(0, 0);
     Service.DetailsOptions({
@@ -81,13 +70,13 @@ function PlayerMovie({ detail, id }) {
           <p className="mr-6 text-black font-semibold">Gernres </p>
           <div className="flex flex-wrap my-2">
             {detail?.genres?.map((genre, index) => (
-              <p
-                onClick={() => handleClickGenre(genre.id, genre.name)}
+              <a
+                href={`/genre/${genre.id}/${genre.name}/movie`}
                 key={index}
                 className="mr-3 my-1 py-1 px-2 cursor-pointer hover:bg-slate-300 rounded-3xl bg-slate-200"
               >
                 {genre.name}
-              </p>
+              </a>
             ))}
           </div>
         </div>
@@ -105,33 +94,28 @@ function PlayerMovie({ detail, id }) {
           <p className="mr-6 text-black">Keywords </p>
           <div className="flex flex-wrap my-2">
             {keyword?.map((key, index) => (
-              <p
-                onClick={() => handleClickKeyword(key?.id, key?.name)}
+              <a
+                href={`/keyword/${key?.id}/${key?.name}/movie`}
                 key={index}
                 className=" m-1 py-[3px] px-[6px] text-sm hover:bg-slate-300 rounded-3xl border border-slate-300 cursor-pointer"
               >
                 {key?.name}
-              </p>
+              </a>
             ))}
           </div>
         </div>
         {detail?.belongs_to_collection ? (
           <div className="mb-2 text-sm text-gray-600">
-            <p className="mr-6 text-black font-semibold">
+            <p className="mr-6 mb-2 text-black font-semibold">
               Belongs to collection
             </p>
-            <p
-              onClick={() =>
-                handleClickCollection(
-                  detail?.belongs_to_collection?.id,
-                  detail?.belongs_to_collection?.name
-                )
-              }
+            <a
+              href={`/collection/${detail?.belongs_to_collection?.id}/${detail?.belongs_to_collection?.name}`}
               className="py-2 text-sm cursor-pointer text-slate-700 hover:text-slate-500 "
             >
               {detail?.belongs_to_collection?.name}
               <FontAwesomeIcon className="mx-4 w-2 h-3" icon={faArrowRight} />
-            </p>
+            </a>
           </div>
         ) : (
           <></>

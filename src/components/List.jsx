@@ -27,7 +27,7 @@ function List({ title, axiosURL }) {
     slidesToScroll: 3,
     autoplay: true,
     autoplaySpeed: 4000,
-    draggable: false,
+    draggable: true,
     pauseOnDotsHover: true,
     slidesToShow: 3,
     variableWidth: true,

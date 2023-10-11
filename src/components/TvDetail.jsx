@@ -19,9 +19,6 @@ function TvDetail({ id }) {
   const handlePlayer = (id) => {
     navigate(`/player/tv/${id}`);
   };
-  const handleClickGenre = (id, name) => {
-    navigate(`/genre/${id}/${name}/tv`);
-  };
   const handleClickCast = (id) => {
     navigate(`/details/person/${id}`);
   };
@@ -125,15 +122,13 @@ function TvDetail({ id }) {
                         {/* genres */}
                         <div className="flex text-sm text-gray-400 ">
                           {detail?.genres?.map((genre, index) => (
-                            <p
-                              onClick={() =>
-                                handleClickGenre(genre.id, genre.name)
-                              }
+                            <a
+                              href={`/genre/${genre.id}/${genre.name}/tv`}
                               key={index}
                               className="mr-3 py-1 cursor-pointer hover:text-slate-200"
                             >
                               {genre.name}
-                            </p>
+                            </a>
                           ))}
                         </div>
                       </div>

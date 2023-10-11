@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import * as Service from "../apiService/Service";
 import { useEffect, useState } from "react";
 import { noImage } from "../assets/index";
@@ -7,19 +6,11 @@ import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 
 function PlayerTv({ detail, id }) {
-  const navigate = useNavigate();
   const number = detail?.last_episode_to_air?.season_number;
 
   const [season, setSeason] = useState([]);
   const [active, setActive] = useState();
   const [keyword, setKeyword] = useState([]);
-
-  const handleClickGenre = (id, name) => {
-    navigate(`/genre/${id}/${name}/tv`);
-  };
-  const handleClickKeyword = (id, name) => {
-    navigate(`/keyword/${id}/${name}/tv`);
-  };
 
   useEffect(() => {
     window.scroll(0, 0);
@@ -78,13 +69,13 @@ function PlayerTv({ detail, id }) {
           <p className="mr-6 text-black font-semibold">Gernres </p>
           <div className="flex flex-wrap my-2">
             {detail?.genres?.map((genre, index) => (
-              <p
-                onClick={() => handleClickGenre(genre.id, genre.name)}
+              <a
+                href={`/genre/${genre.id}/${genre.name}/tv`}
                 key={index}
                 className="mr-3 my-1 py-1 px-2 cursor-pointer hover:bg-slate-300 rounded-3xl bg-slate-200"
               >
                 {genre.name}
-              </p>
+              </a>
             ))}
           </div>
         </div>
@@ -104,13 +95,13 @@ function PlayerTv({ detail, id }) {
           <p className="mr-6 text-black">Keywords </p>
           <div className="flex flex-wrap my-2">
             {keyword?.map((key, index) => (
-              <p
-                onClick={() => handleClickKeyword(key?.id, key?.name)}
+              <a
+                href={`/keyword/${key?.id}/${key?.name}/tv`}
                 key={index}
                 className=" m-1 py-[3px] px-[6px] text-sm hover:bg-slate-300 rounded-3xl border border-slate-300 cursor-pointer"
               >
                 {key?.name}
-              </p>
+              </a>
             ))}
           </div>
         </div>

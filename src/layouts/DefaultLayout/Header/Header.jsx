@@ -46,17 +46,13 @@ function Header() {
     }
   };
   const isMovie = (pathname) => {
-    return (
-      pathname.startsWith("/movie/") || pathname.startsWith("/details/movie/")
-    );
+    return pathname.includes("/movie");
   };
   const isTv = (pathname) => {
-    return pathname.startsWith("/tv/") || pathname.startsWith("/details/tv/");
+    return pathname.includes("/tv");
   };
   const isPres = (pathname) => {
-    return (
-      pathname.startsWith("/person/") || pathname.startsWith("/details/person/")
-    );
+    return pathname.includes("/person");
   };
 
   return (
@@ -79,9 +75,9 @@ function Header() {
                 className={`relative flex items-center justify-center text-sm mr-10 px-1 py-2 uppercase cursor-pointer `}
               >
                 {isMovie(location.pathname) ? (
-                  <div className="absolute bottom-[-8px] ">
+                  <div className="absolute bottom-[12px] left-0">
                     <FontAwesomeIcon
-                      className="text-green-300 text-[6px]"
+                      className="text-green-300 text-[4px] opacity-80"
                       icon={faDotCircle}
                     />
                   </div>
@@ -99,9 +95,9 @@ function Header() {
                 className={`relative flex items-center justify-center text-sm mr-10 px-1 py-2 uppercase cursor-pointer  `}
               >
                 {isTv(location.pathname) ? (
-                  <div className="absolute bottom-[-8px] ">
+                  <div className="absolute bottom-[12px] left-0">
                     <FontAwesomeIcon
-                      className="text-green-300 text-[6px]"
+                      className="text-green-300 text-[4px] opacity-80"
                       icon={faDotCircle}
                     />
                   </div>
@@ -119,9 +115,9 @@ function Header() {
                 className={`relative flex items-center justify-center text-sm mr-10 px-1 py-2 uppercase cursor-pointer  `}
               >
                 {isPres(location.pathname) ? (
-                  <div className="absolute bottom-[-8px] ">
+                  <div className="absolute bottom-[12px] left-0">
                     <FontAwesomeIcon
-                      className="text-green-300 text-[6px]"
+                      className="text-green-300 text-[4px] opacity-80"
                       icon={faDotCircle}
                     />
                   </div>

@@ -289,8 +289,10 @@ function PersonDetail({ id }) {
                     <div className="col-span-1">
                       <FontAwesomeIcon className="" icon={faArrowRight} />
                     </div>
-                    <div
-                      onClick={() => handleClick(item.id)}
+                    <a
+                      href={`/details/${
+                        active === "movie_credits" ? "movie" : "tv"
+                      }/${item.id}`}
                       className="col-span-9 font-semibold cursor-pointer hover:text-sky-600"
                     >
                       {item.title ? item.title : item.name ? item.name : " "}
@@ -305,7 +307,7 @@ function PersonDetail({ id }) {
                           ? item.original_name
                           : ""}
                       </div>
-                    </div>
+                    </a>
                   </div>
                 ))}
               </div>
@@ -320,15 +322,17 @@ function PersonDetail({ id }) {
                     <div className="col-span-1">
                       <FontAwesomeIcon className="" icon={faArrowRight} />
                     </div>
-                    <div
-                      onClick={() => handleClick(item.id)}
+                    <a
+                      href={`/details/${
+                        active === "movie_credits" ? "movie" : "tv"
+                      }/${item.id}`}
                       className="col-span-9 font-semibold cursor-pointer hover:text-sky-600"
                     >
                       {item.title}{" "}
                       <div className="text-base font-medium ">
                         ...{item.job}
                       </div>
-                    </div>
+                    </a>
                   </div>
                 ))}
               </div>
