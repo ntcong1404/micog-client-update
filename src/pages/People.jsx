@@ -1,26 +1,17 @@
 import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import * as Service from "../apiService/Service";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faChevronLeft,
-  faChevronRight,
-} from "@fortawesome/free-solid-svg-icons";
+
 import PuffLoader from "react-spinners/PuffLoader";
 import { noImage } from "../assets";
 import Pagination from "../components/Pagination";
 
 function PeoplePage() {
   const { slug } = useParams();
-  const navigate = useNavigate();
 
   const [person, setPerson] = useState([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
-
-  const handleClick = (id) => {
-    navigate(`/details/person/${id}`);
-  };
 
   useEffect(() => {
     setLoading(true);
@@ -47,10 +38,10 @@ function PeoplePage() {
         <>
           <div className="px-6 grid grid-cols-5 gap-4">
             {person?.results?.map((item, index) => (
-              <div
+              <a
                 key={index}
                 className="w-full h-auto shadow-md shadow-slate-300 rounded-lg cursor-pointer relative mb-2 overflow-hidden hover:translate-y-[-4px] hover:shadow-md hover:shadow-slate-400 "
-                onClick={() => handleClick(item?.id)}
+                href={`/details/person/${item?.id}`}
               >
                 <img
                   className="w-full h-auto rounded-t-lg object-cover "
@@ -65,7 +56,7 @@ function PeoplePage() {
                 <p className=" text-sm font-bold text-center py-5 ">
                   {item.name}
                 </p>
-              </div>
+              </a>
             ))}
           </div>
         </>

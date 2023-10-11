@@ -18,7 +18,7 @@ function MoviePage() {
   const [genres, setGenres] = useState([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
-
+  console.log(movies);
   useEffect(() => {
     Service.Genres({ item: "movie" })
       .then((res) => {
@@ -55,9 +55,7 @@ function MoviePage() {
           <>
             <div className="grid grid-cols-3 gap-4 justify-items-center">
               {movies?.results?.map((movie, index) => (
-                <div key={index}>
-                  <Movie item={movie} type="movie" />
-                </div>
+                <Movie key={index} item={movie} type="movie" />
               ))}
             </div>
           </>

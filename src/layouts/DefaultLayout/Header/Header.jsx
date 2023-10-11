@@ -5,6 +5,10 @@ import { logo, movieIcon, personIcon, seriesIcon } from "../../../assets";
 import {
   faArrowUp,
   faChevronUp,
+  faCircleDot,
+  faCommentDots,
+  faDotCircle,
+  faListDots,
   faMagnifyingGlass,
 } from "@fortawesome/free-solid-svg-icons";
 import { UserAuth } from "../../../context/AuthContext";
@@ -75,10 +79,10 @@ function Header() {
                 className={`relative flex items-center justify-center text-sm mr-10 px-1 py-2 uppercase cursor-pointer `}
               >
                 {isMovie(location.pathname) ? (
-                  <div className="absolute bottom-[-12px] ">
+                  <div className="absolute bottom-[-8px] ">
                     <FontAwesomeIcon
-                      className="text-slate-500 text-[10px]"
-                      icon={faChevronUp}
+                      className="text-green-300 text-[6px]"
+                      icon={faDotCircle}
                     />
                   </div>
                 ) : (
@@ -95,10 +99,10 @@ function Header() {
                 className={`relative flex items-center justify-center text-sm mr-10 px-1 py-2 uppercase cursor-pointer  `}
               >
                 {isTv(location.pathname) ? (
-                  <div className="absolute bottom-[-12px] ">
+                  <div className="absolute bottom-[-8px] ">
                     <FontAwesomeIcon
-                      className="text-slate-500 text-[10px]"
-                      icon={faChevronUp}
+                      className="text-green-300 text-[6px]"
+                      icon={faDotCircle}
                     />
                   </div>
                 ) : (
@@ -115,10 +119,10 @@ function Header() {
                 className={`relative flex items-center justify-center text-sm mr-10 px-1 py-2 uppercase cursor-pointer  `}
               >
                 {isPres(location.pathname) ? (
-                  <div className="absolute bottom-[-12px] ">
+                  <div className="absolute bottom-[-8px] ">
                     <FontAwesomeIcon
-                      className="text-slate-500 text-[10px]"
-                      icon={faChevronUp}
+                      className="text-green-300 text-[6px]"
+                      icon={faDotCircle}
                     />
                   </div>
                 ) : (

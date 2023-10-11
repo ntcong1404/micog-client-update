@@ -60,9 +60,7 @@ function TvPage() {
           <>
             <div className="grid grid-cols-3 gap-4 justify-items-center">
               {movies?.results?.map((movie, index) => (
-                <div key={index}>
-                  <Movie item={movie} type="tv" />
-                </div>
+                <Movie key={index} item={movie} type="tv" />
               ))}
             </div>
           </>

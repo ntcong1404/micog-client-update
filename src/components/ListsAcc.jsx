@@ -18,7 +18,6 @@ function ListsAcc() {
   const [lists, setLists] = useState([]);
   const [chooseList, setChooseList] = useState("");
   const [loading, setLoading] = useState(false);
-
   useEffect(() => {
     onSnapshot(doc(db, "users", `${user?.email}`), (doc) => {
       setLists(doc.data()?.Lists.allList);

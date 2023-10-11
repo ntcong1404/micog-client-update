@@ -1,19 +1,14 @@
 import { useState, useEffect } from "react";
 import * as Service from "../apiService/Service";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { PuffLoader } from "react-spinners";
+import dayjs from "dayjs";
 
 function CollectionPage() {
   const { id } = useParams();
-  const navigate = useNavigate();
 
   const [loading, setLoading] = useState(true);
   const [collection, setCollection] = useState([]);
-
-  const handleClickMovie = (id) => {
-    navigate(`/details/movie/${id}`);
-  };
-
   useEffect(() => {
     setLoading(true);
     window.scroll(0, 0);
@@ -49,26 +44,37 @@ function CollectionPage() {
             </div>
           </div>
 
-          <div className="col-span-12 px-6">
+          <div className="col-span-12 px-6 my-4">
             <p className=" text-2xl font-semibold py-2 ">
               {`${collection?.parts?.length} movies`}
             </p>
             <div className="my-2 grid grid-cols-4 gap-6 ">
               {collection?.parts?.map((movie, index) => (
-                <div
+                <a
                   key={index}
-                  className="flex flex-col items-center cursor-pointer rounded-md shadow-md shadow-slate-300 hover:translate-y-[-4px] hover:shadow-md hover:shadow-gray-400"
-                  onClick={() => handleClickMovie(movie?.id)}
+                  className="mb-3 flex flex-col items-center rounded-md overflow-hidden shadow-md shadow-slate-300 cursor-pointer hover:translate-y-[-4px] hover:shadow-md hover:shadow-slate-400"
+                  href={`/details/movie/${movie?.id}`}
                 >
-                  <div className="w-full h-[360px]">
+                  <div className="w-full h-auto">
                     <img
                       src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
                       className="w-full h-full object-cover rounded-t-md "
                       loading="lazy"
                     />
                   </div>
-                  <p className="p-2 text-center font-semibold">{movie.title}</p>
-                </div>
+                  <div className=" p-2 my-2">
+                    <h3 className="text-lg font-bold text-center">
+                      {movie.title}
+                    </h3>
+                    {movie.release_date ? (
+                      <p className=" text-center text-slate-500 text-sm pt-2">
+                        {dayjs(movie.release_date).format("MMMM YYYY")}
+                      </p>
+                    ) : (
+                      <></>
+                    )}
+                  </div>
+                </a>
               ))}
             </div>
           </div>

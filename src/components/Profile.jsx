@@ -12,7 +12,6 @@ function Profile() {
   const [name, setName] = useState(user?.displayName ? user?.displayName : "");
   const [img, setImg] = useState(user?.photoURL ? user?.photoURL : "");
   const [loading, setLoading] = useState(false);
-
   const handleChooseFileAvatar = (e) => {
     if (e.target.files && e.target.files[0]) {
       setImg(URL.createObjectURL(e.target.files[0]));
@@ -63,7 +62,7 @@ function Profile() {
                     htmlFor="pass"
                     className="text-lg font-medium text-gray-700"
                   >
-                    Password
+                    New password
                   </label>
                   <div className="mt-1">
                     <input

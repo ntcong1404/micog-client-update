@@ -2,6 +2,9 @@ import { useNavigate } from "react-router-dom";
 import * as Service from "../apiService/Service";
 import { useEffect, useState } from "react";
 import { noImage } from "../assets/index";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Slider from "react-slick";
 
 function PlayerTv({ detail, id }) {
   const navigate = useNavigate();
@@ -40,6 +43,20 @@ function PlayerTv({ detail, id }) {
       })
       .catch((err) => console.log(err));
   }, [id, number, detail]);
+
+  var settings = {
+    dots: true,
+    infinite: true,
+    speed: 2000,
+    slidesToScroll: 3,
+    autoplay: true,
+    autoplaySpeed: 5000,
+    draggable: false,
+    pauseOnDotsHover: true,
+    slidesToShow: 3,
+    variableWidth: true,
+    pauseOnHover: true,
+  };
 
   return (
     <>
@@ -108,37 +125,36 @@ function PlayerTv({ detail, id }) {
           </span>
         </div>
       </div>
-      <div className="col-span-12">
-        <div>
-          <div className=" my-4 text-3xl font-bold ">{`Season ${detail?.last_episode_to_air?.season_number}`}</div>
-          <div className=" py-2 flex items-center overflow-x-auto border-b-2 border-slate-200 ">
-            {season?.episodes?.map((epi, index) => (
+      <div className="col-span-12 my-6 py-4 border-t-[2px] border-slate-200">
+        <h2 className="text-2xl font-semibold pt-2 pb-4">{`Season ${detail?.last_episode_to_air?.season_number}`}</h2>
+        <Slider {...settings}>
+          {season?.episodes?.map((epi, index) => (
+            <div key={index} className="px-2">
               <div
                 onClick={() => setActive(epi.episode_number)}
-                key={index}
-                className={`relative flex flex-col text-center mr-4 mb-6 cursor-pointer rounded-md shadow-md shadow-slate-300 hover:translate-y-[-4px] hover:shadow-md hover:shadow-slate-400  ${
+                className={`relative cursor-pointer rounded-md shadow-md shadow-slate-300 hover:translate-y-[-4px] hover:shadow-md hover:shadow-slate-400  ${
                   active === epi.episode_number ? "shadow-slate-400" : ""
                 }`}
               >
-                <div className="w-[240px] h-full ">
+                <div className="w-[350px] h-auto">
                   <img
                     src={
                       epi?.still_path
                         ? `https://image.tmdb.org/t/p/original/${epi?.still_path}`
                         : noImage
                     }
-                    className="w-full h-full rounded-t-md "
+                    className="w-full h-auto cursor-pointer rounded-t-lg object-cover "
                     loading="lazy"
                   />
                 </div>
-                <div className="w-[240px] h-[100px] overflow-auto">
+                <div className="text-center py-4 px-2 ">
                   <p className="text-black text-sm py-1">{`Episode ${epi.episode_number}`}</p>
                   <p className="text-black font-semibold p-2 ">{epi.name}</p>
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
+            </div>
+          ))}
+        </Slider>
       </div>
     </>
   );

@@ -13,7 +13,6 @@ function PlayerMovie({ detail, id }) {
   const navigate = useNavigate();
   const [recom, setRecom] = useState([]);
   const [keyword, setKeyword] = useState([]);
-
   const handleClickGenre = (id, name) => {
     navigate(`/genre/${id}/${name}/movie`);
   };
@@ -49,13 +48,13 @@ function PlayerMovie({ detail, id }) {
   }, [id]);
 
   var settings = {
-    dots: true,
+    dots: false,
     infinite: true,
     speed: 2000,
     slidesToScroll: 3,
     autoplay: true,
     autoplaySpeed: 5000,
-    draggable: false,
+    draggable: true,
     pauseOnDotsHover: true,
     slidesToShow: 3,
     variableWidth: true,

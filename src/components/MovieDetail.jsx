@@ -19,9 +19,6 @@ function MovieDetail({ id }) {
   const handlePlayer = (id) => {
     navigate(`/player/movie/${id}`);
   };
-  const handleClickSimilar = (id) => {
-    navigate(`/details/movie/${id}`);
-  };
   const handleClickGenre = (id, name) => {
     navigate(`/genre/${id}/${name}/movie`);
   };
@@ -84,7 +81,7 @@ function MovieDetail({ id }) {
               src={`https://image.tmdb.org/t/p/original/${detail?.backdrop_path}`}
               className="absolute top-0 bottom-0 left-0 right-0 w-full h-full "
             />
-            <div className="flex max-w-md w-full overflow-hidden ">
+            <div className="flex max-w-lg w-full overflow-hidden ">
               <div className="overflow-hidden relative duration-500 shadow-lg movie-item text-white movie-card">
                 <div className="absolute inset-0 z-10 transition duration-300 ease-in-out bg-gradient-to-r from-neutral-900 to-transparent "></div>
                 <div className="relative z-10 px-10 pt-10 space-y-6 movie_info">
@@ -350,10 +347,10 @@ function MovieDetail({ id }) {
         </p>
         <div className="my-2 grid grid-cols-2 gap-2 ">
           {similar?.map((movie, index) => (
-            <div
+            <a
               key={index}
               className="flex flex-col items-center p-1 mb-2 cursor-pointer rounded-md group shadow-md shadow-slate-200"
-              onClick={() => handleClickSimilar(movie?.id)}
+              href={`/details/movie/${movie?.id}`}
             >
               <div className="w-full h-[260px]">
                 <img
@@ -369,7 +366,7 @@ function MovieDetail({ id }) {
               <p className="group-hover:translate-y-1 p-2 text-center font-semibold">
                 {movie.title}
               </p>
-            </div>
+            </a>
           ))}
         </div>
       </div>

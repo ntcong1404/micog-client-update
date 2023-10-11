@@ -11,7 +11,6 @@ function GenrePage() {
   const [page, setPage] = useState(1);
   const [type, setType] = useState(slug);
   const [loading, setLoading] = useState(true);
-
   useEffect(() => {
     setLoading(true);
     window.scroll(0, 0);

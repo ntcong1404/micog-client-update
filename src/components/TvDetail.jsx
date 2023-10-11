@@ -19,9 +19,6 @@ function TvDetail({ id }) {
   const handlePlayer = (id) => {
     navigate(`/player/tv/${id}`);
   };
-  const handleClickSimilar = (id) => {
-    navigate(`/details/tv/${id}`);
-  };
   const handleClickGenre = (id, name) => {
     navigate(`/genre/${id}/${name}/tv`);
   };
@@ -343,10 +340,10 @@ function TvDetail({ id }) {
         </p>
         <div className="my-2 grid grid-cols-2 gap-2 ">
           {similar?.map((movie, index) => (
-            <div
+            <a
               key={index}
               className="flex flex-col items-center p-1 mb-2 cursor-pointer rounded-md group shadow-md shadow-slate-200"
-              onClick={() => handleClickSimilar(movie?.id)}
+              href={`/details/tv/${movie?.id}`}
             >
               <div className="w-full h-[260px]">
                 <img
@@ -362,7 +359,7 @@ function TvDetail({ id }) {
               <p className="group-hover:translate-y-1 p-2 text-center font-semibold">
                 {movie.name}
               </p>
-            </div>
+            </a>
           ))}
         </div>
       </div>
