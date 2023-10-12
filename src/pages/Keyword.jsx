@@ -4,6 +4,7 @@ import * as Service from "../apiService/Service";
 import PuffLoader from "react-spinners/PuffLoader";
 import Pagination from "../components/Pagination";
 import Movie from "../components/Movie";
+import { Helmet } from "react-helmet";
 
 function KeywordPage() {
   const { slug, id, keyword } = useParams();
@@ -26,6 +27,14 @@ function KeywordPage() {
 
   return (
     <>
+      <Helmet>
+        <html lang="en" />
+        <title>Keyword - M I C O G</title>
+        <meta
+          name="keyword page"
+          content="movies, tv shows, people with keyword"
+        />
+      </Helmet>
       <div className="flex items-center justify-between px-14 text-2xl font-bold text-gray-500 bg-results w-full h-[120px] bg-slate-800">
         <p className="text-white text-3xl">{keyword}</p>
         <p>

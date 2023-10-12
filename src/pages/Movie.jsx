@@ -5,6 +5,7 @@ import TableFilter from "../components/TableFilter";
 import Movie from "../components/Movie";
 import PuffLoader from "react-spinners/PuffLoader";
 import Pagination from "../components/Pagination";
+import { Helmet } from "react-helmet";
 
 const lists = [
   { title: "Now Playing", fetch: "now_playing" },
@@ -39,30 +40,37 @@ function MoviePage() {
   }, [slug, page]);
 
   return (
-    <div className="grid grid-cols-6 gap-4 px-6 my-6 ">
-      <div className="col-span-1">
-        <TableFilter type="movie" lists={lists} genres={genres} />
-      </div>
-      <div className="col-span-5 flex flex-col">
-        {loading ? (
-          <div className="flex justify-center items-center h-screen w-full flex-col ">
-            <PuffLoader color="gray" size={60} speedMultiplier={1.5} />
-            <p className="my-4 py-2 text-base text-slate-400">
-              fetching data ...
-            </p>
-          </div>
-        ) : (
-          <>
-            <div className="grid grid-cols-3 gap-4 justify-items-center">
-              {movies?.results?.map((movie, index) => (
-                <Movie key={index} item={movie} type="movie" />
-              ))}
+    <>
+      <Helmet>
+        <html lang="en" />
+        <title>Movies - M I C O G</title>
+        <meta name="movies page" content="all movies with genres" />
+      </Helmet>
+      <div className="grid grid-cols-6 gap-4 px-6 my-6 ">
+        <div className="col-span-1">
+          <TableFilter type="movie" lists={lists} genres={genres} />
+        </div>
+        <div className="col-span-5 flex flex-col">
+          {loading ? (
+            <div className="flex justify-center items-center h-screen w-full flex-col ">
+              <PuffLoader color="gray" size={60} speedMultiplier={1.5} />
+              <p className="my-4 py-2 text-base text-slate-400">
+                fetching data ...
+              </p>
             </div>
-          </>
-        )}
-        <Pagination page={page} setPage={setPage} data={movies} />
+          ) : (
+            <>
+              <div className="grid grid-cols-3 gap-4 justify-items-center">
+                {movies?.results?.map((movie, index) => (
+                  <Movie key={index} item={movie} type="movie" />
+                ))}
+              </div>
+            </>
+          )}
+          <Pagination page={page} setPage={setPage} data={movies} />
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

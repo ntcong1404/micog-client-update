@@ -4,6 +4,7 @@ import * as Service from "../apiService/Service";
 import PuffLoader from "react-spinners/PuffLoader";
 import Movie from "../components/Movie";
 import Pagination from "../components/Pagination";
+import { Helmet } from "react-helmet";
 
 function GenrePage() {
   const { slug, id, genre } = useParams();
@@ -24,6 +25,11 @@ function GenrePage() {
 
   return (
     <>
+      <Helmet>
+        <html lang="en" />
+        <title>Genre - M I C O G</title>
+        <meta name="genre page" content="genre of a movie or a TV show" />
+      </Helmet>
       <div className="flex items-center justify-between px-14 text-2xl font-bold text-gray-500 bg-results w-full h-[120px] bg-slate-800">
         <p className="text-white text-3xl">{genre}</p>
         <p>
