@@ -9,6 +9,7 @@ import onToTop from "./onToTop.svg";
 import userDefault from "./userDefault.png";
 import bgSignup from "./bgSignup.jpg";
 import bgLogin from "./bgLogin.jpg";
+import polygon from "./polygon.svg";
 export {
   logo,
   bgRow,
@@ -21,4 +22,5 @@ export {
   userDefault,
   bgSignup,
   bgLogin,
+  polygon,
 };

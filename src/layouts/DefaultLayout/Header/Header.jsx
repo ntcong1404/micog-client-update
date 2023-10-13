@@ -12,6 +12,7 @@ import {
   faMagnifyingGlass,
 } from "@fortawesome/free-solid-svg-icons";
 import { UserAuth } from "../../../context/AuthContext";
+import { polygon } from "../../../assets";
 
 function Header() {
   const { user, logOut } = UserAuth();
@@ -75,12 +76,7 @@ function Header() {
                 className={`relative flex items-center justify-center text-sm mr-10 px-1 py-2 uppercase cursor-pointer `}
               >
                 {isMovie(location.pathname) ? (
-                  <div className="absolute bottom-[12px] left-0">
-                    <FontAwesomeIcon
-                      className="text-green-300 text-[4px] opacity-80"
-                      icon={faDotCircle}
-                    />
-                  </div>
+                  <img className="w-2 h-2" src={polygon} alt="polygon" />
                 ) : (
                   ""
                 )}
@@ -95,12 +91,7 @@ function Header() {
                 className={`relative flex items-center justify-center text-sm mr-10 px-1 py-2 uppercase cursor-pointer  `}
               >
                 {isTv(location.pathname) ? (
-                  <div className="absolute bottom-[12px] left-0">
-                    <FontAwesomeIcon
-                      className="text-green-300 text-[4px] opacity-80"
-                      icon={faDotCircle}
-                    />
-                  </div>
+                  <img className="w-2 h-2" src={polygon} alt="polygon" />
                 ) : (
                   ""
                 )}
@@ -115,12 +106,7 @@ function Header() {
                 className={`relative flex items-center justify-center text-sm mr-10 px-1 py-2 uppercase cursor-pointer  `}
               >
                 {isPres(location.pathname) ? (
-                  <div className="absolute bottom-[12px] left-0">
-                    <FontAwesomeIcon
-                      className="text-green-300 text-[4px] opacity-80"
-                      icon={faDotCircle}
-                    />
-                  </div>
+                  <img className="w-2 h-2" src={polygon} alt="polygon" />
                 ) : (
                   ""
                 )}
