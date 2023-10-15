@@ -3,7 +3,7 @@ import * as Service from "../apiService/Service";
 import { useState, useEffect } from "react";
 import { PuffLoader } from "react-spinners";
 import { noImage } from "../assets";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 function SeasonPage() {
   const { id, number } = useParams();

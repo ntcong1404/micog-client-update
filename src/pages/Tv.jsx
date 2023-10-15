@@ -5,7 +5,7 @@ import TableFilter from "../components/TableFilter";
 import Movie from "../components/Movie";
 import PuffLoader from "react-spinners/PuffLoader";
 import Pagination from "../components/Pagination";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 const lists = [
   { title: "Popular", fetch: "popular" },

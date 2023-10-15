@@ -4,7 +4,7 @@ import * as Service from "../apiService/Service";
 
 import PlayerMovie from "../components/PlayerMovie";
 import PlayerTv from "../components/PlayerTv";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 function PlayerPage() {
   const { slug, id } = useParams();

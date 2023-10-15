@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { LoadingSpin } from "../components/Loading";
 
 import { bgSignup } from "../assets";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 function SignupPage() {
   const navigate = useNavigate();

@@ -7,7 +7,7 @@ import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { LoadingSpin } from "../components/Loading";
 
 import { bgLogin } from "../assets";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 function LoginPage() {
   const navigate = useNavigate();

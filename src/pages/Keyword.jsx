@@ -4,7 +4,7 @@ import * as Service from "../apiService/Service";
 import PuffLoader from "react-spinners/PuffLoader";
 import Pagination from "../components/Pagination";
 import Movie from "../components/Movie";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 function KeywordPage() {
   const { slug, id, keyword } = useParams();

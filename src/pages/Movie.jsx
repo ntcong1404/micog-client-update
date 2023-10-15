@@ -5,7 +5,7 @@ import TableFilter from "../components/TableFilter";
 import Movie from "../components/Movie";
 import PuffLoader from "react-spinners/PuffLoader";
 import Pagination from "../components/Pagination";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 const lists = [
   { title: "Now Playing", fetch: "now_playing" },
@@ -19,7 +19,6 @@ function MoviePage() {
   const [genres, setGenres] = useState([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
-  console.log(movies);
   useEffect(() => {
     Service.Genres({ item: "movie" })
       .then((res) => {

@@ -195,21 +195,20 @@ function ListsAcc() {
                           key={index}
                           className="relative cursor-pointer group"
                         >
-                          <div
-                            onClick={() => handleClickItem(movie)}
-                            className=" w-full h-full shadow shadow-slate-400 rounded "
-                          >
-                            <img
-                              className="rounded-t w-full h-auto object-cover"
-                              src={`https://image.tmdb.org/t/p/original/${movie?.img}`}
-                              alt=""
-                              loading="lazy"
-                            />
-                            <div className="text-center text-sm font-semibold p-2">
-                              {movie?.title}
+                          <a href={`/details/${movie?.type}/${movie?.id}`}>
+                            <div className=" w-full h-full shadow shadow-slate-400 rounded ">
+                              <img
+                                className="rounded-t w-full h-auto object-cover"
+                                src={`https://image.tmdb.org/t/p/original/${movie?.img}`}
+                                alt=""
+                                loading="lazy"
+                              />
+                              <div className="text-center text-sm font-semibold p-2">
+                                {movie?.title}
+                              </div>
+                              <div className="absolute top-0 bottom-0 left-0 right-0 bg-black/50 rounded opacity-0 group-hover:opacity-20"></div>
                             </div>
-                            <div className="absolute top-0 bottom-0 left-0 right-0 bg-black/50 rounded opacity-0 group-hover:opacity-20"></div>
-                          </div>
+                          </a>
                           <p
                             onClick={() =>
                               handleDeleteItemInList(movie?.listId, movie?.id)

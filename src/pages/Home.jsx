@@ -1,6 +1,6 @@
 import Main from "../components/Main";
 import List from "../components/List";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 function HomePage() {
   return (

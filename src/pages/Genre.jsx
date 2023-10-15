@@ -4,7 +4,7 @@ import * as Service from "../apiService/Service";
 import PuffLoader from "react-spinners/PuffLoader";
 import Movie from "../components/Movie";
 import Pagination from "../components/Pagination";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 function GenrePage() {
   const { slug, id, genre } = useParams();

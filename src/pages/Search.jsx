@@ -5,7 +5,7 @@ import * as Service from "../apiService/Service";
 import PuffLoader from "react-spinners/PuffLoader";
 import { noImage } from "../assets";
 import Pagination from "../components/Pagination";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 const filter = [
   { title: "Movies", filter: "movie" },

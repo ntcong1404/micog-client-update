@@ -3,7 +3,7 @@ import * as Service from "../apiService/Service";
 import { useParams } from "react-router-dom";
 import { PuffLoader } from "react-spinners";
 import dayjs from "dayjs";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 function CollectionPage() {
   const { id } = useParams();

@@ -5,7 +5,7 @@ import dayjs from "dayjs";
 import LikeLists from "../components/LikeLists";
 import Profile from "../components/Profile";
 import ListsAcc from "../components/ListsAcc";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 function AccPage() {
   const { user } = UserAuth();

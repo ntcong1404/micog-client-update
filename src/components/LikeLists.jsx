@@ -4,17 +4,11 @@ import { faClose } from "@fortawesome/free-solid-svg-icons";
 import { UserAuth } from "../context/AuthContext";
 import { db } from "../firebase/firebase";
 import { updateDoc, doc, onSnapshot } from "firebase/firestore";
-import { useNavigate } from "react-router-dom";
 
 function LikeLists() {
   const [movies, setMovies] = useState([]);
   const [active, setActive] = useState("movie");
   const { user } = UserAuth();
-  const navigate = useNavigate();
-
-  const handleClick = (type, id) => {
-    navigate(`/details/${type}/${id}`);
-  };
 
   useEffect(() => {
     onSnapshot(doc(db, "users", `${user?.email}`), (doc) => {
@@ -64,21 +58,20 @@ function LikeLists() {
             ?.filter((item) => item.type === active)
             ?.map((item) => (
               <div key={item.id} className="relative cursor-pointer group">
-                <div
-                  onClick={() => handleClick(item.type, item.id)}
-                  className="w-full h-[200px] p-2 "
-                >
-                  <img
-                    className="w-full h-full rounded object-cover"
-                    src={`https://image.tmdb.org/t/p/w500/${item?.img}`}
-                    alt={item?.title}
-                  />
-                  <div className="absolute top-0 bottom-0 left-0 right-0 rounded bg-black/50 opacity-0 group-hover:opacity-100 text-white">
-                    <p className="text-base font-bold flex justify-center items-center h-full text-center">
-                      {item?.title}
-                    </p>
+                <a href={`/details/${item.type}/${item.id}`}>
+                  <div className="w-full h-[200px] p-2 ">
+                    <img
+                      className="w-full h-full rounded object-cover"
+                      src={`https://image.tmdb.org/t/p/w500/${item?.img}`}
+                      alt={item?.title}
+                    />
+                    <div className="absolute top-0 bottom-0 left-0 right-0 rounded bg-black/50 opacity-0 group-hover:opacity-100 text-white">
+                      <p className="text-base font-bold flex justify-center items-center h-full text-center">
+                        {item?.title}
+                      </p>
+                    </div>
                   </div>
-                </div>
+                </a>
                 <p
                   onClick={() => deleteShow(item?.id)}
                   className="absolute text-gray-300 top-4 right-4 cursor-pointer opacity-0 group-hover:opacity-100 "

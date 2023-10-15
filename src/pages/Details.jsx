@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import PersonDetail from "../components/PersonDetail";
 import MovieDetail from "../components/MovieDetail";
 import TvDetail from "../components/TvDetail";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 function DetailsPage() {
   const { slug, id } = useParams();
