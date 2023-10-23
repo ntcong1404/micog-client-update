@@ -34,12 +34,8 @@ function DefaultLayout({ route, children }) {
         {isVisible ? (
           <button
             onClick={scrollToTop}
-            className="fixed bottom-8 right-8 z-10 rounded-full bg-gradient-to-t from-green-300 to-sky-300 w-6 h-12 flex justify-center items-center hover:scale-125"
+            className="fixed bottom-8 right-8 z-10 flex justify-center items-center hover:scale-125"
           >
-            {/* <FontAwesomeIcon
-              className="animate-bounce text-sm"
-              icon={faArrowUp}
-            /> */}
             <img src={onToTop} alt="" />
           </button>
         ) : (
