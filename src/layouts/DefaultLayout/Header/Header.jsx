@@ -2,15 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import { logo, movieIcon, personIcon, seriesIcon } from "../../../assets";
-import {
-  faArrowUp,
-  faChevronUp,
-  faCircleDot,
-  faCommentDots,
-  faDotCircle,
-  faListDots,
-  faMagnifyingGlass,
-} from "@fortawesome/free-solid-svg-icons";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { UserAuth } from "../../../context/AuthContext";
 import { polygon } from "../../../assets";
 

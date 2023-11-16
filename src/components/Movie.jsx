@@ -8,76 +8,78 @@ const Movie = ({ list, genre, item, type }) => {
   return (
     <>
       {list ? (
-        <div className="w-[350px] relative p-2 ">
-          <a href={`/details/${item?.media_type}/${item?.id}`}>
-            <img
-              className="w-full h-auto cursor-pointer block rounded-lg object-cover hover:scale-[102%]"
-              loading="lazy"
-              src={
-                item?.backdrop_path
-                  ? `https://image.tmdb.org/t/p/w500/${item.backdrop_path}`
-                  : item.profile_path
-                  ? `https://image.tmdb.org/t/p/w500/${item.profile_path}`
-                  : noImage
-              }
-              alt={item?.title ? item.title : item.original_name}
-            />
-          </a>
-          {item?.media_type === "person" ? (
-            ""
-          ) : (
-            <>
-              <div className=" absolute bottom-12 left-4">
-                <div className="flex items-center justify-center overflow-hidden bg-slate-900 rounded-full">
-                  <svg
-                    className="w-10 h-10 transform translate-x-1 translate-y-1"
-                    aria-hidden="true"
-                  >
-                    <circle
-                      className="text-gray-300"
-                      strokeWidth="2"
-                      stroke="currentColor"
-                      fill="transparent"
-                      r="15"
-                      cx="16"
-                      cy="16"
-                    />
-                    <circle
-                      className={
-                        `font-semibold text-sm ` +
-                        `${
-                          rate <= 5
-                            ? `text-red-400`
-                            : 7 >= rate
-                            ? `text-orange-600`
-                            : 10 >= rate
-                            ? `text-green-500`
-                            : ""
-                        }`
-                      }
-                      strokeWidth="2"
-                      strokeDasharray={18 * 2 * Math.PI}
-                      strokeDashoffset={
-                        18 * 2 * Math.PI - (rate / 10) * (18 * 2 * Math.PI)
-                      }
-                      strokeLinecap="round"
-                      stroke="currentColor"
-                      fill="transparent"
-                      r="15"
-                      cx="16"
-                      cy="16"
-                    />
-                  </svg>
-                  <span className="absolute text-[10px] font-semibold text-white">{`${
-                    rate * 10
-                  }%`}</span>
+        <div className="w-[350px] p-2 ">
+          <div className="relative">
+            <a href={`/details/${item?.media_type}/${item?.id}`}>
+              <img
+                className="w-full h-auto cursor-pointer block rounded-lg object-cover hover:scale-[102%]"
+                loading="lazy"
+                src={
+                  item?.backdrop_path
+                    ? `https://image.tmdb.org/t/p/w500/${item.backdrop_path}`
+                    : item.profile_path
+                    ? `https://image.tmdb.org/t/p/w500/${item.profile_path}`
+                    : noImage
+                }
+                alt={item?.title ? item.title : item.original_name}
+              />
+            </a>
+            {item?.media_type === "person" ? (
+              ""
+            ) : (
+              <>
+                <div className=" absolute bottom-[-12px] left-[10px]">
+                  <div className="flex items-center justify-center overflow-hidden bg-slate-900 rounded-full">
+                    <svg
+                      className="w-10 h-10 transform translate-x-1 translate-y-1"
+                      aria-hidden="true"
+                    >
+                      <circle
+                        className="text-gray-300"
+                        strokeWidth="2"
+                        stroke="currentColor"
+                        fill="transparent"
+                        r="15"
+                        cx="16"
+                        cy="16"
+                      />
+                      <circle
+                        className={
+                          `font-semibold text-sm ` +
+                          `${
+                            rate <= 5
+                              ? `text-red-400`
+                              : 7 >= rate
+                              ? `text-orange-600`
+                              : 10 >= rate
+                              ? `text-green-500`
+                              : ""
+                          }`
+                        }
+                        strokeWidth="2"
+                        strokeDasharray={18 * 2 * Math.PI}
+                        strokeDashoffset={
+                          18 * 2 * Math.PI - (rate / 10) * (18 * 2 * Math.PI)
+                        }
+                        strokeLinecap="round"
+                        stroke="currentColor"
+                        fill="transparent"
+                        r="15"
+                        cx="16"
+                        cy="16"
+                      />
+                    </svg>
+                    <span className="absolute text-[10px] font-semibold text-white">{`${
+                      rate * 10
+                    }%`}</span>
+                  </div>
                 </div>
-              </div>
-              <div className="absolute top-4 right-4">
-                <Like slug={item.media_type} detail={item} />
-              </div>
-            </>
-          )}
+                <div className="absolute top-4 right-4">
+                  <Like slug={item.media_type} detail={item} />
+                </div>
+              </>
+            )}
+          </div>
           <p className=" text-sm font-bold text-center py-4 px-2 w-full ">
             {item?.title ? item.title : item.original_name}
           </p>

@@ -46,8 +46,8 @@ function App() {
           </div>
         </Router>
       ) : (
-        <div className="flex justify-center items-center h-screen w-full flex-col bg-gradient-to-b from-slate-900 via-purple-900 to-slate-900">
-          <PuffLoader color="white" size={80} speedMultiplier={1.5} />
+        <div className="flex justify-center items-center h-screen w-full flex-col ">
+          <PuffLoader color="gray" size={80} speedMultiplier={1.5} />
           <img src={logo} alt="" width="300" className="logo2 pt-4" />{" "}
         </div>
       )}
