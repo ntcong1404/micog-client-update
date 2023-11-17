@@ -6,7 +6,7 @@ const routes = {
   movie: "/movie/:slug",
   tv: "/tv/:slug",
   person: "/person/:slug",
-  search: "/search/:query",
+  search: "/search",
   details: "/details/:slug/:id",
   player: "/player/:slug/:id",
   genre: "/genre/:id/:genre/:slug",

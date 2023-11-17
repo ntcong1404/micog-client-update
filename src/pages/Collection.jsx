@@ -66,7 +66,6 @@ function CollectionPage() {
                       <img
                         src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
                         className="w-full h-full object-cover rounded-t-md "
-                        loading="lazy"
                       />
                     </div>
                     <div className=" p-2 my-2">

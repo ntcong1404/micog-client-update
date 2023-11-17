@@ -135,7 +135,6 @@ function PlayerTv({ detail, id }) {
                         : noImage
                     }
                     className="w-full h-auto cursor-pointer rounded-t-lg object-cover "
-                    loading="lazy"
                   />
                 </div>
                 <div className="text-center py-4 px-2 ">

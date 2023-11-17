@@ -279,7 +279,6 @@ function TvDetail({ id }) {
                         : noImage
                     }
                     className="w-full h-full rounded-md group-hover:blur-[2px]"
-                    loading="lazy"
                   />
                 </div>
                 <div className="absolute hidden bottom-0 right-0 left-0 group-hover:block ">
@@ -300,7 +299,6 @@ function TvDetail({ id }) {
                 <img
                   src={`https://image.tmdb.org/t/p/original/${detail?.last_episode_to_air?.still_path}`}
                   className="absolute top-0 bottom-0 left-0 right-0 w-full h-full rounded-md object-cover object-top"
-                  loading="lazy"
                 />
                 <div className="absolute top-0 bottom-0 left-0 right-0 rounded-md  bg-gradient-to-b from-slate-950 to-transparent"></div>
                 <div className="relative text-center">
@@ -348,7 +346,6 @@ function TvDetail({ id }) {
                       : noImage
                   }
                   className="w-full h-full object-cover rounded-md mr-4 group-hover:scale-[102%]"
-                  loading="lazy"
                 />
               </div>
               <p className="group-hover:translate-y-1 p-2 text-center font-semibold">

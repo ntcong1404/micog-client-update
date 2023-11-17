@@ -13,7 +13,6 @@ const Movie = ({ list, genre, item, type }) => {
             <a href={`/details/${item?.media_type}/${item?.id}`}>
               <img
                 className="w-full h-auto cursor-pointer block rounded-lg object-cover hover:scale-[102%]"
-                loading="lazy"
                 src={
                   item?.backdrop_path
                     ? `https://image.tmdb.org/t/p/w500/${item.backdrop_path}`
@@ -105,7 +104,6 @@ const Movie = ({ list, genre, item, type }) => {
                   <div className=" flex flex-col items-center ">
                     <div className="w-full h-auto">
                       <img
-                        loading="lazy"
                         className="w-full h-full object-cover rounded-t-md "
                         src={
                           movie.poster_path || movie.profile_path
@@ -143,7 +141,6 @@ const Movie = ({ list, genre, item, type }) => {
             <a href={`/details/${type}/${item?.id}`}>
               <img
                 className="w-full h-auto mb-2 block rounded-t-md object-cover shadow-md shadow-slate-300 "
-                loading="lazy"
                 src={
                   item?.backdrop_path
                     ? `https://image.tmdb.org/t/p/w500/${item.backdrop_path}`

@@ -70,7 +70,7 @@ function List({ title, axiosURL }) {
       </div>
       <div className="my-6 ">
         {loading ? (
-          <div className="flex justify-center items-center w-full flex-col ">
+          <div className="flex justify-center items-center w-full h-[250px] flex-col ">
             <PulseLoader color="gray" size={8} speedMultiplier={1.5} />
           </div>
         ) : (

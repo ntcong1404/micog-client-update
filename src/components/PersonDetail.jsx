@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
 import * as Service from "../apiService/Service";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -14,23 +13,19 @@ import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import PuffLoader from "react-spinners/PuffLoader";
 
 function PersonDetail({ id }) {
-  const navigate = useNavigate();
-
   const [detail, setDetail] = useState([]);
   const [credits, setCredits] = useState([]);
   const [external, setExternal] = useState("");
   const [active, setActive] = useState("movie_credits");
   const [loading, setLoading] = useState(true);
-
-  const handleClick = (id) => {
-    navigate(`/details/${active === "movie_credits" ? "movie" : "tv"}/${id}`);
-  };
+  const [loadingDetail, setLoadingDetail] = useState(true);
 
   useEffect(() => {
     window.scroll(0, 0);
     Service.Details({ type: "person", id: id })
       .then((res) => {
         setDetail(res);
+        setLoadingDetail(false);
       })
       .catch((err) => console.log(err));
 
@@ -72,96 +67,105 @@ function PersonDetail({ id }) {
 
   return (
     <div className="px-6 my-6">
-      <div className="grid grid-cols-12 gap-8 bg-slate-50 bg-results">
-        <div className="col-span-4">
-          <div className="w-full h-auto">
-            <img
-              src={`https://image.tmdb.org/t/p/original/${detail?.profile_path}`}
-              alt={detail?.name}
-              className="w-full h-full rounded-md"
-            />
+      {loadingDetail ? (
+        <div className="col-span-3 flex justify-center items-center h-screen w-full flex-col ">
+          <PuffLoader color="gray" size={60} speedMultiplier={1.5} />
+          <p className="my-4 py-2 text-base text-slate-400">
+            Person detail ...
+          </p>
+        </div>
+      ) : (
+        <div className="grid grid-cols-12 gap-8 bg-slate-50 bg-results">
+          <div className="col-span-4">
+            <div className="w-full h-auto">
+              <img
+                src={`https://image.tmdb.org/t/p/original/${detail?.profile_path}`}
+                alt={detail?.name}
+                className="w-full h-full rounded-md"
+              />
+            </div>
+            <div className=" flex justify-evenly my-6">
+              {external?.facebook_id ? (
+                <a
+                  href={`https://www.facebook.com/${external?.facebook_id}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <FontAwesomeIcon
+                    className="mr-3 pr-2 text-3xl hover:text-sky-600"
+                    icon={faFacebook}
+                  />
+                </a>
+              ) : (
+                <></>
+              )}
+              {external?.twitter_id ? (
+                <a
+                  href={`https://twitter.com/${external?.twitter_id}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <FontAwesomeIcon
+                    className="mr-3 pr-2 text-3xl hover:text-sky-600"
+                    icon={faTwitter}
+                  />
+                </a>
+              ) : (
+                <></>
+              )}
+              {external?.instagram_id ? (
+                <a
+                  href={`https://www.instagram.com/${external?.instagram_id}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <FontAwesomeIcon
+                    className="mr-3 pr-2 text-3xl hover:text-sky-600"
+                    icon={faInstagram}
+                  />
+                </a>
+              ) : (
+                <></>
+              )}
+              {external?.tiktok_id ? (
+                <a
+                  href={`https://www.tiktok.com/${external?.tiktok_id}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <FontAwesomeIcon
+                    className="mr-3 pr-2 text-3xl hover:text-sky-600"
+                    icon={faTiktok}
+                  />
+                </a>
+              ) : (
+                <></>
+              )}
+              {external?.youtube_id ? (
+                <a
+                  href={`https://www.youtube.com/${external?.youtube_id}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <FontAwesomeIcon
+                    className="mr-3 pr-2 text-3xl hover:text-sky-600 "
+                    icon={faYoutube}
+                  />
+                </a>
+              ) : (
+                <></>
+              )}
+            </div>
           </div>
-          <div className=" flex justify-evenly my-6">
-            {external?.facebook_id ? (
-              <a
-                href={`https://www.facebook.com/${external?.facebook_id}`}
-                target="_blank"
-                rel="noreferrer"
-              >
-                <FontAwesomeIcon
-                  className="mr-3 pr-2 text-3xl hover:text-sky-600"
-                  icon={faFacebook}
-                />
-              </a>
-            ) : (
-              <></>
-            )}
-            {external?.twitter_id ? (
-              <a
-                href={`https://twitter.com/${external?.twitter_id}`}
-                target="_blank"
-                rel="noreferrer"
-              >
-                <FontAwesomeIcon
-                  className="mr-3 pr-2 text-3xl hover:text-sky-600"
-                  icon={faTwitter}
-                />
-              </a>
-            ) : (
-              <></>
-            )}
-            {external?.instagram_id ? (
-              <a
-                href={`https://www.instagram.com/${external?.instagram_id}`}
-                target="_blank"
-                rel="noreferrer"
-              >
-                <FontAwesomeIcon
-                  className="mr-3 pr-2 text-3xl hover:text-sky-600"
-                  icon={faInstagram}
-                />
-              </a>
-            ) : (
-              <></>
-            )}
-            {external?.tiktok_id ? (
-              <a
-                href={`https://www.tiktok.com/${external?.tiktok_id}`}
-                target="_blank"
-                rel="noreferrer"
-              >
-                <FontAwesomeIcon
-                  className="mr-3 pr-2 text-3xl hover:text-sky-600"
-                  icon={faTiktok}
-                />
-              </a>
-            ) : (
-              <></>
-            )}
-            {external?.youtube_id ? (
-              <a
-                href={`https://www.youtube.com/${external?.youtube_id}`}
-                target="_blank"
-                rel="noreferrer"
-              >
-                <FontAwesomeIcon
-                  className="mr-3 pr-2 text-3xl hover:text-sky-600 "
-                  icon={faYoutube}
-                />
-              </a>
-            ) : (
-              <></>
-            )}
+          <div className="col-span-8 ">
+            <h2 className="text-4xl font-bold py-2">{detail?.name}</h2>
+            <div className="my-2">
+              <p className="py-4 text-xl font-semibold">Biography</p>
+              <p>{detail?.biography}</p>
+            </div>
           </div>
         </div>
-        <div className="col-span-8 ">
-          <h2 className="text-4xl font-bold py-2">{detail?.name}</h2>
-          <div className="my-2">
-            <p className="py-4 text-xl font-semibold">Biography</p>
-            <p>{detail?.biography}</p>
-          </div>
-        </div>
-      </div>
+      )}
       <div className="grid grid-cols-12 gap-8">
         <div className="col-span-4 ">
           <div className="my-4">
@@ -263,7 +267,6 @@ function PersonDetail({ id }) {
                   <img
                     className="w-full h-auto rounded-md"
                     src={`https://image.tmdb.org/t/p/original/${img?.file_path}`}
-                    loading="lazy"
                     alt=""
                   />
                 </div>

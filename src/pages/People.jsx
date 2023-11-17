@@ -37,9 +37,7 @@ function PeoplePage() {
         {loading ? (
           <div className="flex justify-center items-center h-screen w-full flex-col ">
             <PuffLoader color="gray" size={60} speedMultiplier={1.5} />
-            <p className="my-4 py-2 text-base text-slate-400">
-              fetching data ...
-            </p>
+            <p className="my-4 py-2 text-base text-slate-400">persons ...</p>
           </div>
         ) : (
           <>
@@ -52,7 +50,6 @@ function PeoplePage() {
                 >
                   <img
                     className="w-full h-auto rounded-t-lg object-cover "
-                    loading="lazy"
                     src={
                       item.profile_path
                         ? `https://image.tmdb.org/t/p/w500/${item.profile_path}`

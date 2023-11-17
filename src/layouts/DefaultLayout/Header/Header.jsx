@@ -1,18 +1,20 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
-import { NavLink, useNavigate, useLocation } from "react-router-dom";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { useState } from "react";
+import { NavLink, useLocation } from "react-router-dom";
 import { logo, movieIcon, personIcon, seriesIcon } from "../../../assets";
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+// import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { UserAuth } from "../../../context/AuthContext";
 import { polygon } from "../../../assets";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
 function Header() {
   const { user, logOut } = UserAuth();
   const location = useLocation();
 
-  const navigate = useNavigate();
-  const [searchValue, setSearchValue] = useState("");
-  const [warning, setWarning] = useState(false);
+  // const navigate = useNavigate();
+  // const [searchValue, setSearchValue] = useState("");
+  // const [warning, setWarning] = useState(false);
 
   const handleLogout = async () => {
     try {
@@ -23,21 +25,22 @@ function Header() {
     }
   };
 
-  const handleChange = (e) => {
-    setWarning(false);
-    const searchValue = e.target.value.trim();
-    setSearchValue(searchValue);
-  };
+  // const handleChange = (e) => {
+  //   setWarning(false);
+  //   const searchValue = e.target.value.trim();
+  //   setSearchValue(searchValue);
+  // };
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    if (searchValue === "") {
-      setWarning(!warning);
-    }
-    if (searchValue !== "") {
-      navigate(`/search/${searchValue}`);
-    }
-  };
+  // const handleSearch = (e) => {
+  //   e.preventDefault();
+  //   if (searchValue === "") {
+  //     setWarning(true);
+  //     setTimeout(() => setWarning(false), 2000);
+  //   }
+  //   if (searchValue !== "") {
+  //     navigate(`/search/${searchValue}`);
+  //   }
+  // };
   const isMovie = (pathname) => {
     return pathname.includes("/movie");
   };
@@ -50,7 +53,7 @@ function Header() {
 
   return (
     <>
-      <div className="fixed top-0 right-0 left-0 z-50 px-6 py-4 bg-gray-950 text-white">
+      <div className="fixed top-0 right-0 left-0 z-40 px-6 py-4 bg-gray-950 text-white">
         <nav className="flex space-x-4 justify-between ">
           <div className="flex space-x-4 items-center">
             <a
@@ -105,44 +108,52 @@ function Header() {
                 <img className="w-[20px] mx-1 " src={personIcon} alt="" />
                 people
               </NavLink>
+              <NavLink
+                to={"/search"}
+                className={`text-sm mr-10 ml-2 px-1 py-2 uppercase cursor-pointer  `}
+              >
+                search
+              </NavLink>
             </div>
           </div>
           <div className="flex items-center mr-2 ">
-            <form onSubmit={handleSearch} className=" py-1 rounded px-4 ">
-              <input
-                type="search"
-                className="p-2 mr-2 text-sm text-gray-900  rounded bg-gray-50  dark:text-white"
-                placeholder="Search here..."
-                onChange={handleChange}
-              />
-              {warning ? (
-                <div
-                  className="absolute top-[60px] z-20 flex items-center p-4 mb-4 text-sm text-yellow-800 border border-yellow-300 rounded-lg bg-yellow-50 dark:bg-gray-800 dark:text-yellow-300 dark:border-yellow-800"
-                  role="alert"
-                >
-                  <svg
-                    className="flex-shrink-0 inline w-4 h-4 mr-3"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
+            {/* <div>
+              <form onSubmit={handleSearch} className=" py-1 rounded px-4 ">
+                <input
+                  type="search"
+                  className="p-2 mr-2 text-sm text-gray-900  rounded bg-gray-50  dark:text-white"
+                  placeholder="Search here..."
+                  onChange={handleChange}
+                />
+                {warning ? (
+                  <div
+                    className="absolute top-[60px] z-20 flex items-center p-4 mb-4 text-sm text-yellow-800 border border-yellow-300 rounded-lg bg-yellow-50 dark:bg-gray-800 dark:text-yellow-300 dark:border-yellow-800"
+                    role="alert"
                   >
-                    <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
-                  </svg>
-                  <span className="sr-only">Info</span>
-                  <div>Please enter search keywords</div>
-                </div>
-              ) : (
-                <></>
-              )}
-              <button
-                type="submit"
-                className="text-white font-medium rounded text-sm px-4 py-2 hover:bg-gray-800"
-              >
-                <FontAwesomeIcon icon={faMagnifyingGlass} />
-              </button>
-            </form>
-            {user?.email ? (
+                    <svg
+                      className="flex-shrink-0 inline w-4 h-4 mr-3"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                    </svg>
+                    <span className="sr-only">Info</span>
+                    <div>Please enter search keywords</div>
+                  </div>
+                ) : (
+                  <></>
+                )}
+                <button
+                  type="submit"
+                  className="text-white font-medium rounded text-sm px-4 py-2 hover:bg-gray-800"
+                >
+                  <FontAwesomeIcon icon={faMagnifyingGlass} />
+                </button>
+              </form>
+            </div> */}
+            {user ? (
               <>
                 <NavLink
                   to={"/account/favorites"}

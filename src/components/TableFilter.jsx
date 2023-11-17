@@ -10,10 +10,10 @@ function TableFilter({ type, lists, genres }) {
           {`${type} Lists`}
         </h2>
         <div className="flex flex-col ">
-          {listsTable.map((item, index) => (
+          {listsTable?.map((item, index) => (
             <NavLink
               key={index}
-              to={`/${type}/${item.fetch}`}
+              to={`/${type}/${item?.fetch}`}
               className={({ isActive }) =>
                 isActive
                   ? "px-3 py-1 cursor-pointer hover:bg-slate-200 bg-slate-200 text-gray-500"
@@ -30,10 +30,10 @@ function TableFilter({ type, lists, genres }) {
           Genres
         </h2>
         <div className="flex flex-col ">
-          {genresTable.map((genre, index) => (
+          {genresTable?.map((genre, index) => (
             <NavLink
               key={index}
-              to={`/${type}/${genre.id}`}
+              to={`/${type}/${genre?.id}`}
               className={({ isActive }) =>
                 isActive
                   ? "px-3 py-1 cursor-pointer hover:bg-slate-200 bg-slate-200 text-gray-500"

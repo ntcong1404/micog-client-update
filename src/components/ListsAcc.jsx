@@ -201,7 +201,6 @@ function ListsAcc() {
                                 className="rounded-t w-full h-auto object-cover"
                                 src={`https://image.tmdb.org/t/p/original/${movie?.img}`}
                                 alt=""
-                                loading="lazy"
                               />
                               <div className="text-center text-sm font-semibold p-2">
                                 {movie?.title}
