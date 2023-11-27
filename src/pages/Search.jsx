@@ -31,7 +31,7 @@ function SearchPage() {
 
   useEffect(() => {
     setLoading(true);
-    Service.Search({ query: debouncedValue, page: page, filter: active })
+    Service.Search({ item: active, query: debouncedValue, page: page })
       .then((res) => {
         if (res) {
           if (page > 1) setMovies((m) => [...m, ...res.results]);

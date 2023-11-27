@@ -45,11 +45,11 @@ function Like({ slug, detail }) {
     }
   };
 
-  useEffect(() => {
-    onSnapshot(doc(db, "users", `${user?.email}`), (doc) => {
-      setLikeLists(doc.data()?.likeLists);
-    });
-  }, [user?.email]);
+  // useEffect(() => {
+  //   onSnapshot(doc(db, "users", `${user?.email}`), (doc) => {
+  //     setLikeLists(doc.data()?.likeLists);
+  //   });
+  // }, [user?.email]);
   return (
     <>
       {alert ? (

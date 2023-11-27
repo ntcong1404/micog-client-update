@@ -15,6 +15,7 @@ function PlayerTv({ detail, id }) {
   useEffect(() => {
     window.scroll(0, 0);
     Service.Season({
+      item: "tv",
       id: id,
       number: number,
     })
