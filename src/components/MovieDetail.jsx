@@ -35,7 +35,11 @@ function MovieDetail({ id }) {
         setLoading(false);
       })
       .catch((err) => console.log(err));
-    Service.DetailsOptions({ type: "movie", id: id, option: "credits" })
+    Service.DetailsOptions({
+      type: "movie",
+      id: id,
+      option: "credits",
+    })
       .then((res) => {
         setCast(res?.cast);
       })

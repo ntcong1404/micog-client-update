@@ -13,7 +13,7 @@ function CollectionPage() {
   useEffect(() => {
     setLoading(true);
     window.scroll(0, 0);
-    Service.Collections({ id: id })
+    Service.Collections({ item: "movie", id: id })
       .then((res) => {
         setCollection(res);
         setLoading(false);

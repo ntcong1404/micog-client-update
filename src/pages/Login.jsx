@@ -2,54 +2,50 @@ import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserAuth } from "../context/AuthContext";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { LoadingSpin } from "../components/Loading";
 
 import { bgLogin } from "../assets";
 import { Helmet } from "react-helmet-async";
 
+import * as Service from "../apiService/Service";
+
 function LoginPage() {
   const navigate = useNavigate();
-  const { signIn, signInGoogle, resetUserPassword } = UserAuth();
+  const { currentUser } = UserAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleResetPass = async () => {
-    try {
-      setLoading(true);
-      await resetUserPassword(email);
-      setLoading(false);
-      alert("Please check your email");
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const handleResetPass = async () => {
+  //   try {
+  //     setLoading(true);
+  //     await resetUserPassword(email);
+  //     setLoading(false);
+  //     alert("Please check your email");
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      setLoading(true);
-      await signIn(email, password);
+    setError("");
+    setLoading(true);
+    const { res, err } = await Service.signIn({
+      email,
+      password,
+    });
+    if (res) {
+      localStorage.setItem("actkn", res.token);
       setLoading(false);
       navigate("/");
-    } catch (error) {
-      setError(error.code);
-      console.log(error);
-      setLoading(false);
+      window.location.reload();
     }
-  };
-
-  const handleLogInGoogle = async (e) => {
-    e.preventDefault();
-    try {
-      await signInGoogle();
-      navigate("/");
-    } catch (error) {
-      console.log(error);
+    if (err) {
+      setLoading(false);
+      setError(err.message);
     }
   };
 
@@ -75,21 +71,9 @@ function LoginPage() {
               <h1 className="text-3xl font-bold">Log In</h1>
 
               <div>
-                {error === "auth/wrong-password" ? (
+                {error ? (
                   <p className="mt-4 p-2 text-sm text-center text-slate-100 bg-red-600 rounded-md">
-                    Vui lòng nhập đúng mật khẩu
-                  </p>
-                ) : error === "auth/user-not-found" ? (
-                  <p className="mt-4 p-2 text-sm text-center text-slate-100 bg-red-600 rounded-md">
-                    Không tìm thấy người dùng
-                  </p>
-                ) : error === "auth/invalid-email" ? (
-                  <p className="mt-4 p-2 text-sm text-center text-slate-100 bg-red-600 rounded-md">
-                    Email không hợp lệ
-                  </p>
-                ) : error === "auth/missing-password" ? (
-                  <p className="mt-4 p-2 text-sm text-center text-slate-100 bg-red-600 rounded-md">
-                    Thiếu mật khẩu
+                    {error}
                   </p>
                 ) : (
                   <></>
@@ -103,7 +87,6 @@ function LoginPage() {
                 <input
                   onChange={(e) => setEmail(e.target.value)}
                   className="p-3 my-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 "
-                  required
                   type="email"
                   placeholder="Email"
                   autoComplete="email"
@@ -111,7 +94,6 @@ function LoginPage() {
                 <input
                   onChange={(e) => setPassword(e.target.value)}
                   className="p-3 my-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 "
-                  required
                   type={showPassword ? "text" : "password"}
                   placeholder="Password"
                   autoComplete="current-password"
@@ -127,12 +109,12 @@ function LoginPage() {
                       {!showPassword ? "Show password" : "Hide password"}
                     </label>
                   </div>
-                  <div
+                  {/* <div
                     onClick={handleResetPass}
                     className="text-sm text-gray-600 hover:text-slate-300 cursor-pointer"
                   >
                     <p>Forgot password ?</p>
-                  </div>
+                  </div> */}
                 </div>
                 <button className="flex justify-center items-center text-black bg-red-600 py-3 my-6 rounded font-bold hover:text-slate-100">
                   Sign In
@@ -150,16 +132,6 @@ function LoginPage() {
                     Sign Up
                   </NavLink>
                 </p>
-                <div
-                  onClick={handleLogInGoogle}
-                  className="flex items-center cursor-pointer hover:text-green-100"
-                >
-                  <FontAwesomeIcon
-                    className=" px-2 text-3xl "
-                    icon={faGoogle}
-                  />
-                  <p className="mx-4">Đăng nhập với Google</p>
-                </div>
               </form>
             </div>
           </div>
