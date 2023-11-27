@@ -10,8 +10,8 @@ import { Helmet } from "react-helmet-async";
 function AccPage() {
   const { user } = UserAuth();
   const { slug } = useParams();
-  const createdAt = dayjs(user?.createdAt).format("MMMM YYYY");
 
+  const createdAt = dayjs(user?.metadata?.creationTime).format("MMMM YYYY");
   if (!user) {
     return <Navigate to="/" />;
   } else {
@@ -45,12 +45,16 @@ function AccPage() {
                   </div>
                 ) : (
                   <div className="w-28 h-28 mx-6 flex items-center text-4xl font-bold justify-center bg-gradient-to-t from-blue-500 to-green-300 rounded-full">
-                    {user?.displayName?.charAt(0)}
+                    {user?.displayName
+                      ? user?.displayName?.charAt(0)
+                      : user?.email?.charAt(0)}
                   </div>
                 )}
                 <div>
                   <h1 className="text-2xl font-bold mx-4 my-2">
-                    {user?.displayName}
+                    {user?.displayName
+                      ? user?.displayName
+                      : user?.email?.substring(0, user?.email.indexOf("@"))}
                   </h1>
                   <h1 className="text-sm mx-5 my-2 text-slate-300">
                     Member since {createdAt}

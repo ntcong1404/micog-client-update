@@ -17,7 +17,7 @@ function PeoplePage() {
   useEffect(() => {
     setLoading(true);
     window.scroll(0, 0);
-    Service.People({ type: slug, page: page })
+    Service.People({ item: slug, page: page })
       .then((res) => {
         setPerson(res);
         setLoading(false);

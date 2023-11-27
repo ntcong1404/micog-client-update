@@ -12,7 +12,7 @@ function SeasonPage() {
   useEffect(() => {
     setLoading(true);
     window.scroll(0, 0);
-    Service.Season({ item: "tv", id: id, number: number })
+    Service.Season({ id: id, number: number })
       .then((res) => {
         setSeason(res);
         setLoading(false);
