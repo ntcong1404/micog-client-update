@@ -1,5 +1,5 @@
 import { NavLink, useLocation } from "react-router-dom";
-import { logo, movieIcon, personIcon, seriesIcon } from "../../../assets";
+import { logo } from "../../../assets";
 import { UserAuth } from "../../../context/AuthContext";
 import { polygon } from "../../../assets";
 
@@ -23,7 +23,7 @@ function Header() {
 
   return (
     <>
-      <div className="fixed top-0 right-0 left-0 z-40 px-6 py-4 bg-gray-950 text-white">
+      <div className="fixed top-0 right-0 left-0 z-40 px-6 py-2 bg-gray-950 text-white">
         <nav className="flex space-x-4 justify-between ">
           <div className="flex space-x-4 items-center">
             <a
@@ -38,14 +38,13 @@ function Header() {
                 isActive={() => {
                   return isMovie(location.pathname);
                 }}
-                className={`relative flex items-center justify-center text-sm mr-10 px-1 py-2 uppercase cursor-pointer `}
+                className={`relative flex items-center justify-center text-sm mr-10 px-2 py-5 uppercase cursor-pointer `}
               >
                 {isMovie(location.pathname) ? (
                   <img className="w-2 h-2" src={polygon} alt="polygon" />
                 ) : (
                   ""
                 )}
-                <img className="w-[22px] mx-1 " src={movieIcon} alt="" />
                 movies
               </NavLink>
               <NavLink
@@ -53,14 +52,13 @@ function Header() {
                 isActive={() => {
                   return isTv(location.pathname);
                 }}
-                className={`relative flex items-center justify-center text-sm mr-10 px-1 py-2 uppercase cursor-pointer  `}
+                className={`relative flex items-center justify-center text-sm mr-10 px-2 py-5 uppercase cursor-pointer  `}
               >
                 {isTv(location.pathname) ? (
                   <img className="w-2 h-2" src={polygon} alt="polygon" />
                 ) : (
                   ""
                 )}
-                <img className="w-[22px] mx-1  " src={seriesIcon} alt="" />
                 tv shows
               </NavLink>
               <NavLink
@@ -68,19 +66,18 @@ function Header() {
                 isActive={() => {
                   return isPres(location.pathname);
                 }}
-                className={`relative flex items-center justify-center text-sm mr-10 px-1 py-2 uppercase cursor-pointer  `}
+                className={`relative flex items-center justify-center text-sm mr-10 px-2 py-5 uppercase cursor-pointer  `}
               >
                 {isPres(location.pathname) ? (
                   <img className="w-2 h-2" src={polygon} alt="polygon" />
                 ) : (
                   ""
                 )}
-                <img className="w-[20px] mx-1 " src={personIcon} alt="" />
                 people
               </NavLink>
               <NavLink
                 to={"/search"}
-                className={`text-sm mr-10 ml-2 px-1 py-2 uppercase cursor-pointer  `}
+                className={`text-sm mr-10 ml-6 px-2 py-5 uppercase cursor-pointer  `}
               >
                 search
               </NavLink>

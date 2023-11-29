@@ -1,6 +1,5 @@
 import dayjs from "dayjs";
 import { noImage } from "../assets";
-import Like from "./Like";
 
 const Movie = ({ list, genre, item, type }) => {
   var rate = Math.round((item?.vote_average + Number.EPSILON) * 10) / 10;

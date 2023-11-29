@@ -1,4 +1,3 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { UserAuth } from "../context/AuthContext";
 import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";

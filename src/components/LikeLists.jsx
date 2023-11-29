@@ -2,8 +2,6 @@ import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
 import { UserAuth } from "../context/AuthContext";
-import { db } from "../firebase/firebase";
-import { updateDoc, doc, onSnapshot } from "firebase/firestore";
 import * as Service from "../apiService/Service";
 
 function LikeLists() {

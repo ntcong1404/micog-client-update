@@ -1,7 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { UserAuth } from "../context/AuthContext";
 import { LoadingSpin } from "../components/Loading";
 
 import { bgLogin } from "../assets";
@@ -11,23 +10,11 @@ import * as Service from "../apiService/Service";
 
 function LoginPage() {
   const navigate = useNavigate();
-  const { currentUser } = UserAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-
-  // const handleResetPass = async () => {
-  //   try {
-  //     setLoading(true);
-  //     await resetUserPassword(email);
-  //     setLoading(false);
-  //     alert("Please check your email");
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
