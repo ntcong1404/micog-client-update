@@ -11,7 +11,6 @@ export const AuthContextProvider = ({ children }) => {
       const accessToken = localStorage.getItem("actkn");
       if (accessToken) {
         const { res, err } = await Service.getInfo();
-
         if (res) setUser(res);
         if (err) setUser(null);
       } else {

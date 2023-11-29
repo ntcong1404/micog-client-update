@@ -57,7 +57,7 @@ export const People = async ({ type, page }) => {
 };
 export const Details = async ({ type, id }) => {
   try {
-    const res = await publicClient.get(`${type}/${id}`);
+    const res = await privateClient.get(`${type}/${id}`);
     return res;
   } catch (err) {
     console.log(err);
@@ -66,7 +66,6 @@ export const Details = async ({ type, id }) => {
 export const DetailsOptions = async ({ type, id, option }) => {
   try {
     const res = await publicClient.get(`${type}/${id}/${option}`);
-    console.log(res);
     return res;
   } catch (err) {
     console.log(err);
@@ -123,20 +122,125 @@ export const getInfo = async () => {
     return { err };
   }
 };
-export const passwordUpdate = async ({
-  password,
-  newPassword,
-  confirmNewPassword,
-}) => {
+export const profileUpdate = async ({ displayName, password, newPassword }) => {
   try {
-    const response = await privateClient.put("user/update_password", {
+    const res = await privateClient.put("user/update_profile", {
+      displayName,
       password,
       newPassword,
-      confirmNewPassword,
     });
-    console.log("reset pass");
 
-    return { response };
+    return { res };
+  } catch (err) {
+    return { err };
+  }
+};
+
+// favorites API
+export const getFavorites = async () => {
+  try {
+    const res = await privateClient.get("user/favorites");
+    return { res };
+  } catch (err) {
+    return { err };
+  }
+};
+export const addFavorites = async ({
+  type,
+  mediaId,
+  mediaTitle,
+  mediaPoster,
+}) => {
+  try {
+    const res = await privateClient.post("user/favorites", {
+      type,
+      mediaId,
+      mediaTitle,
+      mediaPoster,
+    });
+
+    return { res };
+  } catch (err) {
+    return { err };
+  }
+};
+export const deleteFavorites = async ({ id }) => {
+  try {
+    const res = await privateClient.delete(`user/favorites/${id}`);
+
+    return { res };
+  } catch (err) {
+    return { err };
+  }
+};
+
+// list API
+export const getLists = async () => {
+  try {
+    const res = await privateClient.get("user/lists");
+    return { res };
+  } catch (err) {
+    return { err };
+  }
+};
+export const addLists = async ({ title, description }) => {
+  try {
+    const res = await privateClient.post("user/lists", {
+      title,
+      description,
+    });
+
+    return { res };
+  } catch (err) {
+    return { err };
+  }
+};
+export const deleteLists = async ({ id }) => {
+  try {
+    const res = await privateClient.delete(`user/lists/${id}`);
+
+    return { res };
+  } catch (err) {
+    return { err };
+  }
+};
+
+// Movie in list API
+export const getMovieOfList = async ({ listId }) => {
+  try {
+    const res = await privateClient.get(`user/list_movie/${listId}`);
+    return { res };
+  } catch (err) {
+    return { err };
+  }
+};
+export const addMovieIntoList = async ({
+  listId,
+  type,
+  mediaId,
+  mediaTitle,
+  mediaPoster,
+}) => {
+  try {
+    const res = await privateClient.post(`user/list_movie/${listId}`, {
+      type,
+      mediaId,
+      mediaTitle,
+      mediaPoster,
+    });
+
+    return { res };
+  } catch (err) {
+    return { err };
+  }
+};
+export const removeMovieInList = async ({ movieId, listId }) => {
+  try {
+    const res = await privateClient.delete(
+      `user/list_movie/${movieId}/${listId}`
+    );
+
+    return { res };
   } catch (err) {
     return { err };
   }

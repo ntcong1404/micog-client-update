@@ -54,11 +54,13 @@ function PlayerTv({ detail, id }) {
     <>
       <div className="my-6 col-span-8">
         <iframe
+          title={detail?.name}
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
           width="100%"
           height="560px"
-          src={` https://www.2embed.cc/embedtv/${id}&s=${detail?.last_episode_to_air?.season_number}&e=${active}`}
+          // src={` https://www.2embed.cc/embedtv/${id}&s=${detail?.last_episode_to_air?.season_number}&e=${active}`}
+          src={` https://autoembed.to/tv/tmdb/${id}-${detail?.last_episode_to_air?.season_number}-${active}`}
         ></iframe>
       </div>
       <div className="text-3xl font-bold py-2 my-4 col-span-4 ">

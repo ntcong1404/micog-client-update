@@ -1,12 +1,11 @@
 import { faListDots, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { arrayUnion, doc, onSnapshot, updateDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
-import { db } from "../firebase/firebase";
 import { UserAuth } from "../context/AuthContext";
 import { LoadingSpin } from "./Loading";
 import { useNavigate } from "react-router-dom";
 import Alert from "./Alert";
+import * as Service from "../apiService/Service";
 
 function AddList({ slug, detail }) {
   const { user } = UserAuth();
@@ -16,28 +15,32 @@ function AddList({ slug, detail }) {
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState(false);
 
-  const handleAddLists = async (list) => {
-    const movieID = doc(db, "users", `${user?.email}`);
+  useEffect(() => {
+    Service.getLists()
+      .then(({ res, err }) => {
+        if (res) setLists(res);
+        if (err) console.log(err);
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
-    if (user?.email) {
+  const handleAddLists = async (id) => {
+    if (user) {
       setLoading(true);
-      await updateDoc(movieID, {
-        "Lists.allMovie": arrayUnion({
-          id: detail?.id,
-          title: detail?.title ? detail?.title : detail?.name,
-          img: detail?.backdrop_path
-            ? detail?.backdrop_path
-            : detail?.poster_path,
-          type: slug,
-          listId: list?.id,
-        }),
+      const { res, err } = await Service.addMovieIntoList({
+        listId: id,
+        type: slug,
+        mediaId: detail?.id,
+        mediaTitle: detail?.title ? detail?.title : detail?.name,
+        mediaPoster: detail?.backdrop_path
+          ? detail?.backdrop_path
+          : detail?.poster_path,
       });
-      try {
+      if (res) {
         setLoading(false);
         setShowList(false);
-      } catch (error) {
-        console.log(error);
       }
+      if (err) console.log(err);
     } else {
       setAlert(true);
       setTimeout(() => {
@@ -46,7 +49,7 @@ function AddList({ slug, detail }) {
     }
   };
   const handleClickCreateList = () => {
-    if (user?.email) {
+    if (user) {
       navigate("/account/lists");
     } else {
       setShowList(false);
@@ -56,12 +59,6 @@ function AddList({ slug, detail }) {
       }, 3000);
     }
   };
-
-  useEffect(() => {
-    onSnapshot(doc(db, "users", `${user?.email}`), (doc) => {
-      setLists(doc.data()?.Lists.allList);
-    });
-  }, [user?.email]);
 
   return (
     <>
@@ -99,11 +96,11 @@ function AddList({ slug, detail }) {
                 {lists ? (
                   lists?.map((list, index) => (
                     <li
-                      onClick={() => handleAddLists(list)}
+                      onClick={() => handleAddLists(list?._id)}
                       key={index}
                       className={`p-1 hover:bg-slate-200 cursor-pointer`}
                     >
-                      {`${list?.name} `}
+                      {`${list?.title} `}
                     </li>
                   ))
                 ) : (

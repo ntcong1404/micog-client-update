@@ -73,9 +73,6 @@ const Movie = ({ list, genre, item, type }) => {
                     }%`}</span>
                   </div>
                 </div>
-                <div className="absolute top-4 right-4">
-                  <Like slug={item.media_type} detail={item} />
-                </div>
               </>
             )}
           </div>
@@ -204,9 +201,6 @@ const Movie = ({ list, genre, item, type }) => {
                 {item?.title ? item.title : item.original_name}
               </p>
             </a>
-          </div>
-          <div className="absolute top-3 right-3">
-            <Like slug={type} detail={item} />
           </div>
         </div>
       )}

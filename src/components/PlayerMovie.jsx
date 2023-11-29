@@ -54,11 +54,13 @@ function PlayerMovie({ detail, id }) {
     <>
       <div className="my-6 col-span-8">
         <iframe
+          title={detail?.title}
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
           width="100%"
           height="560px"
-          src={` https://www.2embed.cc/embed/${id}`}
+          // src={` https://www.2embed.cc/embed/${id}`}
+          src={` https://autoembed.to/movie/tmdb/${id}`}
         ></iframe>
       </div>
       <div className="text-3xl font-bold py-2 my-4 col-span-4 ">

@@ -15,6 +15,7 @@ function MovieDetail({ id }) {
   const [similar, setSimilar] = useState([]);
   const [videos, setVideos] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [like, setLike] = useState(false);
 
   const handlePlayer = (id) => {
     navigate(`/player/movie/${id}`);
@@ -28,13 +29,17 @@ function MovieDetail({ id }) {
 
   useEffect(() => {
     setLoading(true);
-    window.scroll(0, 0);
     Service.Details({ type: "movie", id: id })
       .then((res) => {
         setDetail(res);
         setLoading(false);
       })
       .catch((err) => console.log(err));
+  }, [like, id]);
+
+  useEffect(() => {
+    setLoading(true);
+    window.scroll(0, 0);
     Service.DetailsOptions({
       type: "movie",
       id: id,
@@ -118,7 +123,12 @@ function MovieDetail({ id }) {
                             {detail?.title}
                           </h3>
                           {/* like */}
-                          <Like slug="movie" detail={detail} />
+                          <Like
+                            slug="movie"
+                            detail={detail}
+                            setLike={setLike}
+                            like={like}
+                          />
                           {/* list */}
                           <AddList slug="movie" detail={detail} />
                         </div>

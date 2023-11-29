@@ -5,38 +5,47 @@ import {
   faHeartCirclePlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { UserAuth } from "../context/AuthContext";
-import { db } from "../firebase/firebase";
-import { arrayUnion, doc, updateDoc, onSnapshot } from "firebase/firestore";
 import Alert from "./Alert";
+import * as Service from "../apiService/Service";
 
-function Like({ slug, detail }) {
+function Like({ slug, detail, setLike, like }) {
   const { user } = UserAuth();
-  const [likeLists, setLikeLists] = useState([]);
   const [alert, setAlert] = useState(false);
+  const [favoriteList, setFavoriteList] = useState([]);
 
-  const movieID = doc(db, "users", `${user?.email}`);
+  useEffect(() => {
+    Service.getFavorites()
+      .then(({ res, err }) => {
+        if (res) setFavoriteList(res);
+        if (err) console.log(err);
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
   const handleLike = async (id) => {
-    if (user?.email) {
-      if (
-        likeLists?.find((item) => item?.id === detail?.id)?.id === detail?.id
-      ) {
-        const result = likeLists?.filter((item) => item?.id !== id);
-        await updateDoc(movieID, {
-          likeLists: result,
+    if (user) {
+      if (detail?.isFavorite) {
+        const favoriteItem = favoriteList.find(
+          (e) => e.mediaId.toString() === id.toString()
+        );
+        const { res, err } = await Service.deleteFavorites({
+          id: favoriteItem._id,
         });
+        if (res) setLike(!like);
+        if (err) console.log("err delete favorite");
       } else {
-        await updateDoc(movieID, {
-          likeLists: arrayUnion({
-            id: detail?.id,
-            title: detail?.title ? detail?.title : detail?.name,
-            img: detail?.backdrop_path
-              ? detail?.backdrop_path
-              : detail?.poster_path,
-            type: slug,
-          }),
+        const { res, err } = await Service.addFavorites({
+          type: slug,
+          mediaId: id,
+          mediaTitle: detail?.title ? detail?.title : detail?.name,
+          mediaPoster: detail?.backdrop_path
+            ? detail?.backdrop_path
+            : detail?.poster_path,
         });
+        if (res) setLike(!like);
+        if (err) console.log("err add favorite");
       }
+      // window.location.reload();
     } else {
       setAlert(true);
       setTimeout(() => {
@@ -45,11 +54,6 @@ function Like({ slug, detail }) {
     }
   };
 
-  // useEffect(() => {
-  //   onSnapshot(doc(db, "users", `${user?.email}`), (doc) => {
-  //     setLikeLists(doc.data()?.likeLists);
-  //   });
-  // }, [user?.email]);
   return (
     <>
       {alert ? (
@@ -66,8 +70,7 @@ function Like({ slug, detail }) {
         onClick={() => handleLike(detail?.id)}
         className=" ml-10 text-white text-lg "
       >
-        {likeLists?.find((item) => item.id === detail?.id)?.id ===
-        detail?.id ? (
+        {detail?.isFavorite ? (
           <FontAwesomeIcon
             icon={faHeartCircleCheck}
             className=" p-2 text-sm cursor-pointer border border-slate-100 text-red-600 rounded-full"

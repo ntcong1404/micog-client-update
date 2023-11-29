@@ -22,7 +22,7 @@ function MoviePage() {
   useEffect(() => {
     Service.Genres({ item: "movie" })
       .then((res) => {
-        setGenres(res.genres);
+        setGenres(res?.genres);
       })
       .catch((err) => console.log(err));
   }, [slug]);

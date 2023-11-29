@@ -1,67 +1,73 @@
 import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { UserAuth } from "../context/AuthContext";
-import { db } from "../firebase/firebase";
-import { updateDoc, doc, onSnapshot, arrayUnion } from "firebase/firestore";
 import { faClose, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { LoadingSpin } from "./Loading";
-import { useNavigate } from "react-router-dom";
+import * as Service from "../apiService/Service";
+import { noImage } from "../assets/index";
 
 function ListsAcc() {
   const { user } = UserAuth();
-  const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
   const [showModalList, setShowModalList] = useState(false);
   const [name, setName] = useState("");
   const [desc, setDesc] = useState("");
   const [movieInList, setMovieInList] = useState([]);
   const [lists, setLists] = useState([]);
-  const [chooseList, setChooseList] = useState("");
   const [loading, setLoading] = useState(false);
+
   useEffect(() => {
-    onSnapshot(doc(db, "users", `${user?.email}`), (doc) => {
-      setLists(doc.data()?.Lists.allList);
-      setMovieInList(doc.data()?.Lists.allMovie);
-    });
-  }, [user?.email]);
+    Service.getLists()
+      .then(({ res, err }) => {
+        if (res) setLists(res);
+        if (err) console.log(err);
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
-  const movieID = doc(db, "users", `${user?.email}`);
-
-  const handleCreate = async () => {
-    if (user?.email) {
+  const handleCreateList = async () => {
+    if (user) {
       setLoading(true);
-      await updateDoc(movieID, {
-        "Lists.allList": arrayUnion({
-          id: Math.floor(Math.random() * 1000000) + 1,
-          name: name,
-          description: desc,
-        }),
+      const { res, err } = await Service.addLists({
+        title: name,
+        description: desc,
       });
-      setLoading(false);
-      setShowModal(false);
+      if (res) {
+        setLists([...lists, res]);
+        setLoading(false);
+        setShowModal(false);
+      }
+      if (err) console.log(err);
+    } else {
+      alert("Please log in to save a movie");
+    }
+  };
+  const deleteList = async (id) => {
+    if (user) {
+      const { res, err } = await Service.deleteLists({ id });
+      if (res) {
+        setLists((prevMovies) => prevMovies.filter((list) => list._id !== id));
+      }
+      if (err) console.log(err);
     } else {
       alert("Please log in to save a movie");
     }
   };
 
-  const handleDeleteItemInList = async (listId, id) => {
-    try {
-      const result = movieInList.filter((item) => item.id !== id);
-      await updateDoc(movieID, {
-        "Lists.allMovie": result,
-      });
-    } catch (error) {
-      console.log(error);
-    }
+  const handleDeleteItemInList = async (movieId, listId) => {
+    const { res, err } = await Service.removeMovieInList({ movieId, listId });
+    if (res)
+      setMovieInList((prevMovies) =>
+        prevMovies.filter((movie) => movie._id !== movieId)
+      );
+    if (err) console.log(err);
   };
 
-  const handleClickItem = (movie) => {
-    navigate(`/details/${movie?.type}/${movie?.id}`);
-  };
-
-  const handleClickList = (list) => {
+  const handleClickList = async (id) => {
     setShowModalList(!showModalList);
-    setChooseList(list);
+    const { res, err } = await Service.getMovieOfList({ listId: id });
+    if (res) setMovieInList(res);
+    if (err) console.log(err);
   };
 
   return (
@@ -80,14 +86,31 @@ function ListsAcc() {
       <div className="grid grid-cols-3 gap-4 my-6">
         {lists?.map((list, index) => (
           <div
-            onClick={() => handleClickList(list)}
-            className="grid grid-rows-3 justify-items-center items-center p-6 border border-gray-300 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 cursor-pointer"
             key={index}
+            className="relative cursor-pointer border border-slate-200 rounded-md group"
           >
-            <h3 className="text-xl font-semibold py-1 my-1 row-span-2">
-              {list.name}
-            </h3>
-            <p className="py-1 my-1 row-span-1">{list.description}</p>
+            <div onClick={() => handleClickList(list?._id)}>
+              <div className="w-full h-auto p-2 ">
+                <img
+                  className="w-full h-full rounded object-cover"
+                  src={noImage}
+                />
+                <div className="absolute top-0 bottom-0 left-0 right-0 rounded bg-gradient-to-b to-transparent from-black opacity-60 group-hover:opacity-100 text-white">
+                  <p className="text-xl font-bold my-2 flex items-start justify-center h-full text-center uppercase">
+                    {list?.title}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <p
+              onClick={() => deleteList(list?._id)}
+              className="absolute text-gray-300 top-4 right-4 cursor-pointer opacity-0 group-hover:opacity-100 "
+            >
+              <FontAwesomeIcon
+                className=" hover:bg-slate-800 hover:scale-125 w-4 h-4 p-1 rounded-full"
+                icon={faClose}
+              />
+            </p>
           </div>
         ))}
       </div>
@@ -145,7 +168,7 @@ function ListsAcc() {
               </div>
               <div className="flex justify-end pt-2">
                 <button
-                  onClick={handleCreate}
+                  onClick={handleCreateList}
                   className="flex items-center px-4 mx-1 bg-sky-500 p-3 rounded-lg text-white hover:bg-sky-600"
                 >
                   Create
@@ -176,9 +199,6 @@ function ListsAcc() {
             <div className=" bg-white w-3/4  absolute mx-auto rounded-md shadow-lg z-50 p-8">
               <div className=" text-left">
                 <div className="flex justify-between items-center pb-10 ">
-                  <p className="text-2xl uppercase font-bold">
-                    {chooseList?.name}
-                  </p>
                   <div
                     onClick={() => setShowModalList(false)}
                     className=" cursor-pointer z-50 w-6 h-6 rounded-full text-center hover:shadow hover:shadow-slate-400"
@@ -189,41 +209,37 @@ function ListsAcc() {
 
                 <div className="h-[380px] overflow-y-auto">
                   <div className="grid grid-cols-4 gap-3 ">
-                    {movieInList?.map((movie, index) =>
-                      chooseList?.id === movie?.listId ? (
-                        <div
-                          key={index}
-                          className="relative cursor-pointer group"
-                        >
-                          <a href={`/details/${movie?.type}/${movie?.id}`}>
-                            <div className=" w-full h-full shadow shadow-slate-400 rounded ">
-                              <img
-                                className="rounded-t w-full h-auto object-cover"
-                                src={`https://image.tmdb.org/t/p/original/${movie?.img}`}
-                                alt=""
-                              />
-                              <div className="text-center text-sm font-semibold p-2">
-                                {movie?.title}
-                              </div>
-                              <div className="absolute top-0 bottom-0 left-0 right-0 bg-black/50 rounded opacity-0 group-hover:opacity-20"></div>
-                            </div>
-                          </a>
-                          <p
-                            onClick={() =>
-                              handleDeleteItemInList(movie?.listId, movie?.id)
-                            }
-                            className="absolute text-gray-300 top-2 right-2 cursor-pointer opacity-0 group-hover:opacity-100"
-                          >
-                            <FontAwesomeIcon
-                              className=" hover:bg-slate-800 hover:scale-110 w-4 h-4 p-1 rounded-full"
-                              icon={faClose}
+                    {movieInList?.map((movie, index) => (
+                      <div
+                        key={index}
+                        className="relative cursor-pointer group"
+                      >
+                        <a href={`/details/${movie?.type}/${movie?.mediaId}`}>
+                          <div className=" w-full h-full shadow shadow-slate-400 rounded ">
+                            <img
+                              className="rounded-t w-full h-auto object-cover"
+                              src={`https://image.tmdb.org/t/p/original/${movie?.mediaPoster}`}
+                              alt=""
                             />
-                          </p>
-                        </div>
-                      ) : (
-                        <></>
-                      )
-                    )}
+                            <div className="text-center text-sm font-semibold p-2">
+                              {movie?.mediaTitle}
+                            </div>
+                            <div className="absolute top-0 bottom-0 left-0 right-0 bg-black/50 rounded opacity-0 group-hover:opacity-20"></div>
+                          </div>
+                        </a>
+                        <p
+                          onClick={() =>
+                            handleDeleteItemInList(movie?._id, movie?.list)
+                          }
+                          className="absolute text-gray-300 top-2 right-2 cursor-pointer opacity-0 group-hover:opacity-100"
+                        >
+                          <FontAwesomeIcon
+                            className=" hover:bg-slate-800 hover:scale-110 w-4 h-4 p-1 rounded-full"
+                            icon={faClose}
+                          />
+                        </p>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>

@@ -3,30 +3,42 @@ import { UserAuth } from "../context/AuthContext";
 import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { LoadingSpin } from "./Loading.jsx";
+import Alert from "./Alert.jsx";
+import * as Service from "../apiService/Service.js";
 
 function Profile() {
   const navigate = useNavigate();
-  const { user, updateUserProfile, updateUserPassword } = UserAuth();
+  const { user } = UserAuth();
   const [pass, setPass] = useState("");
+  const [newPass, setNewPass] = useState("");
   const [name, setName] = useState(user?.displayName);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    try {
-      await updateUserProfile(name);
-      await updateUserPassword(pass);
+    const { res, err } = await Service.profileUpdate({
+      displayName: name,
+      password: pass,
+      newPassword: newPass,
+    });
+    if (err) {
       setLoading(false);
-      navigate("/account/favorites");
-    } catch (error) {
-      console.log(error.code);
+      setError(err.message);
+    }
+    if (res) {
+      localStorage.removeItem("actkn");
+      setLoading(false);
+      navigate("/");
+      window.location.reload();
     }
   };
 
   return (
     <div>
-      <div className="p-6">
+      {!!error && <Alert title="Warning" desc={error} />}
+      <div className=" p-5">
         <div className="mt-5  ">
           <form onSubmit={handleSubmit} method="POST">
             <div className="shadow rounded-md overflow-hidden">
@@ -84,8 +96,6 @@ function Profile() {
                           id="pass"
                           name="pass"
                           type="text"
-                          minLength={6}
-                          maxLength={10}
                           className="shadow-sm p-2 focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full text-sm border-gray-300 rounded-md"
                           placeholder="Password"
                           onChange={(e) => setPass(e.target.value)}
@@ -104,11 +114,9 @@ function Profile() {
                           id="pass"
                           name="pass"
                           type="text"
-                          minLength={6}
-                          maxLength={10}
                           className="shadow-sm p-2 focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full text-sm border-gray-300 rounded-md"
                           placeholder="New password"
-                          onChange={(e) => setPass(e.target.value)}
+                          onChange={(e) => setNewPass(e.target.value)}
                         ></input>
                       </div>
                     </div>

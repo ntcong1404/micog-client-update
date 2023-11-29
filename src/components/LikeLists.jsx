@@ -4,27 +4,38 @@ import { faClose } from "@fortawesome/free-solid-svg-icons";
 import { UserAuth } from "../context/AuthContext";
 import { db } from "../firebase/firebase";
 import { updateDoc, doc, onSnapshot } from "firebase/firestore";
+import * as Service from "../apiService/Service";
 
 function LikeLists() {
   const [movies, setMovies] = useState([]);
   const [active, setActive] = useState("movie");
+
   const { user } = UserAuth();
 
   useEffect(() => {
-    onSnapshot(doc(db, "users", `${user?.email}`), (doc) => {
-      setMovies(doc.data()?.likeLists);
-    });
-  }, [user?.email]);
+    Service.getFavorites()
+      .then(({ res, err }) => {
+        if (res) {
+          setMovies(res);
+        }
+        if (err) console.log(err);
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
-  const movieID = doc(db, "users", `${user?.email}`);
-  const deleteShow = async (passedID) => {
-    try {
-      const result = movies.filter((item) => item.id !== passedID);
-      await updateDoc(movieID, {
-        likeLists: result,
+  const deleteShow = async (id) => {
+    if (user) {
+      const { res, err } = await Service.deleteFavorites({
+        id: id,
       });
-    } catch (error) {
-      console.log(error);
+      if (res) {
+        setMovies((prevMovies) =>
+          prevMovies.filter((movie) => movie._id !== id)
+        );
+      }
+      if (err) console.log("err delete favorite");
+    } else {
+      console.log("please login ...");
     }
   };
 
@@ -57,23 +68,23 @@ function LikeLists() {
           {movies
             ?.filter((item) => item.type === active)
             ?.map((item) => (
-              <div key={item.id} className="relative cursor-pointer group">
-                <a href={`/details/${item.type}/${item.id}`}>
+              <div key={item._id} className="relative cursor-pointer group">
+                <a href={`/details/${item?.type}/${item?.mediaId}`}>
                   <div className="w-full h-[200px] p-2 ">
                     <img
                       className="w-full h-full rounded object-cover"
-                      src={`https://image.tmdb.org/t/p/w500/${item?.img}`}
-                      alt={item?.title}
+                      src={`https://image.tmdb.org/t/p/w500/${item?.mediaPoster}`}
+                      alt={item?.mediaTitle}
                     />
                     <div className="absolute top-0 bottom-0 left-0 right-0 rounded bg-black/50 opacity-0 group-hover:opacity-100 text-white">
                       <p className="text-base font-bold flex justify-center items-center h-full text-center">
-                        {item?.title}
+                        {item?.mediaTitle}
                       </p>
                     </div>
                   </div>
                 </a>
                 <p
-                  onClick={() => deleteShow(item?.id)}
+                  onClick={() => deleteShow(item?._id)}
                   className="absolute text-gray-300 top-4 right-4 cursor-pointer opacity-0 group-hover:opacity-100 "
                 >
                   <FontAwesomeIcon
