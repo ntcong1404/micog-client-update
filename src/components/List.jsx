@@ -10,15 +10,27 @@ function List({ title, axiosURL }) {
   const [list, setList] = useState([]);
   const [time, setTime] = useState("day");
   const [loading, setLoading] = useState(true);
+  const [img, setImg] = useState("");
+
   useEffect(() => {
     setLoading(true);
     Service.Trending({ item: axiosURL, time: time })
       .then((res) => {
+        if (axiosURL === "tv") {
+          setImg(res?.results[0]?.poster_path);
+        }
         setList(res?.results);
         setLoading(false);
       })
       .catch((err) => console.log(err));
   }, [axiosURL, time]);
+
+  const divStyle = {
+    backgroundImage: `url(https://image.tmdb.org/t/p/original/${img})`,
+    backgroundPosition: "center center",
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "cover",
+  };
 
   var settings = {
     dots: true,
@@ -35,14 +47,9 @@ function List({ title, axiosURL }) {
   };
   return (
     <div
+      style={title === "TV Series Trending" ? divStyle : null}
       className={`py-8 
-        ${
-          title === "TV Series Trending"
-            ? " bg-list bg-slate-50"
-            : title === "Movie Trending"
-            ? " bg-list"
-            : "bg-results"
-        }`}
+        ${title === "Movie Trending" ? " bg-list" : "bg-results"}`}
     >
       <div className="flex items-center px-6 ">
         <h2 className="text-black uppercase font-semibold text-2xl p-4 mr-10">

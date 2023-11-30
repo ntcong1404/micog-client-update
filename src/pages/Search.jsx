@@ -67,12 +67,12 @@ function SearchPage() {
         />
       </Helmet>
       <div className=" ">
-        <div className="flex items-center justify-between px-14 bg-results w-full h-[120px] bg-slate-800">
+        <div className="flex items-center justify-between px-14 bg-results w-full h-[220px] bg-slate-800">
           <form className="w-full py-1 rounded px-4 flex justify-evenly ">
             <input
               type="search"
-              className="p-3 w-3/4 mr-2 text-xl font-semibold bg-slate-50 text-black rounded-md border border-slate-100 "
-              placeholder="Search here..."
+              className="p-4 w-3/4 mr-2 text-2xl bg-slate-50 text-black rounded-lg border border-slate-100 "
+              placeholder="Start typing to search..."
               onChange={handleChange}
             />
           </form>

@@ -27,7 +27,7 @@ function Profile() {
       setError(err.message);
     }
     if (res) {
-      localStorage.removeItem("actkn");
+      localStorage.removeItem("micog");
       setLoading(false);
       navigate("/");
       window.location.reload();

@@ -4,7 +4,7 @@ import { UserAuth } from "../context/AuthContext";
 import { faClose, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { LoadingSpin } from "./Loading";
 import * as Service from "../apiService/Service";
-import { noImage } from "../assets/index";
+import { lightBlue } from "../assets/index";
 
 function ListsAcc() {
   const { user } = UserAuth();
@@ -93,10 +93,10 @@ function ListsAcc() {
               <div className="w-full h-auto p-2 ">
                 <img
                   className="w-full h-full rounded object-cover"
-                  src={noImage}
+                  src={lightBlue}
                 />
-                <div className="absolute top-0 bottom-0 left-0 right-0 rounded bg-gradient-to-b to-transparent from-black opacity-60 group-hover:opacity-100 text-white">
-                  <p className="text-xl font-bold my-2 flex items-start justify-center h-full text-center uppercase">
+                <div className="absolute top-0 bottom-0 left-0 right-0 rounded bg-gradient-to-b to-green-200 from-transparent opacity-70 group-hover:opacity-100 text-black">
+                  <p className="text-xl font-bold my-2 flex items-center justify-center h-full text-center uppercase">
                     {list?.title}
                   </p>
                 </div>
@@ -104,10 +104,10 @@ function ListsAcc() {
             </div>
             <p
               onClick={() => deleteList(list?._id)}
-              className="absolute text-gray-300 top-4 right-4 cursor-pointer opacity-0 group-hover:opacity-100 "
+              className="absolute text-black top-4 right-4 cursor-pointer opacity-0 group-hover:opacity-100 "
             >
               <FontAwesomeIcon
-                className=" hover:bg-slate-800 hover:scale-125 w-4 h-4 p-1 rounded-full"
+                className=" hover:bg-sky-100 hover:scale-125 w-4 h-4 p-1 rounded-full"
                 icon={faClose}
               />
             </p>
@@ -209,37 +209,43 @@ function ListsAcc() {
 
                 <div className="h-[380px] overflow-y-auto">
                   <div className="grid grid-cols-4 gap-3 ">
-                    {movieInList?.map((movie, index) => (
-                      <div
-                        key={index}
-                        className="relative cursor-pointer group"
-                      >
-                        <a href={`/details/${movie?.type}/${movie?.mediaId}`}>
-                          <div className=" w-full h-full shadow shadow-slate-400 rounded ">
-                            <img
-                              className="rounded-t w-full h-auto object-cover"
-                              src={`https://image.tmdb.org/t/p/original/${movie?.mediaPoster}`}
-                              alt=""
-                            />
-                            <div className="text-center text-sm font-semibold p-2">
-                              {movie?.mediaTitle}
-                            </div>
-                            <div className="absolute top-0 bottom-0 left-0 right-0 bg-black/50 rounded opacity-0 group-hover:opacity-20"></div>
-                          </div>
-                        </a>
-                        <p
-                          onClick={() =>
-                            handleDeleteItemInList(movie?._id, movie?.list)
-                          }
-                          className="absolute text-gray-300 top-2 right-2 cursor-pointer opacity-0 group-hover:opacity-100"
+                    {movieInList?.length === 0 ? (
+                      <p className=" col-span-4 text-center text-xl font-base uppercase">
+                        empty list
+                      </p>
+                    ) : (
+                      movieInList?.map((movie, index) => (
+                        <div
+                          key={index}
+                          className="relative cursor-pointer group"
                         >
-                          <FontAwesomeIcon
-                            className=" hover:bg-slate-800 hover:scale-110 w-4 h-4 p-1 rounded-full"
-                            icon={faClose}
-                          />
-                        </p>
-                      </div>
-                    ))}
+                          <a href={`/details/${movie?.type}/${movie?.mediaId}`}>
+                            <div className=" w-full h-full shadow shadow-slate-400 rounded ">
+                              <img
+                                className="rounded-t w-full h-auto object-cover"
+                                src={`https://image.tmdb.org/t/p/original/${movie?.mediaPoster}`}
+                                alt=""
+                              />
+                              <div className="text-center text-sm font-semibold p-2">
+                                {movie?.mediaTitle}
+                              </div>
+                              <div className="absolute top-0 bottom-0 left-0 right-0 bg-black/50 rounded opacity-0 group-hover:opacity-20"></div>
+                            </div>
+                          </a>
+                          <p
+                            onClick={() =>
+                              handleDeleteItemInList(movie?._id, movie?.list)
+                            }
+                            className="absolute text-gray-300 top-2 right-2 cursor-pointer opacity-0 group-hover:opacity-100"
+                          >
+                            <FontAwesomeIcon
+                              className=" hover:bg-slate-800 hover:scale-110 w-4 h-4 p-1 rounded-full"
+                              icon={faClose}
+                            />
+                          </p>
+                        </div>
+                      ))
+                    )}
                   </div>
                 </div>
               </div>

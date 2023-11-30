@@ -25,7 +25,7 @@ function LoginPage() {
       password,
     });
     if (res) {
-      localStorage.setItem("actkn", res.token);
+      localStorage.setItem("micog", res.token);
       setLoading(false);
       navigate("/");
       window.location.reload();

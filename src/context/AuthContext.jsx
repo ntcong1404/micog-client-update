@@ -8,7 +8,7 @@ export const AuthContextProvider = ({ children }) => {
 
   useEffect(() => {
     const authUser = async () => {
-      const accessToken = localStorage.getItem("actkn");
+      const accessToken = localStorage.getItem("micog");
       if (accessToken) {
         const { res, err } = await Service.getInfo();
         if (res) setUser(res);

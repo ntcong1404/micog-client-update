@@ -7,7 +7,7 @@ function Header() {
   const { user } = UserAuth();
   const location = useLocation();
   const handleLogout = () => {
-    localStorage.removeItem("actkn");
+    localStorage.removeItem("micog");
     window.location.reload();
   };
 
