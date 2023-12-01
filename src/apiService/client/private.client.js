@@ -17,6 +17,7 @@ privateClient.interceptors.request.use(async (config) => {
       "Content-Type": "application/json",
       Authorization: `Bearer ${localStorage.getItem("micog")}`,
     },
+    // withCredentials: true,
   };
 });
 

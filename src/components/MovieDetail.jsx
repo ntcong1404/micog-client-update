@@ -258,8 +258,8 @@ function MovieDetail({ id }) {
           </>
         )}
       </div>
-      <div className="col-span-8 px-6">
-        {videos?.length !== 0 ? (
+      <div className="col-span-6 px-6">
+        {videos?.length !== 0 && (
           <div className=" border-b-2 border-slate-200 ">
             <div className="text-3xl font-bold">Trailer</div>
             <div className="flex overflow-x-auto">
@@ -280,38 +280,38 @@ function MovieDetail({ id }) {
               )}
             </div>
           </div>
-        ) : (
-          <></>
         )}
 
         {/* Series Cast */}
-        <div>
-          <div className=" my-6 text-3xl font-bold ">Cast</div>
-          <div className=" flex items-center overflow-x-auto border-b-2 border-slate-200 ">
-            {cast?.map((cast, index) => (
-              <div
-                onClick={() => handleClickCast(cast.id)}
-                key={index}
-                className="relative flex flex-col text-center mr-2 mb-6 cursor-pointer group "
-              >
-                <div className="w-[140px] h-auto object-cover">
-                  <img
-                    src={
-                      cast.profile_path
-                        ? `https://image.tmdb.org/t/p/original/${cast.profile_path}`
-                        : noImage
-                    }
-                    className="w-full h-full rounded-md group-hover:blur-[2px]"
-                  />
+        {cast?.length !== 0 && (
+          <div>
+            <div className=" my-6 text-3xl font-bold ">Cast</div>
+            <div className=" flex items-center overflow-x-auto border-b-2 border-slate-200 ">
+              {cast?.map((cast, index) => (
+                <div
+                  onClick={() => handleClickCast(cast.id)}
+                  key={index}
+                  className="relative flex flex-col text-center mr-2 mb-6 cursor-pointer group "
+                >
+                  <div className="w-[140px] h-auto object-cover">
+                    <img
+                      src={
+                        cast.profile_path
+                          ? `https://image.tmdb.org/t/p/original/${cast.profile_path}`
+                          : noImage
+                      }
+                      className="w-full h-full rounded-md group-hover:blur-[2px]"
+                    />
+                  </div>
+                  <div className="absolute hidden bottom-0 right-0 left-0 group-hover:block ">
+                    <p className="text-sky-900 font-semibold ">{cast.name}</p>
+                    <p className="text-sky-100">{cast.known_for_department}</p>
+                  </div>
                 </div>
-                <div className="absolute hidden bottom-0 right-0 left-0 group-hover:block ">
-                  <p className="text-sky-900 font-semibold ">{cast.name}</p>
-                  <p className="text-sky-100">{cast.known_for_department}</p>
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
+        )}
 
         {/* collections */}
         {detail?.belongs_to_collection ? (
@@ -348,11 +348,11 @@ function MovieDetail({ id }) {
         )}
       </div>
 
-      <div className="col-span-4 px-6">
+      <div className="col-span-6 px-6">
         <p className="text-center text-2xl font-semibold py-2 ">
           You May Also Like
         </p>
-        <div className="my-2 grid grid-cols-2 gap-2 ">
+        <div className="my-2 grid grid-cols-4 gap-2 ">
           {similar?.map((movie, index) => (
             <a
               key={index}

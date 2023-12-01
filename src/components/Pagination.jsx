@@ -20,7 +20,6 @@ function Pagination({ page, setPage, data }) {
   const handleChangePage = (e) => {
     e.preventDefault();
     setPage(inputPage);
-    setInputPage("");
   };
   return (
     <div className="flex items-center justify-center">
