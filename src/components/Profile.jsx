@@ -27,10 +27,14 @@ function Profile() {
       setError(err.message);
     }
     if (res) {
-      localStorage.removeItem("micog");
-      setLoading(false);
-      navigate("/");
-      window.location.reload();
+      const { res, err } = await Service.logout();
+      if (res) {
+        localStorage.removeItem("micog");
+        setLoading(false);
+        navigate("/login");
+        window.location.reload();
+      }
+      if (err) console.log(err);
     }
   };
 

@@ -2,13 +2,18 @@ import { NavLink, useLocation } from "react-router-dom";
 import { logo } from "../../../assets";
 import { UserAuth } from "../../../context/AuthContext";
 import { polygon } from "../../../assets";
+import * as Service from "../../../apiService/Service";
 
 function Header() {
   const { user } = UserAuth();
   const location = useLocation();
-  const handleLogout = () => {
-    localStorage.removeItem("micog");
-    window.location.reload();
+  const handleLogout = async () => {
+    const { res, err } = await Service.logout();
+    if (res) {
+      localStorage.removeItem("micog");
+      window.location.reload();
+    }
+    if (err) console.log(err);
   };
 
   const isMovie = (pathname) => {

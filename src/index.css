@@ -34,8 +34,7 @@ html *::-webkit-scrollbar-thumb {
 .bg-results {
   background-image: url(../src/assets/lightBlue.svg);
   background-repeat: no-repeat;
-  background-position: center;
-  background-position: center -250px;
+  background-position: center center;
 }
 
 .pagination {

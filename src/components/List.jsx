@@ -17,7 +17,7 @@ function List({ title, axiosURL }) {
     Service.Trending({ item: axiosURL, time: time })
       .then((res) => {
         if (axiosURL === "tv") {
-          setImg(res?.results[0]?.poster_path);
+          setImg(res?.results[0]?.backdrop_path);
         }
         setList(res?.results);
         setLoading(false);
@@ -29,6 +29,7 @@ function List({ title, axiosURL }) {
     backgroundImage: `url(https://image.tmdb.org/t/p/original/${img})`,
     backgroundPosition: "center center",
     backgroundRepeat: "no-repeat",
+    backgroundAttachment: "fixed",
     backgroundSize: "cover",
   };
 

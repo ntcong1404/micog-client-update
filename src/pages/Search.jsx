@@ -67,7 +67,7 @@ function SearchPage() {
         />
       </Helmet>
       <div className=" ">
-        <div className="flex items-center justify-between px-14 bg-results w-full h-[220px] bg-slate-800">
+        <div className="flex items-center justify-between px-14 bg-results bg-fixed w-full h-[220px] bg-slate-800">
           <form className="w-full py-1 rounded px-4 flex justify-evenly ">
             <input
               type="search"

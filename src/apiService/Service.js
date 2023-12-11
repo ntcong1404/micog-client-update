@@ -136,6 +136,16 @@ export const profileUpdate = async ({ displayName, password, newPassword }) => {
   }
 };
 
+export const logout = async () => {
+  try {
+    const res = await privateClient.post("user/logout");
+
+    return { res };
+  } catch (err) {
+    return { err };
+  }
+};
+
 // favorites API
 export const getFavorites = async () => {
   try {

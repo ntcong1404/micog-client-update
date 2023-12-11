@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { UserAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { LoadingSpin } from "../components/Loading";
 
@@ -10,7 +9,6 @@ import * as Service from "../apiService/Service";
 
 function SignupPage() {
   const navigate = useNavigate();
-  const { user, createUser } = UserAuth();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -59,7 +57,7 @@ function SignupPage() {
         <div className="bg-black/60 fixed top-0 left-0 w-full h-screen "></div>
         <div className="fixed top-6 w-full px-4 mt-24 z-50">
           <div className="max-w-[450px] h-auto mx-auto bg-black/75 text-white">
-            <div className="max-w-[320px] mx-auto py-16">
+            <div className="max-w-[320px] mx-auto pt-10 pb-4">
               <h1 className="text-3xl font-bold">Sign Up</h1>
               <div>
                 {err ? (
